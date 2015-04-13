@@ -1,0 +1,4 @@
+services:
+#    clanmanager.example:
+#        class: ClanmanagerBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
