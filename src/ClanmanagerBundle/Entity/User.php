@@ -40,6 +40,11 @@ class User implements AdvancedUserInterface, \Serializable {
     private $isActive;
 
     /**
+     * @ORM\OneToOne(targetEntity="Profile", mappedBy="user")
+     * */
+    private $profile;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      *
      */
@@ -189,15 +194,13 @@ class User implements AdvancedUserInterface, \Serializable {
         return $this->isActive;
     }
 
-
     /**
      * Add roles
      *
      * @param \ClanmanagerBundle\Entity\Role $roles
      * @return User
      */
-    public function addRole(\ClanmanagerBundle\Entity\Role $roles)
-    {
+    public function addRole(\ClanmanagerBundle\Entity\Role $roles) {
         $this->roles[] = $roles;
 
         return $this;
@@ -208,8 +211,31 @@ class User implements AdvancedUserInterface, \Serializable {
      *
      * @param \ClanmanagerBundle\Entity\Role $roles
      */
-    public function removeRole(\ClanmanagerBundle\Entity\Role $roles)
-    {
+    public function removeRole(\ClanmanagerBundle\Entity\Role $roles) {
         $this->roles->removeElement($roles);
+    }
+
+
+    /**
+     * Set profile
+     *
+     * @param \ClanmanagerBundle\Entity\Profile $profile
+     * @return User
+     */
+    public function setProfile(\ClanmanagerBundle\Entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \ClanmanagerBundle\Entity\Profile 
+     */
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }

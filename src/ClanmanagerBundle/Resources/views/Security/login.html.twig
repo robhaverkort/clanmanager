@@ -1,20 +1,32 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData) }}</div>
-{% endif %}
+{% block body %}
 
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData) }}</div>
+    {% endif %}
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+    <form action="{{ path('login_check') }}" method="post">
+        <table>
+            <tr>
+                <td><label for="username">Username/Email:</label></td>
+                <td><input type="text" id="username" name="_username" value="{{ last_username }}" /></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" id="password" name="_password" /></td>
+            </tr>
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+            <tr>
+                <td></td>
+                <td><button type="submit">login</button></td>
+            </tr>
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
+        </table>
+    </form>
 
-    <button type="submit">login</button>
-</form>
+{% endblock %}
