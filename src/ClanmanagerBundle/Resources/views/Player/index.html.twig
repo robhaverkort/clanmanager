@@ -6,10 +6,25 @@
     <h1>Players</h1>
 
     <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>clan</th>
+            <th>profilename</th>
+            <th>username</th>
+        </tr>
         {% for player in players %}
             <tr>
                 <td>{{ player.id }}</td>
                 <td>{{ player.name }}</td>
+                <td>{{ player.memberships[0].clan.name }}</td>
+                {% if player.profile %}
+                    <td>{{ player.profile.name }}</td>
+                    {% if player.profile.user %}
+                        <td>{{ player.profile.user.username }}</td>
+                    {% endif %}
+                {% endif %}
+
             </tr>
         {% endfor %}
     </table>

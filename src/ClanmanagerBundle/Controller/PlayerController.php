@@ -11,7 +11,7 @@ class PlayerController extends Controller {
 
     /**
      * @Route("/player", name="player")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction() {
         $repository = $this->getDoctrine()

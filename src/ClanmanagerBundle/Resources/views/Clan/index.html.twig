@@ -9,9 +9,14 @@
         {% for clan in clans %}
             <tr>
                 <td>{{ clan.id }}</td>
-                <td>{{ clan.tag }}</td>
+                <td><a href="{{ path('clan_view',{'clan_id':clan.id}) }}">{{ clan.tag }}</a></td>
                 <td>{{ clan.name }}</td>
             </tr>
         {% endfor %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            {{ render(controller('ClanmanagerBundle:Clan:new',{'clan_id':1} )) }}
+        {% endif %}
     </table>
+
+
 {% endblock %}
