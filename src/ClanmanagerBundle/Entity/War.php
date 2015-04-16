@@ -29,7 +29,7 @@ class War {
      */
     private $start;
 
-        /**
+    /**
      * @var integer
      *
      * @ORM\Column(name="size", type="integer")
@@ -37,12 +37,18 @@ class War {
     private $size;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Clan", inversedBy="wars")
-     * */
-    private $clans;
+     * @ORM\OneToMany(targetEntity="Warclan", mappedBy="war")
+     */
+    protected $warclans;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="war")
+     */
+    protected $warplayers;
 
     public function __construct() {
-        $this->clans = new ArrayCollection();
+        $this->warclans = new ArrayCollection();
+        $this->warplayers = new ArrayCollection();
     }
 
     /**
@@ -55,44 +61,12 @@ class War {
     }
 
     /**
-     * Add clans
-     *
-     * @param \ClanmanagerBundle\Entity\Clan $clans
-     * @return War
-     */
-    public function addClan(\ClanmanagerBundle\Entity\Clan $clans) {
-        $this->clans[] = $clans;
-
-        return $this;
-    }
-
-    /**
-     * Remove clans
-     *
-     * @param \ClanmanagerBundle\Entity\Clan $clans
-     */
-    public function removeClan(\ClanmanagerBundle\Entity\Clan $clans) {
-        $this->clans->removeElement($clans);
-    }
-
-    /**
-     * Get clans
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getClans() {
-        return $this->clans;
-    }
-
-
-    /**
      * Set start
      *
      * @param \DateTime $start
      * @return War
      */
-    public function setStart($start)
-    {
+    public function setStart($start) {
         $this->start = $start;
 
         return $this;
@@ -103,8 +77,7 @@ class War {
      *
      * @return \DateTime 
      */
-    public function getStart()
-    {
+    public function getStart() {
         return $this->start;
     }
 
@@ -114,8 +87,7 @@ class War {
      * @param integer $size
      * @return War
      */
-    public function setSize($size)
-    {
+    public function setSize($size) {
         $this->size = $size;
 
         return $this;
@@ -126,8 +98,73 @@ class War {
      *
      * @return integer 
      */
-    public function getSize()
-    {
+    public function getSize() {
         return $this->size;
+    }
+
+    /**
+     * Add warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
+     * @return War
+     */
+    public function addWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers)
+    {
+        $this->warplayers[] = $warplayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
+     */
+    public function removeWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers)
+    {
+        $this->warplayers->removeElement($warplayers);
+    }
+
+    /**
+     * Get warplayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWarplayers()
+    {
+        return $this->warplayers;
+    }
+
+    /**
+     * Add warclans
+     *
+     * @param \ClanmanagerBundle\Entity\Warclan $warclans
+     * @return War
+     */
+    public function addWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
+    {
+        $this->warclans[] = $warclans;
+
+        return $this;
+    }
+
+    /**
+     * Remove warclans
+     *
+     * @param \ClanmanagerBundle\Entity\Warclan $warclans
+     */
+    public function removeWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
+    {
+        $this->warclans->removeElement($warclans);
+    }
+
+    /**
+     * Get warclans
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWarclans()
+    {
+        return $this->warclans;
     }
 }

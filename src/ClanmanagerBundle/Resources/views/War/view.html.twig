@@ -1,0 +1,23 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    <h1>
+        
+        
+        &nbsp;-&nbsp;
+        
+    </h1>
+    <table>
+        <tr>
+            <th>{{ war.id }}.</th>
+            <th>{{ war.warclans[0].clan.name }}</th>
+            <th></th>
+            <th>{{ war.warclans[1].clan.name }}</th>
+        </tr>
+    </table>
+
+    {{ dump(war) }}
+{% endblock %}

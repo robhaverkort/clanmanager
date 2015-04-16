@@ -42,13 +42,14 @@ class Clan {
     protected $memberships;
 
     /**
-     * @ORM\ManyToMany(targetEntity="War", mappedBy="clans")
-     * */
-    private $wars;
+     * @ORM\OneToMany(targetEntity="Warclan", mappedBy="clan")
+     */
+    protected $warclans;
 
     public function __construct() {
         $this->memberships = new ArrayCollection();
         $this->wars = new ArrayCollection();
+        $this->warclans = new ArrayCollection();
     }
 
     /**
@@ -132,37 +133,36 @@ class Clan {
         return $this->memberships;
     }
 
-
     /**
-     * Add wars
+     * Add warclans
      *
-     * @param \ClanmanagerBundle\Entity\War $wars
+     * @param \ClanmanagerBundle\Entity\Warclan $warclans
      * @return Clan
      */
-    public function addWar(\ClanmanagerBundle\Entity\War $wars)
+    public function addWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
     {
-        $this->wars[] = $wars;
+        $this->warclans[] = $warclans;
 
         return $this;
     }
 
     /**
-     * Remove wars
+     * Remove warclans
      *
-     * @param \ClanmanagerBundle\Entity\War $wars
+     * @param \ClanmanagerBundle\Entity\Warclan $warclans
      */
-    public function removeWar(\ClanmanagerBundle\Entity\War $wars)
+    public function removeWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
     {
-        $this->wars->removeElement($wars);
+        $this->warclans->removeElement($warclans);
     }
 
     /**
-     * Get wars
+     * Get warclans
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWars()
+    public function getWarclans()
     {
-        return $this->wars;
+        return $this->warclans;
     }
 }

@@ -20,4 +20,15 @@ class WarController extends Controller {
         return $this->render('ClanmanagerBundle:War:index.html.twig', array('wars' => $wars));
     }
 
+    /**
+     * @Route("/war/{war_id}", name="war_view")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function viewAction($war_id) {
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:War');
+        $war = $repository->find($war_id);
+        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war));
+    }
+
 }

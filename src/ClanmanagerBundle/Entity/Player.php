@@ -47,9 +47,16 @@ class Player {
      */
     protected $memberships;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="player")
+     */
+    protected $warplayers;
+
     public function __construct() {
         $this->memberships = new ArrayCollection();
+        $this->warplayers = new ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -132,15 +139,13 @@ class Player {
         return $this->memberships;
     }
 
-
     /**
      * Set th
      *
      * @param integer $th
      * @return Player
      */
-    public function setTh($th)
-    {
+    public function setTh($th) {
         $this->th = $th;
 
         return $this;
@@ -151,8 +156,40 @@ class Player {
      *
      * @return integer 
      */
-    public function getTh()
-    {
+    public function getTh() {
         return $this->th;
+    }
+
+    /**
+     * Add warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\War $warplayers
+     * @return Player
+     */
+    public function addWarplayer(\ClanmanagerBundle\Entity\War $warplayers)
+    {
+        $this->warplayers[] = $warplayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\War $warplayers
+     */
+    public function removeWarplayer(\ClanmanagerBundle\Entity\War $warplayers)
+    {
+        $this->warplayers->removeElement($warplayers);
+    }
+
+    /**
+     * Get warplayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWarplayers()
+    {
+        return $this->warplayers;
     }
 }
