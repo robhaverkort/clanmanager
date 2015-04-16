@@ -1,0 +1,28 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Profiles</h1>
+
+    <table>
+        {% for profile in profiles %}
+            <tr style="vertical-align:top">
+                <td>{{ profile.id }}</td>
+                <td>{{ profile.name }}</td>
+                <td>{{ profile.facebookname }}</td>
+                <td>{{ profile.facebookprofile }}</td>
+                <td>
+                    {% for player in profile.players %}
+                        {{ player.name }} -
+                        {% for membership in player.memberships %}
+                            {{ membership.clan.name }}<br>
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

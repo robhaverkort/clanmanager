@@ -41,8 +41,14 @@ class Clan {
      */
     protected $memberships;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="War", mappedBy="clans")
+     * */
+    private $wars;
+
     public function __construct() {
         $this->memberships = new ArrayCollection();
+        $this->wars = new ArrayCollection();
     }
 
     /**
@@ -96,15 +102,13 @@ class Clan {
         return $this->name;
     }
 
-
     /**
      * Add memberships
      *
      * @param \ClanmanagerBundle\Entity\Membership $memberships
      * @return Clan
      */
-    public function addMembership(\ClanmanagerBundle\Entity\Membership $memberships)
-    {
+    public function addMembership(\ClanmanagerBundle\Entity\Membership $memberships) {
         $this->memberships[] = $memberships;
 
         return $this;
@@ -115,8 +119,7 @@ class Clan {
      *
      * @param \ClanmanagerBundle\Entity\Membership $memberships
      */
-    public function removeMembership(\ClanmanagerBundle\Entity\Membership $memberships)
-    {
+    public function removeMembership(\ClanmanagerBundle\Entity\Membership $memberships) {
         $this->memberships->removeElement($memberships);
     }
 
@@ -125,8 +128,41 @@ class Clan {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMemberships()
-    {
+    public function getMemberships() {
         return $this->memberships;
+    }
+
+
+    /**
+     * Add wars
+     *
+     * @param \ClanmanagerBundle\Entity\War $wars
+     * @return Clan
+     */
+    public function addWar(\ClanmanagerBundle\Entity\War $wars)
+    {
+        $this->wars[] = $wars;
+
+        return $this;
+    }
+
+    /**
+     * Remove wars
+     *
+     * @param \ClanmanagerBundle\Entity\War $wars
+     */
+    public function removeWar(\ClanmanagerBundle\Entity\War $wars)
+    {
+        $this->wars->removeElement($wars);
+    }
+
+    /**
+     * Get wars
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWars()
+    {
+        return $this->wars;
     }
 }

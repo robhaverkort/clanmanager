@@ -9,6 +9,7 @@
         <tr>
             <th>id</th>
             <th>name</th>
+            <th>TH</th>
             <th>clan</th>
             <th>profilename</th>
             <th>username</th>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{ player.id }}</td>
                 <td>{{ player.name }}</td>
+                <td>{{ player.th }}</td>
                 <td>{{ player.memberships[0].clan.name }}</td>
                 {% if player.profile %}
                     <td>{{ player.profile.name }}</td>

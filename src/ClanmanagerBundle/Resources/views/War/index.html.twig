@@ -1,0 +1,22 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Wars</h1>
+
+    <table>
+        {% for war in wars %}
+            <tr>
+                <td>{{ war.id }}</td>
+                <td><a href="{{ path('war') }}">{{ war.start|date('Y/m/d') }}</a></td>
+                <td>{{ war.size }}v{{ war.size }}</td>
+                <td>{{ war.clans[0].name }}</td>
+                <td> - </td>
+                <td>{{ war.clans[1].name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

@@ -22,6 +22,20 @@ class Membership {
     private $id;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="start", type="datetime")
+     */
+    private $start;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="stop", type="datetime")
+     */
+    private $stop;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Player", inversedBy="memberships")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
@@ -42,15 +56,13 @@ class Membership {
         return $this->id;
     }
 
-
     /**
      * Set player
      *
      * @param \ClanmanagerBundle\Entity\Player $player
      * @return Membership
      */
-    public function setPlayer(\ClanmanagerBundle\Entity\Player $player = null)
-    {
+    public function setPlayer(\ClanmanagerBundle\Entity\Player $player = null) {
         $this->player = $player;
 
         return $this;
@@ -61,8 +73,7 @@ class Membership {
      *
      * @return \ClanmanagerBundle\Entity\Player 
      */
-    public function getPlayer()
-    {
+    public function getPlayer() {
         return $this->player;
     }
 
@@ -72,8 +83,7 @@ class Membership {
      * @param \ClanmanagerBundle\Entity\Clan $clan
      * @return Membership
      */
-    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null)
-    {
+    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null) {
         $this->clan = $clan;
 
         return $this;
@@ -84,8 +94,54 @@ class Membership {
      *
      * @return \ClanmanagerBundle\Entity\Clan 
      */
-    public function getClan()
-    {
+    public function getClan() {
         return $this->clan;
+    }
+
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     * @return Membership
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime 
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set stop
+     *
+     * @param \DateTime $stop
+     * @return Membership
+     */
+    public function setStop($stop)
+    {
+        $this->stop = $stop;
+
+        return $this;
+    }
+
+    /**
+     * Get stop
+     *
+     * @return \DateTime 
+     */
+    public function getStop()
+    {
+        return $this->stop;
     }
 }

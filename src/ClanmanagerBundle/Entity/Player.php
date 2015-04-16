@@ -3,6 +3,7 @@
 namespace ClanmanagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Player
@@ -27,6 +28,13 @@ class Player {
      * @ORM\Column(name="name", type="string", length=32)
      */
     private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="th", type="integer")
+     */
+    private $th;
 
     /**
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="players")
@@ -94,15 +102,13 @@ class Player {
         return $this->profile;
     }
 
-
     /**
      * Add memberships
      *
      * @param \ClanmanagerBundle\Entity\Membership $memberships
      * @return Player
      */
-    public function addMembership(\ClanmanagerBundle\Entity\Membership $memberships)
-    {
+    public function addMembership(\ClanmanagerBundle\Entity\Membership $memberships) {
         $this->memberships[] = $memberships;
 
         return $this;
@@ -113,8 +119,7 @@ class Player {
      *
      * @param \ClanmanagerBundle\Entity\Membership $memberships
      */
-    public function removeMembership(\ClanmanagerBundle\Entity\Membership $memberships)
-    {
+    public function removeMembership(\ClanmanagerBundle\Entity\Membership $memberships) {
         $this->memberships->removeElement($memberships);
     }
 
@@ -123,8 +128,31 @@ class Player {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMemberships()
-    {
+    public function getMemberships() {
         return $this->memberships;
+    }
+
+
+    /**
+     * Set th
+     *
+     * @param integer $th
+     * @return Player
+     */
+    public function setTh($th)
+    {
+        $this->th = $th;
+
+        return $this;
+    }
+
+    /**
+     * Get th
+     *
+     * @return integer 
+     */
+    public function getTh()
+    {
+        return $this->th;
     }
 }
