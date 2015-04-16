@@ -41,14 +41,8 @@ class War {
      */
     protected $warclans;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="war")
-     */
-    protected $warplayers;
-
     public function __construct() {
         $this->warclans = new ArrayCollection();
-        $this->warplayers = new ArrayCollection();
     }
 
     /**
@@ -100,39 +94,6 @@ class War {
      */
     public function getSize() {
         return $this->size;
-    }
-
-    /**
-     * Add warplayers
-     *
-     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
-     * @return War
-     */
-    public function addWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers)
-    {
-        $this->warplayers[] = $warplayers;
-
-        return $this;
-    }
-
-    /**
-     * Remove warplayers
-     *
-     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
-     */
-    public function removeWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers)
-    {
-        $this->warplayers->removeElement($warplayers);
-    }
-
-    /**
-     * Get warplayers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getWarplayers()
-    {
-        return $this->warplayers;
     }
 
     /**

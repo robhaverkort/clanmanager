@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="ClanmanagerBundle\Entity\WarclanRepository")
  */
-class Warclan
-{
+class Warclan {
+
     /**
      * @var integer
      *
@@ -20,6 +20,13 @@ class Warclan
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="wins", type="integer")
+     */
+    private $wins;
 
     /**
      * @ORM\ManyToOne(targetEntity="Clan", inversedBy="warclans")
@@ -38,10 +45,14 @@ class Warclan
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="warclan")
+     */
+    protected $warplayers;
 
     /**
      * Set clan
@@ -49,8 +60,7 @@ class Warclan
      * @param \ClanmanagerBundle\Entity\Clan $clan
      * @return Warclan
      */
-    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null)
-    {
+    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null) {
         $this->clan = $clan;
 
         return $this;
@@ -61,8 +71,7 @@ class Warclan
      *
      * @return \ClanmanagerBundle\Entity\Clan 
      */
-    public function getClan()
-    {
+    public function getClan() {
         return $this->clan;
     }
 
@@ -72,8 +81,7 @@ class Warclan
      * @param \ClanmanagerBundle\Entity\War $war
      * @return Warclan
      */
-    public function setWar(\ClanmanagerBundle\Entity\War $war = null)
-    {
+    public function setWar(\ClanmanagerBundle\Entity\War $war = null) {
         $this->war = $war;
 
         return $this;
@@ -84,8 +92,68 @@ class Warclan
      *
      * @return \ClanmanagerBundle\Entity\War 
      */
-    public function getWar()
-    {
+    public function getWar() {
         return $this->war;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->warplayers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
+     * @return Warclan
+     */
+    public function addWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers) {
+        $this->warplayers[] = $warplayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove warplayers
+     *
+     * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
+     */
+    public function removeWarplayer(\ClanmanagerBundle\Entity\Warplayer $warplayers) {
+        $this->warplayers->removeElement($warplayers);
+    }
+
+    /**
+     * Get warplayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWarplayers() {
+        return $this->warplayers;
+    }
+
+
+    /**
+     * Set wins
+     *
+     * @param integer $wins
+     * @return Warclan
+     */
+    public function setWins($wins)
+    {
+        $this->wins = $wins;
+
+        return $this;
+    }
+
+    /**
+     * Get wins
+     *
+     * @return integer 
+     */
+    public function getWins()
+    {
+        return $this->wins;
     }
 }

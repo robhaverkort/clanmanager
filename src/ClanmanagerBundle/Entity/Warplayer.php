@@ -42,10 +42,14 @@ class Warplayer {
     protected $player;
 
     /**
-     * @ORM\ManyToOne(targetEntity="War", inversedBy="warplayers")
-     * @ORM\JoinColumn(name="war_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Warclan", inversedBy="warplayers")
+     * @ORM\JoinColumn(name="warclan_id", referencedColumnName="id")
      */
-    protected $war;
+    protected $warclan;
+
+    public function __construct() {
+        $this->warclans = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -78,35 +82,12 @@ class Warplayer {
     }
 
     /**
-     * Set war
-     *
-     * @param \ClanmanagerBundle\Entity\War $war
-     * @return Warplayer
-     */
-    public function setWar(\ClanmanagerBundle\Entity\War $war = null) {
-        $this->war = $war;
-
-        return $this;
-    }
-
-    /**
-     * Get war
-     *
-     * @return \ClanmanagerBundle\Entity\War 
-     */
-    public function getWar() {
-        return $this->war;
-    }
-
-
-    /**
      * Set rank
      *
      * @param integer $rank
      * @return Warplayer
      */
-    public function setRank($rank)
-    {
+    public function setRank($rank) {
         $this->rank = $rank;
 
         return $this;
@@ -117,8 +98,7 @@ class Warplayer {
      *
      * @return integer 
      */
-    public function getRank()
-    {
+    public function getRank() {
         return $this->rank;
     }
 
@@ -128,8 +108,7 @@ class Warplayer {
      * @param integer $th
      * @return Warplayer
      */
-    public function setTh($th)
-    {
+    public function setTh($th) {
         $this->th = $th;
 
         return $this;
@@ -140,8 +119,30 @@ class Warplayer {
      *
      * @return integer 
      */
-    public function getTh()
-    {
+    public function getTh() {
         return $this->th;
+    }
+
+    /**
+     * Set warclan
+     *
+     * @param \ClanmanagerBundle\Entity\Warclan $warclan
+     * @return Warplayer
+     */
+    public function setWarclan(\ClanmanagerBundle\Entity\Warclan $warclan = null)
+    {
+        $this->warclan = $warclan;
+
+        return $this;
+    }
+
+    /**
+     * Get warclan
+     *
+     * @return \ClanmanagerBundle\Entity\Warclan 
+     */
+    public function getWarclan()
+    {
+        return $this->warclan;
     }
 }

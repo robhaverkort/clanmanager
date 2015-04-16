@@ -5,10 +5,10 @@
 {% block body %}
 
     <h1>
-        
-        
+
+
         &nbsp;-&nbsp;
-        
+
     </h1>
     <table>
         <tr>
@@ -17,7 +17,22 @@
             <th></th>
             <th>{{ war.warclans[1].clan.name }}</th>
         </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                {% for warplayer in war.warclans[0].warplayers %}
+                    {{ warplayer.rank }} {{ warplayer.player.name }} TH{{ warplayer.th }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for warplayer in war.warclans[1].warplayers %}
+                    {{ warplayer.rank }} {{ warplayer.player.name }} TH{{ warplayer.th }}<br>
+                {% endfor %}
+            </td>
+        </tr>
     </table>
 
     {{ dump(war) }}
+    
 {% endblock %}
