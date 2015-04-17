@@ -13,26 +13,25 @@
     <table>
         <tr>
             <th>{{ war.id }}.</th>
-            <th>{{ war.warclans[0].clan.name }}</th>
+            <th colspan="3">{{ war.warclans[0].clan.name }}</th>
             <th></th>
-            <th>{{ war.warclans[1].clan.name }}</th>
+            <th colspan="3">{{ war.warclans[1].clan.name }}</th>
         </tr>
 
-        <tr>
-            <td></td>
-            <td>
-                {% for warplayer in war.warclans[0].warplayers %}
-                    {{ warplayer.rank }} {{ warplayer.player.name }} TH{{ warplayer.th }}<br>
+        {% for rank in 1 .. war.size %}
+            <tr>
+                <td></td>
+                {% for wc in 0..1 %}
+                    <td>{{rank}}</td>
+                    <td>{{ war.warclans[wc].warplayers[rank-1].player.name }}</td>
+                    <td>TH{{ war.warclans[wc].warplayers[rank-1].th }}</td>
+                    <td></td>
                 {% endfor %}
-            </td>
-            <td>
-                {% for warplayer in war.warclans[1].warplayers %}
-                    {{ warplayer.rank }} {{ warplayer.player.name }} TH{{ warplayer.th }}<br>
-                {% endfor %}
-            </td>
-        </tr>
+            </tr>
+        {% endfor %}
+
     </table>
 
     {{ dump(war) }}
-    
+
 {% endblock %}

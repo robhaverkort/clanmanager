@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use ClanmanagerBundle\Entity\War;
 
 class WarController extends Controller {
 
@@ -18,6 +22,30 @@ class WarController extends Controller {
                 ->getRepository('ClanmanagerBundle:War');
         $wars = $repository->findAll();
         return $this->render('ClanmanagerBundle:War:index.html.twig', array('wars' => $wars));
+    }
+
+    /**
+     * @Route("/war/new", name="war_new")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function newAction(Request $request) {
+
+        $war = new War();
+
+        $form = $this->createFormBuilder($war)
+                ->setAction($this->generateUrl('war_new'))
+                ->add('save', 'submit', array('label' => 'Add Player'))
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $this->addFlash('notice', 'Your changes were saved!');
+
+            return $this->redirectToRoute('war');
+        }
+        return $this->redirectToRoute('war');
     }
 
     /**
