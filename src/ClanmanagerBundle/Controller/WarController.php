@@ -36,14 +36,7 @@ class WarController extends Controller {
 
         $form = $this->createFormBuilder($war)
                 ->setAction($this->generateUrl('war_new'))
-                ->add('start', 'datetime')
-                //, array(
-                    //'input' => 'string',
-                    //'widget' => 'single_text',
-                    //'type'=>'string',
-                    //'input'=>'string',
-                    //'data' => date("Y-m-d H:i:s")
-                //))
+                ->add('start', 'datetime',array('minutes'=>array(0,5,10,15,20,25,30,35,40,45,50,55)))
                 ->add('size', 'choice', array('data' => 30, 'choices' => array(10 => '10v10', 15 => '15v15', 20 => '20v20', 25 => '25v25', 30 => '30v30', 35 => '35v35', 40 => '40v40', 45 => '45v45', 50 => '50v50')))
                 ->add('clantag', 'text', array('mapped' => false, 'data' => '#'))
                 ->add('clanname', 'text', array('mapped' => false))

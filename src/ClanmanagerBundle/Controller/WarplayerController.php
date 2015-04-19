@@ -60,14 +60,28 @@ class WarplayerController extends Controller {
     public function newAction(Request $request, $warclan_id) {
         $warclan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Warclan')->find($warclan_id);
 
-        $form = $this->createFormBuilder()
-                ->setAction($this->generateUrl('warplayer_new', array('warclan_id' => $warclan_id)))
-                ->add('warclan', 'hidden', array('data' => $warclan_id))
-                ->add('rank', 'text', array('attr' => array('size' => 4, 'maxlength' => 3)))
-                ->add('name', 'text')
-                ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
-                ->add('save', 'submit', array('label' => 'Add Player'))
-                ->getForm();
+        if ($warclan->getClan()->getId() == 1) {
+            $form = $this->createFormBuilder()
+                    ->setAction($this->generateUrl('warplayer_new', array('warclan_id' => $warclan_id)))
+                    ->add('warclan', 'hidden', array('data' => $warclan_id))
+                    ->add('rank', 'text', array('attr' => array('size' => 4, 'maxlength' => 3)))
+                    ->add('name', 'entity', array(
+                        'class' => 'ClanmanagerBundle:Player',
+                        'property' => 'name'
+                    ))
+                    ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
+                    ->add('save', 'submit', array('label' => 'Add Player'))
+                    ->getForm();
+        } else {
+            $form = $this->createFormBuilder()
+                    ->setAction($this->generateUrl('warplayer_new', array('warclan_id' => $warclan_id)))
+                    ->add('warclan', 'hidden', array('data' => $warclan_id))
+                    ->add('rank', 'text', array('attr' => array('size' => 4, 'maxlength' => 3)))
+                    ->add('name', 'text')
+                    ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
+                    ->add('save', 'submit', array('label' => 'Add Player'))
+                    ->getForm();
+        }
 
         $form->handleRequest($request);
 
@@ -75,14 +89,18 @@ class WarplayerController extends Controller {
 
             $em = $this->getDoctrine()->getManager();
 
-            $player = new Player();
-            $player->setName($form['name']->getData());
-            $em->persist($player);
+            if ($warclan->getClan()->getId() == 1) {
+                $player = $form['name']->getData();
+            } else {
+                $player = new Player();
+                $player->setName($form['name']->getData());
+                $em->persist($player);
 
-            $membership = new Membership();
-            $membership->setPlayer($player);
-            $membership->setClan($warclan->getClan());
-            $em->persist($membership);
+                $membership = new Membership();
+                $membership->setPlayer($player);
+                $membership->setClan($warclan->getClan());
+                $em->persist($membership);
+            }
 
             $warplayer = new Warplayer();
             $warplayer->setPlayer($player);
