@@ -1,0 +1,23 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Warevents</h1>
+
+    <table>
+        <tr>
+            <th>id</th>
+        </tr>
+        {% for warevent in warevents %}
+            <tr>
+
+                <td>{{ warevent.id }}</td>
+                <td></td>
+
+
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
