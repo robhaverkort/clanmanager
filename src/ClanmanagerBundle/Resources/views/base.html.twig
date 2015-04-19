@@ -50,6 +50,12 @@
                 {% if app.user and is_granted('ROLE_USER') %}
                     <a href="{{path('war')}}">Wars</a><br>
                 {% endif %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{path('warclan')}}">Warclans</a><br>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{path('warplayer')}}">Warplayers</a><br>
+                {% endif %}
             </p>
 
         </div>

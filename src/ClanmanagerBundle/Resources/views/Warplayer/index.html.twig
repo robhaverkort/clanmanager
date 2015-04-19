@@ -1,0 +1,26 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Warplayers</h1>
+
+    <table>
+        <tr>
+            <th>id</th>
+            <th>warclan</th>
+            <th>player.name</th>
+            <th>rank</th>
+        </tr>
+        {% for warplayer in warplayers %}
+            <tr>
+                <td>{{ warplayer.id }}</td>
+                <td>{{ warplayer.warclan.clan.name }}</td>
+                <td>{{ warplayer.player.name }}</td>
+                <td>{{ warplayer.rank }}</td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

@@ -23,8 +23,16 @@
                 <td></td>
                 {% for wc in 0..1 %}
                     <td>{{rank}}</td>
-                    <td>{{ war.warclans[wc].warplayers[rank-1].player.name }}</td>
-                    <td>TH{{ war.warclans[wc].warplayers[rank-1].th }}</td>
+                    <td>
+                        {% if war.warclans[wc].warplayers[rank-1].player is defined %}
+                            {{ war.warclans[wc].warplayers[rank-1].player.name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if war.warclans[wc].warplayers[rank-1] is defined %}
+                            TH{{ war.warclans[wc].warplayers[rank-1].th }}
+                        {% endif %}
+                    </td>
                     <td></td>
                 {% endfor %}
             </tr>

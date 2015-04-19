@@ -24,14 +24,14 @@ class Membership {
     /**
      * @var datetime
      *
-     * @ORM\Column(name="start", type="datetime")
+     * @ORM\Column(name="start", type="datetime", nullable=true)
      */
     private $start;
 
     /**
      * @var datetime
      *
-     * @ORM\Column(name="stop", type="datetime")
+     * @ORM\Column(name="stop", type="datetime", nullable=true)
      */
     private $stop;
 

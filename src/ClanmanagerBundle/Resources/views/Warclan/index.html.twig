@@ -1,0 +1,30 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Warclans</h1>
+
+    <table>
+        <tr>
+            <th>id</th>
+            <th>warclan</th>
+            <th>player.name</th>
+            <th>rank</th>
+        </tr>
+        {% for warclan in warclans %}
+            <tr>
+
+                <td>{{ warclan.id }}</td>
+                <td>
+                    <a href="{{ path('warclan_view',{'warclan_id':warclan.id}) }}">
+                        {{ warclan.clan.name }}
+                    </a>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

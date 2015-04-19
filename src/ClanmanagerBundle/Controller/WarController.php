@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ClanmanagerBundle\Entity\War;
+use ClanmanagerBundle\Entity\Clan;
+use ClanmanagerBundle\Entity\Warclan;
 
 class WarController extends Controller {
 
@@ -34,18 +36,59 @@ class WarController extends Controller {
 
         $form = $this->createFormBuilder($war)
                 ->setAction($this->generateUrl('war_new'))
-                ->add('save', 'submit', array('label' => 'Add Player'))
+                ->add('start', 'datetime')
+                //, array(
+                    //'input' => 'string',
+                    //'widget' => 'single_text',
+                    //'type'=>'string',
+                    //'input'=>'string',
+                    //'data' => date("Y-m-d H:i:s")
+                //))
+                ->add('size', 'choice', array('data' => 30, 'choices' => array(10 => '10v10', 15 => '15v15', 20 => '20v20', 25 => '25v25', 30 => '30v30', 35 => '35v35', 40 => '40v40', 45 => '45v45', 50 => '50v50')))
+                ->add('clantag', 'text', array('mapped' => false, 'data' => '#'))
+                ->add('clanname', 'text', array('mapped' => false))
+                ->add('clanwins', 'text', array('mapped' => false))
+                ->add('myclanwins', 'text', array('mapped' => false))
+                ->add('save', 'submit', array('label' => 'Add War'))
                 ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
 
-            $this->addFlash('notice', 'Your changes were saved!');
+            $em = $this->getDoctrine()->getManager();
 
+            //$war->setStart($form['start']->getData());
+            //$war->setSize($form['size']->getData());
+            $em->persist($war);
+
+            // MY CLAN
+            $mclan = $this->getDoctrine()->getManager()->getRepository('ClanmanagerBundle:Clan')->find(1);
+
+            $mwarclan = new Warclan();
+            $mwarclan->setWar($war);
+            $mwarclan->setClan($mclan);
+            $mwarclan->setWins($form['myclanwins']->getData());
+            $em->persist($mwarclan);
+
+            // ENEMY CLAN
+            $eclan = new Clan();
+            $eclan->setName($form['clanname']->getData());
+            $eclan->setTag($form['clantag']->getData());
+            $em->persist($eclan);
+
+            $ewarclan = new Warclan();
+            $ewarclan->setWar($war);
+            $ewarclan->setClan($eclan);
+            $ewarclan->setWins($form['clanwins']->getData());
+            $em->persist($ewarclan);
+
+            $em->flush();
+
+            $this->addFlash('notice', 'Your changes were saved!');
             return $this->redirectToRoute('war');
         }
-        return $this->redirectToRoute('war');
+        return $this->render('ClanmanagerBundle:War:new.html.twig', array('form' => $form->createView()));
     }
 
     /**

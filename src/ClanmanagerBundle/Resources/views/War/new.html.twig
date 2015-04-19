@@ -1,0 +1,43 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    <h1>New War</h1>
+
+    <table>
+        {{ form_start(form) }}
+        <tr>
+            <td>Start</td>
+            <td>{{ form_widget(form.start) }}</td>
+        <tr>
+        <tr>
+            <td>Size</td>
+            <td>{{ form_widget(form.size) }}</td>
+        <tr>
+        <tr>
+            <td>enemy clantag</td>
+            <td>{{ form_widget(form.clantag) }}</td>
+        </tr>
+        <tr>
+            <td>enemy clanname</td>
+            <td>{{ form_widget(form.clanname) }}</td>
+        </tr>
+        <tr>
+            <td>enemy wins</td>
+            <td>{{ form_widget(form.clanwins) }}</td>
+        </tr>
+        <tr>
+            <td>myclan wins</td>
+            <td>{{ form_widget(form.myclanwins) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.save) }}</td>
+        </tr>
+        <td>{{ form_end(form) }}</td>
+    </tr>
+</table>
+{% endblock %}
+

@@ -32,7 +32,7 @@ class Player {
     /**
      * @var integer
      *
-     * @ORM\Column(name="th", type="integer")
+     * @ORM\Column(name="th", type="integer", nullable=true)
      */
     private $th;
 
