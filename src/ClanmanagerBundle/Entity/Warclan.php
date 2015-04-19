@@ -41,6 +41,18 @@ class Warclan {
     protected $war;
 
     /**
+     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="warclan")
+     */
+    protected $warplayers;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->warplayers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -48,11 +60,6 @@ class Warclan {
     public function getId() {
         return $this->id;
     }
-
-    /**
-     * @ORM\OneToMany(targetEntity="Warplayer", mappedBy="warclan")
-     */
-    protected $warplayers;
 
     /**
      * Set clan
@@ -97,13 +104,6 @@ class Warclan {
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->warplayers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add warplayers
      *
      * @param \ClanmanagerBundle\Entity\Warplayer $warplayers
@@ -133,15 +133,13 @@ class Warclan {
         return $this->warplayers;
     }
 
-
     /**
      * Set wins
      *
      * @param integer $wins
      * @return Warclan
      */
-    public function setWins($wins)
-    {
+    public function setWins($wins) {
         $this->wins = $wins;
 
         return $this;
@@ -152,8 +150,8 @@ class Warclan {
      *
      * @return integer 
      */
-    public function getWins()
-    {
+    public function getWins() {
         return $this->wins;
     }
+
 }

@@ -48,8 +48,23 @@ class Warplayer {
      */
     protected $warclan;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Warevent", mappedBy="attacker")
+     */
+    protected $attacks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Warevent", mappedBy="defender")
+     */
+    protected $defends;
+
+    /**
+     * Constructor
+     */
     public function __construct() {
-        $this->warclans = new ArrayCollection();
+        $this->attacks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->defends = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->warplayers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -130,8 +145,7 @@ class Warplayer {
      * @param \ClanmanagerBundle\Entity\Warclan $warclan
      * @return Warplayer
      */
-    public function setWarclan(\ClanmanagerBundle\Entity\Warclan $warclan = null)
-    {
+    public function setWarclan(\ClanmanagerBundle\Entity\Warclan $warclan = null) {
         $this->warclan = $warclan;
 
         return $this;
@@ -142,8 +156,74 @@ class Warplayer {
      *
      * @return \ClanmanagerBundle\Entity\Warclan 
      */
-    public function getWarclan()
-    {
+    public function getWarclan() {
         return $this->warclan;
+    }
+
+
+    /**
+     * Add attacks
+     *
+     * @param \ClanmanagerBundle\Entity\Warevent $attacks
+     * @return Warplayer
+     */
+    public function addAttack(\ClanmanagerBundle\Entity\Warevent $attacks)
+    {
+        $this->attacks[] = $attacks;
+
+        return $this;
+    }
+
+    /**
+     * Remove attacks
+     *
+     * @param \ClanmanagerBundle\Entity\Warevent $attacks
+     */
+    public function removeAttack(\ClanmanagerBundle\Entity\Warevent $attacks)
+    {
+        $this->attacks->removeElement($attacks);
+    }
+
+    /**
+     * Get attacks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAttacks()
+    {
+        return $this->attacks;
+    }
+
+    /**
+     * Add defends
+     *
+     * @param \ClanmanagerBundle\Entity\Warevent $defends
+     * @return Warplayer
+     */
+    public function addDefend(\ClanmanagerBundle\Entity\Warevent $defends)
+    {
+        $this->defends[] = $defends;
+
+        return $this;
+    }
+
+    /**
+     * Remove defends
+     *
+     * @param \ClanmanagerBundle\Entity\Warevent $defends
+     */
+    public function removeDefend(\ClanmanagerBundle\Entity\Warevent $defends)
+    {
+        $this->defends->removeElement($defends);
+    }
+
+    /**
+     * Get defends
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDefends()
+    {
+        return $this->defends;
     }
 }
