@@ -8,13 +8,21 @@
     <table>
         <tr>
             <th>id</th>
+            <th>attacker</th>
+            <th>defender</th>
+            <th>stars</th>
+            <th>percent</th>
+            <th>time</th>
         </tr>
         {% for warevent in warevents %}
             <tr>
 
                 <td>{{ warevent.id }}</td>
-                <td></td>
-
+                <td>{{ warevent.attacker.player.name }}</td>
+                <td>{{ warevent.defender.player.name }}</td>
+                <td>{{ warevent.stars }}</td>
+                <td>{{ warevent.percent }}</td>
+                <td>{{ warevent.time|date('H:m') }}</td>
 
             </tr>
         {% endfor %}
