@@ -59,10 +59,9 @@
                                 {% if war.warclans[wc].warplayers[rank-1].attacks[at] is defined %}
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].defender.rank }}.
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].defender.player.name }}
-                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].stars }}
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].percent }}%
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].stars }}
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].time|date('H:i') }}
-                                    {# {{ dump(war.warclans[wc].warplayers[rank-1].attacks[at]) }} #}
                                 {% else %}
                                     <a href="{{ path('warevent_new',{'attacker_id':war.warclans[wc].warplayers[rank-1].id} ) }}">---</a>
                                 {% endif %}
