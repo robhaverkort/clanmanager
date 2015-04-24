@@ -19,6 +19,7 @@ class WareventRepository extends EntityRepository {
                         ->leftJoin('p.warclan', 'c')
                         ->leftJoin('c.war', 'w')
                         ->where('w.id = :war_id')
+                        ->orderBy('e.time')
                         ->setParameter('war_id', $war_id)
                         ->getQuery()
                         ->getResult();
