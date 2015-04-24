@@ -16,7 +16,13 @@ th {
     font-size: 10px;
 }
 .attack {
-
     font-size: 10px;
 }
 
+.attack a {
+    text-decoration: none;
+}
+
+.attack a:hover {
+    font-weight: bold;
+}
