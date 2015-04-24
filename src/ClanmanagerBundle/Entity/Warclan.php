@@ -154,4 +154,24 @@ class Warclan {
         return $this->wins;
     }
 
+    public function getNrattacks() {
+        $nrattacks = 0;
+        foreach ($this->getWarplayers() as $warplayer) {
+            $nrattacks += sizeof($warplayer->getAttacks());
+        }
+        return $nrattacks;
+    }
+
+    public function getStars() {
+        $nrstars = 0;
+        foreach ($this->getWarplayers() as $warplayer) {
+            $stars = array(0);
+            foreach ($warplayer->getDefends() as $warevent) {
+                $stars[] = $warevent->getStars();
+            }
+            $nrstars += max($stars);
+        }
+        return $nrstars;
+    }
+
 }

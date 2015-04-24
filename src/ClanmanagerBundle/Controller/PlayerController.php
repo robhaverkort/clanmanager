@@ -25,6 +25,18 @@ class PlayerController extends Controller {
         return $this->render('ClanmanagerBundle:Player:index.html.twig', array('players' => $players));
     }
 
+        /**
+     * @Route("/player/{player_id}", name="player_view")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function viewAction($player_id) {
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:Player');
+        $player = $repository->find($player_id);
+
+        return $this->render('ClanmanagerBundle:Player:view.html.twig', array('player' => $player));
+    }
+
     /**
      * @Route("/player/new/{clan_id}", name="player_new")
      * @Security("has_role('ROLE_ADMIN')")

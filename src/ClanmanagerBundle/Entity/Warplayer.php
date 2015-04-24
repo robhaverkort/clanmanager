@@ -160,15 +160,13 @@ class Warplayer {
         return $this->warclan;
     }
 
-
     /**
      * Add attacks
      *
      * @param \ClanmanagerBundle\Entity\Warevent $attacks
      * @return Warplayer
      */
-    public function addAttack(\ClanmanagerBundle\Entity\Warevent $attacks)
-    {
+    public function addAttack(\ClanmanagerBundle\Entity\Warevent $attacks) {
         $this->attacks[] = $attacks;
 
         return $this;
@@ -179,8 +177,7 @@ class Warplayer {
      *
      * @param \ClanmanagerBundle\Entity\Warevent $attacks
      */
-    public function removeAttack(\ClanmanagerBundle\Entity\Warevent $attacks)
-    {
+    public function removeAttack(\ClanmanagerBundle\Entity\Warevent $attacks) {
         $this->attacks->removeElement($attacks);
     }
 
@@ -189,8 +186,7 @@ class Warplayer {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAttacks()
-    {
+    public function getAttacks() {
         return $this->attacks;
     }
 
@@ -200,8 +196,7 @@ class Warplayer {
      * @param \ClanmanagerBundle\Entity\Warevent $defends
      * @return Warplayer
      */
-    public function addDefend(\ClanmanagerBundle\Entity\Warevent $defends)
-    {
+    public function addDefend(\ClanmanagerBundle\Entity\Warevent $defends) {
         $this->defends[] = $defends;
 
         return $this;
@@ -212,8 +207,7 @@ class Warplayer {
      *
      * @param \ClanmanagerBundle\Entity\Warevent $defends
      */
-    public function removeDefend(\ClanmanagerBundle\Entity\Warevent $defends)
-    {
+    public function removeDefend(\ClanmanagerBundle\Entity\Warevent $defends) {
         $this->defends->removeElement($defends);
     }
 
@@ -222,8 +216,22 @@ class Warplayer {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getDefends()
-    {
+    public function getDefends() {
         return $this->defends;
     }
+
+    public function __toString() {
+        return $this->getRank() . ". " . $this->getPlayer()->getName() . " - " . $this->getId();
+    }
+
+    public function getStars() {
+        $nrstars = 0;
+        $stars = array(0);
+        foreach ($this->getDefends() as $warevent) {
+            $stars[] = $warevent->getStars();
+        }
+        $nrstars += max($stars);
+        return $nrstars;
+    }
+
 }

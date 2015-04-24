@@ -5,10 +5,6 @@
 {% block body %}
     <h1>Warevents</h1>
 
-    {% if app.user and is_granted('ROLE_USER') %}
-        <p>{{  render(controller('ClanmanagerBundle:Warevent:warselect')) }}</p>
-    {% endif %}
-
     <table>
         <tr>
             <th>id</th>
@@ -26,7 +22,7 @@
                 <td>{{ warevent.defender.player.name }}</td>
                 <td>{{ warevent.stars }}</td>
                 <td>{{ warevent.percent }}</td>
-                <td>{{ warevent.time|date('H:i') }}</td>
+                <td>{{ warevent.time|date('H:m') }}</td>
 
             </tr>
         {% endfor %}

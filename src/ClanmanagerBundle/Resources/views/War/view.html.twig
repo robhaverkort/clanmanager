@@ -2,44 +2,83 @@
 
 {% block title %}CoC ClanManager{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/war.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 
-    <h1>
-
-
-        &nbsp;-&nbsp;
-
-    </h1>
     <table>
         <tr>
             <th>{{ war.id }}.</th>
-            <th colspan="3">{{ war.warclans[0].id }}. {{ war.warclans[0].clan.name }}</th>
+            <th colspan="10">{{ war.warclans[0].id }}. {{ war.warclans[0].clan.name }} ({{ war.warclans[0].wins }}) {{ war.warclans[0].nrattacks }}/{{ war.size*2 }} {{ war.warclans[1].stars }}</th>
             <th></th>
-            <th colspan="3">{{ war.warclans[1].id }}. {{ war.warclans[1].clan.name }}</th>
+            <th colspan="10">{{ war.warclans[1].id }}. {{ war.warclans[1].clan.name }} ({{ war.warclans[1].wins }}) {{ war.warclans[1].nrattacks }}/{{ war.size*2 }} {{ war.warclans[0].stars }}</th>
         </tr>
 
         {% for rank in 1 .. war.size %}
             <tr>
-                <td></td>
+
+                <td>&nbsp;</td>                    
+
                 {% for wc in 0..1 %}
-                    <td>{{rank}}</td>
-                    <td>
+                    <td class="attacker">{{ rank }}.</td>
+
+                    <td class="attacker">
                         {% if war.warclans[wc].warplayers[rank-1].player is defined %}
                             {{ war.warclans[wc].warplayers[rank-1].player.name }}
                         {% endif %}
                     </td>
-                    <td>
+                    <td class="attacker">
                         {% if war.warclans[wc].warplayers[rank-1] is defined %}
                             TH{{ war.warclans[wc].warplayers[rank-1].th }}
                         {% endif %}
                     </td>
-                    <td></td>
+
+                    <td>&nbsp;</td>        
+
+                    <td>
+                        <img src="{{  asset( ['images/',war.warclans[wc].warplayers[rank-1].stars,'star.png']|join ) }}">
+                    </td>
+                    <td>
+                        {% if war.warclans[wc].warplayers[rank-1].stars > 0 %} &times; {% else %} &#8226; {% endif %}
+                    </td>
+                    <td>
+                        {% if war.warclans[wc].warplayers[rank-1].stars > 1 %} &times; {% else %} &#8226; {% endif %}
+                    </td>
+                    <td>
+                        {% if war.warclans[wc].warplayers[rank-1].stars > 2 %} &times; {% else %} &#8226; {% endif %}
+                    </td>
+
+                    <td>&nbsp;</td>        
+
+                    {% for at in 0..1 %}
+                        <td class="attack">
+                            {% if war.warclans[wc].warplayers[rank-1] is defined   %}
+                                {% if war.warclans[wc].warplayers[rank-1].attacks[at] is defined %}
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].defender.rank }}.
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].defender.player.name }}
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].stars }}
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].percent }}%
+                                    {{ war.warclans[wc].warplayers[rank-1].attacks[at].time|date('H:i') }}
+                                    {# {{ dump(war.warclans[wc].warplayers[rank-1].attacks[at]) }} #}
+                                {% else %}
+                                    <a href="{{ path('warevent_new',{'attacker_id':war.warclans[wc].warplayers[rank-1].id} ) }}">---</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+
+                    <td>&nbsp;</td>
+
                 {% endfor %}
+
+                <td>call</td>
+
             </tr>
         {% endfor %}
 
     </table>
-
-    {{ dump(war) }}
 
 {% endblock %}

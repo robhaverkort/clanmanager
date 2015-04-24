@@ -102,8 +102,7 @@ class War {
      * @param \ClanmanagerBundle\Entity\Warclan $warclans
      * @return War
      */
-    public function addWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
-    {
+    public function addWarclan(\ClanmanagerBundle\Entity\Warclan $warclans) {
         $this->warclans[] = $warclans;
 
         return $this;
@@ -114,8 +113,7 @@ class War {
      *
      * @param \ClanmanagerBundle\Entity\Warclan $warclans
      */
-    public function removeWarclan(\ClanmanagerBundle\Entity\Warclan $warclans)
-    {
+    public function removeWarclan(\ClanmanagerBundle\Entity\Warclan $warclans) {
         $this->warclans->removeElement($warclans);
     }
 
@@ -124,8 +122,12 @@ class War {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWarclans()
-    {
+    public function getWarclans() {
         return $this->warclans;
     }
+
+    public function __toString() {
+        return $this->getId() . " " . $this->getWarClans()[0]->getClan()->getName() . " - " . $this->getWarClans()[1]->getClan()->getName();
+    }
+
 }

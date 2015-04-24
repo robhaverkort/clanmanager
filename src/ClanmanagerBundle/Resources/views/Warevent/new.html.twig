@@ -1,0 +1,20 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    <h1>New Attack</h1>
+
+    {{ form_start(form) }}
+    <table>
+        <tr><td>Attacker:</td><td>{{ form_widget(form.attacker) }}</td></tr>
+        <tr><td>Defender:</td><td>{{ form_widget(form.defender) }}</td></tr>
+        <tr><td>Stars:</td><td>{{ form_widget(form.stars) }}</td></tr>
+        <tr><td>Percent:</td><td>{{ form_widget(form.percent) }}%</td></tr>
+        <tr><td>Time:</td><td>{{ form_widget(form.time) }}</td></tr>
+        <tr><td></td><td>{{ form_widget(form.save) }}</td></tr>
+    </table>
+    {{ form_end(form) }}
+{% endblock %}
+
