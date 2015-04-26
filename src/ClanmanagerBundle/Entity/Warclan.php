@@ -174,4 +174,22 @@ class Warclan {
         return $nrstars;
     }
 
+    public function getTimestars() {
+        $totalstars = array(0);
+        for ($hour = 0; $hour < 24; $hour++) {
+            $nrstars = 0;
+            foreach ($this->getWarplayers() as $warplayer) {
+                $stars = array(0);
+                foreach ($warplayer->getDefends() as $warevent) {
+                    if (date_format($warevent->getTime(), "H") >= $hour) {
+                        $stars[] = $warevent->getStars();
+                    }
+                }
+                $nrstars += max($stars);
+            }
+            $totalstars[$hour] = $nrstars;
+        }
+        return $totalstars;
+    }
+
 }

@@ -12,9 +12,9 @@
     <table>
         <tr>
             <th>{{ war.id }}.</th>
-            <th colspan="10">{{ war.warclans[0].id }}. {{ war.warclans[0].clan.name }} ({{ war.warclans[0].wins }}) {{ war.warclans[0].nrattacks }}/{{ war.size*2 }} {{ war.warclans[1].stars }}</th>
+            <th colspan="10">{#{{ war.warclans[0].id }}. #}{{ war.warclans[0].clan.name }} ({{ war.warclans[0].wins }}) {{ war.warclans[0].nrattacks }}/{{ war.size*2 }} {{ war.warclans[1].stars }}</th>
             <th></th>
-            <th colspan="10">{{ war.warclans[1].id }}. {{ war.warclans[1].clan.name }} ({{ war.warclans[1].wins }}) {{ war.warclans[1].nrattacks }}/{{ war.size*2 }} {{ war.warclans[0].stars }}</th>
+            <th colspan="10">{#{{ war.warclans[1].id }}. #}{{ war.warclans[1].clan.name }} ({{ war.warclans[1].wins }}) {{ war.warclans[1].nrattacks }}/{{ war.size*2 }} {{ war.warclans[0].stars }}</th>
         </tr>
 
         {% for rank in 1 .. war.size %}
@@ -39,13 +39,13 @@
                     <td>&nbsp;</td>        
 
                     <td>
-                        {% if war.warclans[wc].warplayers[rank-1].defends|length %}
+                        {% if war.warclans[wc].warplayers[rank-1].defends is defined and war.warclans[wc].warplayers[rank-1].defends|length %}
                             <img height="10px" src="{{  asset( ['images/',war.warclans[wc].warplayers[rank-1].stars,'star.png']|join ) }}">
                         {% endif %}
                     </td>
                     <td class="attacker">
-                        {% if war.warclans[wc].warplayers[rank-1].defends|length > 0  %}
-                        {{ war.warclans[wc].warplayers[rank-1].defends|length }}
+                        {% if war.warclans[wc].warplayers[rank-1].defends is defined and war.warclans[wc].warplayers[rank-1].defends|length > 0  %}
+                            {{ war.warclans[wc].warplayers[rank-1].defends|length }}
                         {% endif %}
                     </td>
                     <td>
@@ -80,4 +80,38 @@
 
     </table>
 
+
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+            'name':'visualization',
+            'version':'1',
+            'packages':['corechart']
+            }]
+    }"></script>
+
+    <script type="text/javascript">
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],
+        {% for hr in 23..0 %}
+            ['{{ hr }}:00',{{ war.warclans[1].timestars[hr] }},{{ war.warclans[0].timestars[hr] }}],
+        {% endfor %}
+            ]);
+
+            var options = {
+                title: 'War Stars',
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+        
 {% endblock %}

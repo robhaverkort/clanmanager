@@ -49,8 +49,8 @@ class PlayerController extends Controller {
         $player = new Player();
         $form = $this->createFormBuilder($player)
                 ->setAction($this->generateUrl('player_new', array('clan_id' => $clan_id)))
-                ->add('name', 'text')
-                ->add('th', 'text')
+                ->add('name', 'text',array('attr'=>array('size'=>16)))
+                ->add('th', 'text',array('attr'=>array('size'=>3,'maxlength'=>2)))
                 ->add('save', 'submit', array('label' => 'Add Player'))
                 ->getForm();
 

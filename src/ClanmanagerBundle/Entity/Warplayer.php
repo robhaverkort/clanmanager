@@ -221,7 +221,7 @@ class Warplayer {
     }
 
     public function __toString() {
-        return $this->getRank() . ". " . $this->getPlayer()->getName() . " - " . $this->getId();
+        return $this->getRank() . ". " . $this->getPlayer()->getName(); // . " - " . $this->getId();
     }
 
     public function getStars() {
