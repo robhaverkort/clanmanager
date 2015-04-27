@@ -95,9 +95,9 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}','attacks','attacks2'],
         {% for hr in 23..0 %}
-            ['{{ hr }}:00',{{ war.warclans[1].timestars[hr] }},{{ war.warclans[0].timestars[hr] }}],
+            ['{{ hr }}:00',{{ war.warclans[1].timestars[hr] }},{{ war.warclans[0].timestars[hr] }},{{ war.warclans[1].timeattacks[hr] }},{{ war.warclans[0].timeattacks[hr] }}],
         {% endfor %}
             ]);
 

@@ -192,4 +192,22 @@ class Warclan {
         return $totalstars;
     }
 
+    public function getTimeattacks() {
+        $totalattacks = array(0);
+        for ($hour = 0; $hour < 24; $hour++) {
+            $nrattacks = 0;
+            foreach ($this->getWarplayers() as $warplayer) {
+                $attacks = 0;
+                foreach ($warplayer->getDefends() as $warevent) {
+                    if (date_format($warevent->getTime(), "H") >= $hour) {
+                        $attacks += 1;
+                    }
+                }
+                $nrattacks += $attacks;
+            }
+            $totalattacks[$hour] = $nrattacks;
+        }
+        return $totalattacks;
+    }
+
 }
