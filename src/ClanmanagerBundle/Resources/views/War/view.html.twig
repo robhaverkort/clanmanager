@@ -95,7 +95,7 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}','attacks','attacks2'],
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}','nr attacks','nr attacks'],
         {% for hr in 23..0 %}
             ['{{ hr }}:00',{{ war.warclans[1].timestars[hr] }},{{ war.warclans[0].timestars[hr] }},{{ war.warclans[1].timeattacks[hr] }},{{ war.warclans[0].timeattacks[hr] }}],
         {% endfor %}
@@ -106,10 +106,10 @@
                 legend: {position: 'bottom'},
                 seriesType: "line",
                 series: {
-                    0: {type: "area", color:"blue"},
-                    1: {type: "area", color:"red"},
-                    2: {type: "line", color:"lightblue"},
-                    3: {type: "line", color:"orange"}
+                    0: {type: "line", color:"blue"},
+                    1: {type: "line", color:"red"},
+                    2: {type: "area", color:"lightblue"},
+                    3: {type: "area", color:"orange"}
                 }
             };
 
