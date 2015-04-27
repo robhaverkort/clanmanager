@@ -103,15 +103,22 @@
 
             var options = {
                 title: 'War Stars',
-                legend: {position: 'bottom'}
+                legend: {position: 'bottom'},
+                seriesType: "line",
+                series: {
+                    0: {type: "area", color:"blue"},
+                    1: {type: "area", color:"red"},
+                    2: {type: "line", color:"lightblue"},
+                    3: {type: "line", color:"orange"}
+                }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.ComboChart(document.getElementById('chart'));
 
             chart.draw(data, options);
         }
     </script>
 
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <div id="chart" style="width: 900px; height: 500px"></div>
         
 {% endblock %}
