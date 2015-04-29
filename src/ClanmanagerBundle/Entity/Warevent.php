@@ -124,15 +124,13 @@ class Warevent {
         return $this->time;
     }
 
-
     /**
      * Set attacker
      *
      * @param \ClanmanagerBundle\Entity\Warplayer $attacker
      * @return Warevent
      */
-    public function setAttacker(\ClanmanagerBundle\Entity\Warplayer $attacker = null)
-    {
+    public function setAttacker(\ClanmanagerBundle\Entity\Warplayer $attacker = null) {
         $this->attacker = $attacker;
 
         return $this;
@@ -143,8 +141,7 @@ class Warevent {
      *
      * @return \ClanmanagerBundle\Entity\Warplayer 
      */
-    public function getAttacker()
-    {
+    public function getAttacker() {
         return $this->attacker;
     }
 
@@ -154,8 +151,7 @@ class Warevent {
      * @param \ClanmanagerBundle\Entity\Warplayer $defender
      * @return Warevent
      */
-    public function setDefender(\ClanmanagerBundle\Entity\Warplayer $defender = null)
-    {
+    public function setDefender(\ClanmanagerBundle\Entity\Warplayer $defender = null) {
         $this->defender = $defender;
 
         return $this;
@@ -166,8 +162,12 @@ class Warevent {
      *
      * @return \ClanmanagerBundle\Entity\Warplayer 
      */
-    public function getDefender()
-    {
+    public function getDefender() {
         return $this->defender;
     }
+
+    public function getWar() {
+        return $this->getAttacker()->getWarclan()->getWar();
+    }
+
 }
