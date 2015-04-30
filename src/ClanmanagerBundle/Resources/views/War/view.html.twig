@@ -95,22 +95,25 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}','nr attacks','nr attacks'],
-        {% for hr in 23..0 %}
-            ['{{ hr }}:00',{{ war.warclans[1].timestars[hr] }},{{ war.warclans[0].timestars[hr] }},{{ war.warclans[1].timeattacks[hr] }},{{ war.warclans[0].timeattacks[hr] }}],
-        {% endfor %}
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr attacks', 'nr attacks'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
+                [
+                    [{{ hr }},0,0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }}
+                ],{% endfor %}
+                
             ]);
 
             var options = {
                 title: 'War Stars',
                 legend: {position: 'bottom'},
-                vAxis: { minValue:0, maxValue: {{ war.size*3 }} },
+                //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
+                hAxis: {format: 'HH:mm', direction:-1, viewWindow: {min: [23,0,0], max: [0,0,0]}},
+                vAxis: {minValue:0, maxValue: {{ war.size*3 }}, viewWindowMode: 'maximized' },
                 seriesType: "line",
                 series: {
-                    0: {type: "line", color:"blue"},
-                    1: {type: "line", color:"red"},
-                    2: {type: "area", color:"lightblue"},
-                    3: {type: "area", color:"orange"}
+                    0: {type: "line", color: "blue"},
+                    1: {type: "line", color: "red"},
+                    2: {type: "area", color: "lightblue"},
+                    3: {type: "area", color: "orange"}
                 }
             };
 
@@ -122,14 +125,34 @@
 
     <div id="chart" style="width: 900px; height: 500px"></div>
 
-<!--    
-    <span style="font-family: clash; font-size: 32px">
-         <br>
-        T H E  Q U I C K  B R O W N  F O X  J U M P S  O V E R  T H E  L A Z Y  D O G <br>
-        t h e  q u i c k  b r o w n  f o x  j u m p s  o v e r  t h e  l a z y  d o g <br>
-        0 1 2 3 4 5 6 7 8 9 <br>
-        ` ~ ! @ # $ % ^ & * ( ) - = _ + , . < > / ? ; ' : " [ ] { } <br>
-         <br>
-    </span>
--->
+    <table>
+        <tr><th colspan="6">Last attacks</th></tr>
+        <tr>
+            <th>time</th>
+            <th>attacker</th>
+            <th>defender</th>
+            <th colspan="2">result</th>
+        </tr>
+        {% for n in 0..4 %}
+            {% if warevents[n] is defined %}
+                <tr>
+                    <td>{{ warevents[n].time|date('H:i') }}</td>
+                    <td>{{ warevents[n].attacker }}</td>
+                    <td>{{ warevents[n].defender }}</td>
+                    <td>{{ warevents[n].percent }}%</td>
+                    <td>{{ warevents[n].stars }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <!--    
+        <span style="font-family: clash; font-size: 32px">
+             <br>
+            T H E  Q U I C K  B R O W N  F O X  J U M P S  O V E R  T H E  L A Z Y  D O G <br>
+            t h e  q u i c k  b r o w n  f o x  j u m p s  o v e r  t h e  l a z y  d o g <br>
+            0 1 2 3 4 5 6 7 8 9 <br>
+            ` ~ ! @ # $ % ^ & * ( ) - = _ + , . < > / ? ; ' : " [ ] { } <br>
+             <br>
+        </span>
+    -->
 {% endblock %}

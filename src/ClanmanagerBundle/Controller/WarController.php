@@ -92,7 +92,10 @@ class WarController extends Controller {
         $repository = $this->getDoctrine()
                 ->getRepository('ClanmanagerBundle:War');
         $war = $repository->find($war_id);
-        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war));
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:Warevent');
+        $warevents = $repository->findByWarId($war->getId());
+        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war,'warevents'=>$warevents));
     }
 
 }

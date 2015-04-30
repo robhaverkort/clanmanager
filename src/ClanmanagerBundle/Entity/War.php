@@ -130,8 +130,4 @@ class War {
         return $this->getId() . " " . $this->getWarClans()[0]->getClan()->getName() . " - " . $this->getWarClans()[1]->getClan()->getName();
     }
 
-    public function getWarevents() {
-        return NULL;
-    }
-
 }
