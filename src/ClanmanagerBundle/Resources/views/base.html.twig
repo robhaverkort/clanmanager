@@ -41,10 +41,10 @@
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('profile')}}">Profiles</a><br>
                 {% endif %}
-                {% if app.user and is_granted('ROLE_USER') %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('clan')}}">Clans</a><br>
                 {% endif %}
-                {% if app.user and is_granted('ROLE_USER') %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('player')}}">Players</a><br>
                 {% endif %}
                 {% if app.user and is_granted('ROLE_USER') %}
@@ -58,6 +58,13 @@
                 {% endif %}
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('warevent')}}">Warevents</a><br>
+                {% endif %}
+                <br>
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <a href="#">My Profile</a><br>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <a href="#">My Clan</a><br>
                 {% endif %}
             </p>
 

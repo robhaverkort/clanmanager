@@ -14,7 +14,7 @@ class ClanController extends Controller {
 
     /**
      * @Route("/clan", name="clan")
-     * @Security("has_role('ROLE_USER')")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction() {
         $repository = $this->getDoctrine()
