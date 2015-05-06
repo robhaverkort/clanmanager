@@ -4,16 +4,50 @@
 
 {% block body %}
 
-    <h1>{{ player.id }}. {{ player.name }}
+    <h1>
+        {{ player.id }}. {{ player.name }}
     </h1>
+
+    wars played in:
     <table>
-        <tr>
-        </tr>
 
         <tr>
-            <td></td>
-            <td></td>
+            <th colspan="2">war</th>
+            <th>#</th>
+            <th>defenses</th>
+            <th colspan="3">attacks</th>
         </tr>
+
+        {% for warplayer in player.warplayers %}
+            <tr>
+                <td>{{ warplayer.warclan.war.start|date('Y/m/d') }}</td>
+                <td>{{ warplayer.warclan.war }}</td>
+                <td>{{ warplayer.rank }}</td>
+
+                <td>
+                    {% if warplayer.defends|length > 0 %}
+                        {% for n in 0..warplayer.defends|length-1 %}
+                            <img height="10px" src="{{ asset( ['images/',warplayer.defends[n].stars,'star.png']|join ) }}">
+                            <!-- {{ warplayer.defends[n].stars }}&nbsp; -->
+                        {% endfor %}
+                    {% endif %}
+                </td>
+
+                {% if warplayer.attacks[0] is defined %}
+                    <td>{{ warplayer.attacks[0].defender }}</td>
+                    <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
+                    <td>{{ warplayer.attacks[0].percent }}%</td>
+                {% endif %}
+                {% if warplayer.attacks[1] is defined %}
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td>
+                    <td>{{ warplayer.attacks[1].defender }}</td>
+                    <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
+                    <td>{{ warplayer.attacks[1].percent }}%</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
 
     </table>
 
