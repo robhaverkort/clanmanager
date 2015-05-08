@@ -12,6 +12,8 @@
 
     <table>
         <tr>
+            <th></th>
+            <th>tag</th>
             <th>name</th>
             <th>TH</th>
             <th>join</th>
@@ -19,7 +21,9 @@
         </tr>
         {% for member in clan.memberships %}
             <tr>
-                <td>{{ member.id }} <a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
+                <td>{{ member.id }}</td>
+                <td>{{ member.player.tag }}</td>
+                <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                 <td>{{ member.player.th }}</td>
                 <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
                 <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>

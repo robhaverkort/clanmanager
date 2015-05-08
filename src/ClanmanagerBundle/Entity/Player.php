@@ -25,7 +25,14 @@ class Player {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=32)
+     * @ORM\Column(name="tag", type="string", length=9, nullable=true)
+     */
+    private $tag;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=32, nullable=true)
      */
     private $name;
 
@@ -191,5 +198,28 @@ class Player {
     public function getWarplayers()
     {
         return $this->warplayers;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     * @return Player
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return string 
+     */
+    public function getTag()
+    {
+        return $this->tag;
     }
 }
