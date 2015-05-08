@@ -61,10 +61,10 @@
                 {% endif %}
                 <br>
                 {% if app.user and is_granted('ROLE_USER') %}
-                    <a href="{{ path('player_view',{'player_id':app.user.profile.players[0].id} ) }}">My Profile</a><br> //TODO: fix this
+                    <a href="{{ path('player_view',{'player_id':app.user.profile.players[0].id} ) }}">My Profile</a><br> <!-- TODO: fix this -->
                 {% endif %}
                 {% if app.user and is_granted('ROLE_USER') %}
-                    <a href="{{ path('clan_view',{'clan_id':app.user.profile.players[0].memberships[0].clan.id} ) }}">My Clan</a><br> //TODO: fix this
+                    <a href="{{ path('clan_view',{'clan_id':app.user.profile.players[0].memberships[0].clan.id} ) }}">My Clan</a><br> <!-- TODO: fix this -->
                 {% endif %}
             </p>
 
