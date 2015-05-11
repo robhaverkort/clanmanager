@@ -10,6 +10,8 @@
 {% block body %}
     <h1>{{ clan.tag }} {{ clan.name }}</h1>
 
+
+
     <table>
         <tr>
             <th></th>
@@ -20,44 +22,41 @@
             <th>leave</th>
         </tr>
         {% for member in clan.memberships %}
-            <tr>
-                <td>{{ member.id }}</td>
-                <td>{{ member.player.tag }}</td>
-                <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
-                <td>{{ member.player.th }}</td>
-                <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
-                <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>
-<!--
-                <td>
-                    <table>
-                        <tr>
-                            <th>War</th>
-                            <th>rank</th>
-                        </tr>
-                        {% for warplayer in member.player.warplayers %}
-                            <tr>
-                                <td>{{ warplayer.warclan.war.start|date('Y/m/d') }} {{ warplayer.warclan.war }}</td>
-                                <td>{{ warplayer.rank }}</td>
-                                <td>
-                                    {% for attack in warplayer.attacks %}
-                                        {{ attack.defender }} {{ attack.percent }}% {{ attack.stars }}<br>
-                                    {% endfor %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
--->
-                {% if app.user and is_granted('ROLE_ADMIN') %}
-                    <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
-                {% endif %}
-                
-            </tr>
+            {% if not member.stop %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.player.tag }}</td>
+                    <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
+                    <td>{{ member.player.th }}</td>
+                    <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
+                    <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
+                    {% endif %}
+                </tr>
+            {% endif %}
         {% endfor %}
-        
+
         {% if app.user and is_granted('ROLE_ADMIN') %}
             {{ render(controller('ClanmanagerBundle:Player:new',{'clan_id':clan.id} )) }}
         {% endif %}
         
+        {% for member in clan.memberships %}
+            {% if member.stop %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.player.tag }}</td>
+                    <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
+                    <td>{{ member.player.th }}</td>
+                    <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
+                    <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+
     </table>
 {% endblock %}
