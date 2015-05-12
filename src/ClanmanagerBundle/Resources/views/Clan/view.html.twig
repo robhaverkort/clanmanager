@@ -21,10 +21,12 @@
             <th>join</th>
             <th>leave</th>
         </tr>
+        {% set n=0 %}
         {% for member in clan.memberships %}
             {% if not member.stop %}
+                {% set n=n+1 %}
                 <tr>
-                    <td>{{ member.id }}</td>
+                    <td>{{ n }}.&nbsp;{{ member.id }}</td>
                     <td>{{ member.player.tag }}</td>
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td>{{ member.player.th }}</td>
