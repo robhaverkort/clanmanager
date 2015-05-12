@@ -12,6 +12,7 @@ use ClanmanagerBundle\Entity\Player;
 use ClanmanagerBundle\Entity\Clan;
 use ClanmanagerBundle\Entity\Membership;
 use ClanmanagerBundle\Entity\Warplayer;
+use Doctrine\ORM\EntityRepository;
 
 class WarplayerController extends Controller {
 
@@ -55,7 +56,7 @@ class WarplayerController extends Controller {
 
     /**
      * @Route("/warplayer/new/{warclan_id}", name="warplayer_new")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_ADMIN')")c
      */
     public function newAction(Request $request, $warclan_id) {
         $warclan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Warclan')->find($warclan_id);
@@ -67,8 +68,15 @@ class WarplayerController extends Controller {
                     ->add('rank', 'text', array('attr' => array('size' => 4, 'maxlength' => 3)))
                     ->add('name', 'entity', array(
                         'class' => 'ClanmanagerBundle:Player',
-                        'property' => 'name'
-                    ))
+                        'property' => 'name',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('p')
+                                    ->join('p.memberships','m')
+                                    ->where('m.clan=:clan_id')
+                                    ->andWhere('m.stop IS NULL')
+                                    ->setParameter('clan_id',1)
+                                    ->orderBy('p.name', 'ASC');
+                        }))
                     ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
                     ->add('save', 'submit', array('label' => 'Add Player'))
                     ->getForm();
