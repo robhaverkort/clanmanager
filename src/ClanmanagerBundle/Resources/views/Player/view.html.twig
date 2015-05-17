@@ -32,6 +32,7 @@
 
     <tr>
         <th colspan="2">war</th>
+        <th></th>
         <th>#</th>
         <th>defenses</th>
         <th colspan="3">attacks</th>
@@ -43,6 +44,7 @@
         <tr>
             <td>{{ warplayer.warclan.war.start|date('Y/m/d') }}</td>
             <td>{{ warplayer.warclan.war }}</td>
+            <td>TH{{ warplayer.th }}</td>
             <td>{{ warplayer.rank }}</td>
 
             <td>
@@ -67,6 +69,7 @@
                 {% endif %}
                 
                 <td>{{ warplayer.attacks[0].defender }}</td>
+                <td>TH{{ warplayer.attacks[0].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[0].percent }}%</td>
             {% endif %}
@@ -82,8 +85,9 @@
                 {% endif %}
             </tr>
             <tr>
-                <td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td>
                 <td>{{ warplayer.attacks[1].defender }}</td>
+                <td>TH{{ warplayer.attacks[1].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[1].percent }}%</td>
             {% endif %}
