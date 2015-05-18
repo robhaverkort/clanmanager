@@ -284,8 +284,8 @@ CREATE TABLE `Warplayer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) DEFAULT NULL,
   `warclan_id` int(11) DEFAULT NULL,
-  `rank` int(11) NOT NULL,
-  `th` int(11) NOT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `th` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_BE5782F099E6F5DF` (`player_id`),
   KEY `IDX_BE5782F071B1AE2B` (`warclan_id`),
@@ -341,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-18 10:28:40
+-- Dump completed on 2015-05-18 10:33:25

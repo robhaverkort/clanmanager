@@ -25,14 +25,14 @@ class Warplayer {
     /**
      * @var integer
      *
-     * @ORM\Column(name="rank", type="integer")
+     * @ORM\Column(name="rank", type="integer", nullable=true)
      */
     private $rank;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="th", type="integer")
+     * @ORM\Column(name="th", type="integer", nullable=true)
      */
     private $th;
 
