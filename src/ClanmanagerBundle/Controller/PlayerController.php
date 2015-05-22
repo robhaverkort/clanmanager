@@ -52,6 +52,7 @@ class PlayerController extends Controller {
                 ->add('tag', 'text',array('attr'=>array('size'=>10)))
                 ->add('name', 'text',array('attr'=>array('size'=>16)))
                 ->add('th', 'text',array('attr'=>array('size'=>3,'maxlength'=>2)))
+                ->add('start', 'date',array('mapped'=>false,'data'=> new \DateTime(),'attr'=>array()))
                 ->add('save', 'submit', array('label' => 'Add Player'))
                 ->getForm();
 
@@ -61,7 +62,7 @@ class PlayerController extends Controller {
             $membership = new Membership();
             $membership->setClan($clan);
             $membership->setPlayer($player);
-            //$player->addMembership($membership);
+            $membership->setStart($form['start']->getData());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($membership);
