@@ -1,0 +1,44 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    <table>
+        <tr>
+            <th></th>
+            <th>tag</th>
+            <th>name</th>
+            <th>TH</th>
+        </tr>
+        
+        <tr>
+            <td>id :</td>
+            <td>{{ membership.id }}</td>
+        </tr>
+        <tr>
+            <td>Clan :</td>
+            <td>{{ membership.clan.name }}</td>
+        </tr>
+        <tr>
+            <td>Player :</td>
+            <td>{{ membership.player.name }}</td>
+        </tr>
+        <tr>
+            <td>start :</td>
+            <td>{{ membership.start|date('Y/m/d') }}</td>
+        </tr>
+
+        {{ form_start(form) }}
+        <tr>
+            <td>stop :</td>
+            <td>{{ form_widget(form.stop) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.save) }}</td>
+        <tr>
+            {{ form_end(form) }}
+    </table>
+            
+{% endblock %}

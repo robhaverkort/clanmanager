@@ -31,7 +31,11 @@
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td>{{ member.player.th }}</td>
                     <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
-                    <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>
+                    <td>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path( 'player_stop',{'membership_id':member.id} ) }}">---</a>
+                        {% endif %}
+                    </td>
                     {% if app.user and is_granted('ROLE_ADMIN') %}
                         <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
                     {% endif %}
@@ -42,7 +46,7 @@
         {% if app.user and is_granted('ROLE_ADMIN') %}
             {{ render(controller('ClanmanagerBundle:Player:new',{'clan_id':clan.id} )) }}
         {% endif %}
-        
+
         {% for member in clan.memberships %}
             {% if member.stop %}
                 <tr>

@@ -25,7 +25,7 @@ class PlayerController extends Controller {
         return $this->render('ClanmanagerBundle:Player:index.html.twig', array('players' => $players));
     }
 
-        /**
+    /**
      * @Route("/player/{player_id}", name="player_view")
      * @Security("has_role('ROLE_USER')")
      */
@@ -49,10 +49,10 @@ class PlayerController extends Controller {
         $player = new Player();
         $form = $this->createFormBuilder($player)
                 ->setAction($this->generateUrl('player_new', array('clan_id' => $clan_id)))
-                ->add('tag', 'text',array('attr'=>array('size'=>10)))
-                ->add('name', 'text',array('attr'=>array('size'=>16)))
-                ->add('th', 'text',array('attr'=>array('size'=>3,'maxlength'=>2)))
-                ->add('start', 'date',array('mapped'=>false,'data'=> new \DateTime(),'attr'=>array()))
+                ->add('tag', 'text', array('attr' => array('size' => 10)))
+                ->add('name', 'text', array('attr' => array('size' => 16)))
+                ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
+                ->add('start', 'date', array('mapped' => false, 'data' => new \DateTime(), 'attr' => array()))
                 ->add('save', 'submit', array('label' => 'Add Player'))
                 ->getForm();
 
@@ -74,6 +74,32 @@ class PlayerController extends Controller {
         }
 
         return $this->render('ClanmanagerBundle:Player:new.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/player/stop/{membership_id}", name="player_stop")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function stopAction(Request $request, $membership_id) {
+        $em = $this->getDoctrine()->getManager();
+        $membership = $em->getRepository('ClanmanagerBundle:Membership')->find($membership_id);
+
+        $form = $this->createFormBuilder()
+                ->add('stop', 'date', array('mapped' => false, 'data' => new \DateTime(), 'attr' => array()))
+                ->add('save', 'submit', array('label' => 'Stop Membership'))
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $membership->setStop($form['stop']->getData());
+            $em->persist($membership);
+            $em->flush();
+            $this->addFlash('notice', 'Your changes were saved!');
+            return $this->redirectToRoute('clan_view', array('clan_id' => $membership->getClan()->getId()));
+        }
+
+        return $this->render('ClanmanagerBundle:Player:stop.html.twig', array('membership' => $membership, 'form' => $form->createView()));
     }
 
     /**
