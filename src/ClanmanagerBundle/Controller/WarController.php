@@ -89,13 +89,24 @@ class WarController extends Controller {
      * @Security("has_role('ROLE_USER')")
      */
     public function viewAction($war_id) {
-        $repository = $this->getDoctrine()
-                ->getRepository('ClanmanagerBundle:War');
-        $war = $repository->find($war_id);
-        $repository = $this->getDoctrine()
-                ->getRepository('ClanmanagerBundle:Warevent');
-        $warevents = $repository->findByWarId($war->getId());
-        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war,'warevents'=>$warevents));
+        $em = $this->getDoctrine();
+        $war = $em->getRepository('ClanmanagerBundle:War')->find($war_id);
+        $warclans = $em->getRepository('ClanmanagerBundle:Warclan')->findByWar($war);
+        $warevents = $em->getRepository('ClanmanagerBundle:Warevent')->findByWarId($war->getId());
+
+        $results = array();
+        for ($n = 0; $n < 4; $n++) {
+            $results[0][$n] = 0;
+            $results[1][$n] = 0;
+        }
+        foreach ($warevents as $warevent) {
+            if ($warevent->getAttacker()->getWarclan() == $warclans[0]) {
+                $results[0][$warevent->getStars()]+=1;
+            } else {
+                $results[1][$warevent->getStars()]+=1;
+            }
+        }
+        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results));
     }
 
 }

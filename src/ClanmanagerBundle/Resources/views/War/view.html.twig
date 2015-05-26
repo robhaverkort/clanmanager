@@ -88,26 +88,25 @@
             'version':'1',
             'packages':['corechart']
             }]
-    }"></script>
+            }">
+    </script>
 
     <script type="text/javascript">
         google.setOnLoadCallback(drawChart);
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr attacks', 'nr attacks'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr att', 'nr att'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
                 [
-                    [{{ hr }},0,0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }}
+                    [{{ hr }}, 0, 0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }}
                 ],{% endfor %}
-                
             ]);
-
             var options = {
                 title: 'War Stars',
                 legend: {position: 'bottom'},
                 //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
-                hAxis: {format: 'HH:mm', direction:-1, viewWindow: {min: [23,0,0], max: [0,0,0]}},
-                vAxis: {minValue:0, maxValue: {{ war.size*3 }}, viewWindowMode: 'maximized' },
+                hAxis: {format: 'HH:mm', direction: -1, viewWindow: {min: [23, 0, 0], max: [0, 0, 0]}},
+                vAxis: {minValue:0, maxValue:{{ war.size*3 }}, viewWindowMode: 'maximized'},
                 seriesType: "line",
                 series: {
                     0: {type: "line", color: "blue"},
@@ -116,34 +115,56 @@
                     3: {type: "area", color: "orange"}
                 }
             };
-
-            var chart = new google.visualization.ComboChart(document.getElementById('chart'));
-
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_attacks'));
             chart.draw(data, options);
+
+            var data = google.visualization.arrayToDataTable([
+                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],
+
+    {% for n in 3..0 %}
+            ['{{ n }}',{{ results[0][n] }},{{ results[1][n] }}],
+    {% endfor %}
+
+]);
+
+            var view = new google.visualization.DataView(data);
+            //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
+
+            var options = {
+                title: "Attacks per nr of Stars",
+                bar: {groupWidth: "80%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
+            chart.draw(view, options);
         }
+
     </script>
 
-    <div id="chart" style="width: 900px; height: 500px"></div>
+    <p>
+    <div id="chart_attacks" style="width: 640px; height: 320px; float:left"></div>
+    <div id="chart_stars" style="width: 640px; height: 320px; float:left"></div>
+</p>
 
-    <table>
-        <tr><th colspan="6">Last attacks</th></tr>
-        <tr>
-            <th>time</th>
-            <th>attacker</th>
-            <th>defender</th>
-            <th colspan="2">result</th>
-        </tr>
-        {% for n in 0..4 %}
-            {% if warevents[n] is defined %}
-                <tr>
-                    <td>{{ warevents[n].time|date('H:i') }}</td>
-                    <td>{{ warevents[n].attacker }}</td>
-                    <td>{{ warevents[n].defender }}</td>
-                    <td>{{ warevents[n].percent }}%</td>
-                    <td>{{ warevents[n].stars }}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+<table>
+    <tr><th colspan="6">Last attacks</th></tr>
+    <tr>
+        <th>time</th>
+        <th>attacker</th>
+        <th>defender</th>
+        <th colspan="2">result</th>
+    </tr>
+    {% for n in 0..4 %}
+        {% if warevents[n] is defined %}
+            <tr>
+                <td>{{ warevents[n].time|date('H:i') }}</td>
+                <td>{{ warevents[n].attacker }}</td>
+                <td>{{ warevents[n].defender }}</td>
+                <td>{{ warevents[n].percent }}%</td>
+                <td>{{ warevents[n].stars }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
 
 {% endblock %}
