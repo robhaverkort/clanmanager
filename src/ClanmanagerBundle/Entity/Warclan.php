@@ -29,6 +29,13 @@ class Warclan {
     private $wins;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="stars", type="integer", nullable=true)
+     */
+    private $stars;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Clan", inversedBy="warclans")
      * @ORM\JoinColumn(name="clan_id", referencedColumnName="id")
      */
@@ -210,4 +217,17 @@ class Warclan {
         return $totalattacks;
     }
 
+
+    /**
+     * Set stars
+     *
+     * @param integer $stars
+     * @return Warclan
+     */
+    public function setStars($stars)
+    {
+        $this->stars = $stars;
+
+        return $this;
+    }
 }
