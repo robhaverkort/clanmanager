@@ -14,10 +14,10 @@
                 <td>{{ profile.facebookprofile }}</td>
                 <td>
                     {% for player in profile.players %}
-                        {{ player.name }} -
                         {% for membership in player.memberships %}
-                            {{ membership.clan.name }}<br>
+                            {{ membership.clan.name }} -
                         {% endfor %}
+                        {{ player.name }}<br>
                     {% endfor %}
                 </td>
             </tr>
