@@ -66,11 +66,6 @@
                 {% if app.user and is_granted('ROLE_USER') %}
                     <a href="{{ path('clan_view',{'clan_id':app.user.profile.players[0].memberships[0].clan.id} ) }}">My Clan</a><br> <!-- TODO: fix this -->
                 {% endif %}
-                <br>
-                Results<br>
-                {% if app.user and is_granted('ROLE_USER') %}
-                    <a href="{{ path('results_war') }}">Wars</a><br> <!-- TODO: fix this -->
-                {% endif %}
             </p>
 
         </div>
