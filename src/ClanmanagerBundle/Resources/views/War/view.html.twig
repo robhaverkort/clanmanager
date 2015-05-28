@@ -63,7 +63,11 @@
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].stars }}
                                     {{ war.warclans[wc].warplayers[rank-1].attacks[at].time|date('H:i') }}
                                 {% else %}
-                                    <a href="{{ path('warevent_new',{'attacker_id':war.warclans[wc].warplayers[rank-1].id} ) }}">---</a>
+                                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('warevent_new',{'attacker_id':war.warclans[wc].warplayers[rank-1].id} ) }}">---</a>
+                                    {% else %}
+                                        ---
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         </td>
@@ -119,25 +123,22 @@
             chart.draw(data, options);
 
             var data = google.visualization.arrayToDataTable([
-                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],
+                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],    {% for n in 3..0 %}
+                            ['{{ n }}',{{ results[0][n] }} ,{{ results[1][n] }} ],    {% endfor %}
 
-    {% for n in 3..0 %}
-            ['{{ n }}',{{ results[0][n] }},{{ results[1][n] }}],
-    {% endfor %}
+                                    ]);
 
-]);
+                                    var view = new google.visualization.DataView(data);
+                                    //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
 
-            var view = new google.visualization.DataView(data);
-            //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
-
-            var options = {
-                title: "Attacks per nr of Stars",
-                bar: {groupWidth: "80%"},
-                legend: {position: "none"},
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
-            chart.draw(view, options);
-        }
+                                    var options = {
+                                        title: "Attacks per nr of Stars",
+                                        bar: {groupWidth: "80%"},
+                                        legend: {position: "none"},
+                                    };
+                                    var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
+                                    chart.draw(view, options);
+                                }
 
     </script>
 

@@ -21,6 +21,8 @@
         {% endfor %}
     </table>
 
-    <p><a href="{{ path('war_new') }}">Start New War</a></p>
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        <p><a href="{{ path('war_new') }}">Start New War</a></p>
+    {% endif %}
 
 {% endblock %}
