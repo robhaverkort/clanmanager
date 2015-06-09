@@ -155,7 +155,7 @@
         <th>defender</th>
         <th colspan="2">result</th>
     </tr>
-    {% for n in 0..4 %}
+    {% for n in 0..war.size*2 %}
         {% if warevents[n] is defined %}
             <tr>
                 <td>{{ warevents[n].time|date('H:i') }}</td>
