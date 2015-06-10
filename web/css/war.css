@@ -26,3 +26,27 @@ th {
 .attack a:hover {
     font-weight: bold;
 }
+
+.warevents {
+    vertical-align: top;
+    border: 0px solid;
+    border-spacing: 0px;
+    border-collapse: separate;
+}
+
+.warevents td {
+    width: 200px;
+    vertical-align: top;
+    border-top: 1px solid;
+    padding: 2px;
+}
+
+.warevents .green {
+    background-color: #ccffcc;
+}
+.warevents .red {
+    background-color: #ffcccc;
+}
+.warevents .gray {
+    background-color: #cccccc;
+}
