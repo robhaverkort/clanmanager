@@ -100,43 +100,42 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr att', 'nr att'],        {% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}
-        {% for hr in 23..lasthr %}
-                    [[{{ hr }}, 0, 0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }} ],        {% endfor %}
-                            ]);
-                            var options = {
-                                title: 'War Stars',
-                                legend: {position: 'bottom'},
-                                //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
-                                hAxis: {format: 'HH:mm', direction: -1, viewWindow: {min: [23, 0, 0], max: [0, 0, 0]}},
-                                vAxis: {minValue:0, maxValue:{{ war.size*3 }}, viewWindowMode: 'maximized'},
-                                seriesType: "line",
-                                series: {
-                                    0: {type: "line", color: "blue"},
-                                    1: {type: "line", color: "red"},
-                                    2: {type: "area", color: "lightblue"},
-                                    3: {type: "area", color: "orange"}
-                                }
-                            };
-                            var chart = new google.visualization.ComboChart(document.getElementById('chart_attacks'));
-                            chart.draw(data, options);
+                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr att', 'nr att'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
+                [[{{ hr }}, 0, 0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }} ],{% endfor %}
+            ]);
+            var options = {
+                title: 'War Stars',
+                legend: {position: 'bottom'},
+                //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
+                hAxis: {format: 'HH:mm', direction: -1, viewWindow: {min: [23, 0, 0], max: [0, 0, 0]}},
+                vAxis: {minValue:0, maxValue:{{ war.size*3 }}, viewWindowMode: 'maximized'},
+                seriesType: "line",
+                series: {
+                    0: {type: "line", color: "blue"},
+                    1: {type: "line", color: "red"},
+                    2: {type: "area", color: "lightblue"},
+                    3: {type: "area", color: "orange"}
+                }
+            };
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_attacks'));
+            chart.draw(data, options);
 
-                            var data = google.visualization.arrayToDataTable([
-                                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],        {% for n in 3..0 %}
-                                            ['{{ n }}',{{ results[0][n] }} ,{{ results[1][n] }} ],        {% endfor %}
-                                                    ]);
+            var data = google.visualization.arrayToDataTable([
+                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],{% for n in 3..0 %}
+                ['{{ n }}',{{ results[0][n] }} ,{{ results[1][n] }} ],{% endfor %}
+            ]);
 
-                                                    var view = new google.visualization.DataView(data);
-                                                    //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
+            var view = new google.visualization.DataView(data);
+            //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
 
-                                                    var options = {
-                                                        title: "Attacks per nr of Stars",
-                                                        bar: {groupWidth: "80%"},
-                                                        legend: {position: "none"},
-                                                    };
-                                                    var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
-                                                    chart.draw(view, options);
-                                                }
+            var options = {
+                title: "Attacks per nr of Stars",
+                bar: {groupWidth: "80%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
+            chart.draw(view, options);
+        }
 
     </script>
 
@@ -155,27 +154,27 @@
         <th></th>
     </tr>
 
-    {% for n in 0..war.size*2 %}
+    {% for n in 0..war.size*4 %}
         {% if warevents[n] is defined %}
-            <tr class="{{warevents[n].attacker.warclan.clan.id==1?"green":"red"}}">
+            <tr class="{{warevents[n].defender.stars(warevents[n].time)>=warevents[n].stars?'gray':warevents[n].attacker.warclan.clan.id==1?'green':'red'}}">
 
                 {% if warevents[n].attacker.warclan.clan.id==1 %}
-                    
+
                     <td>
                         {{ warevents[n].attacker }}<br/>
                         {{ warevents[n].percent }}% <img height="10px" src="{{ asset( ['images/',warevents[n].stars,'star.png']|join ) }}">
                     </td>
                     <td> ---> </td>
                     <td>{{ warevents[n].defender }}<br/></td>
-                
+
                 {% else %}
-                    
+
                     <td>{{ warevents[n].defender }}<br/></td>
                     <td> <--- </td>
                     <td>{{ warevents[n].attacker }}<br/>
                         {{ warevents[n].percent }}% <img height="10px" src="{{ asset( ['images/',warevents[n].stars,'star.png']|join ) }}">
                     </td>
-                    
+
                 {% endif %}
 
                 <td><br>{{ warevents[n].time|date('H:i') }}</td>

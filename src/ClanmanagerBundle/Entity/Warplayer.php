@@ -224,11 +224,19 @@ class Warplayer {
         return $this->getRank() . ". " . $this->getPlayer()->getName(); // . " - " . $this->getId();
     }
 
-    public function getStars() {
+    /**
+     * Get Stars
+     * 
+     * returns the number of stars suffered by this warplayer.
+     *
+     * @return integer 
+     */
+    public function getStars($time = NULL) {
         $nrstars = 0;
         $stars = array(0);
         foreach ($this->getDefends() as $warevent) {
-            $stars[] = $warevent->getStars();
+            if ($warevent->getTime() > $time ) //new \DateTime("23:10"))
+                $stars[] = $warevent->getStars();
         }
         $nrstars += max($stars);
         return $nrstars;

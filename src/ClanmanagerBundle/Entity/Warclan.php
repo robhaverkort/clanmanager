@@ -161,6 +161,13 @@ class Warclan {
         return $this->wins;
     }
 
+    /**
+     * Get nr of Attacks
+     * 
+     * returns the number of attacks made by this warclan.
+     *
+     * @return integer 
+     */
     public function getNrattacks() {
         $nrattacks = 0;
         foreach ($this->getWarplayers() as $warplayer) {
@@ -169,6 +176,13 @@ class Warclan {
         return $nrattacks;
     }
 
+    /**
+     * Get Stars
+     * 
+     * returns the number of stars suffered by this warclan.
+     *
+     * @return integer 
+     */
     public function getStars() {
         $nrstars = 0;
         foreach ($this->getWarplayers() as $warplayer) {
