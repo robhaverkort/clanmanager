@@ -25,16 +25,20 @@
                 {% for wc in 0..1 %}
                     <td class="attacker">{{ rank }}.</td>
 
+
                     <td class="attacker">
-                        {% if war.warclans[wc].warplayers[rank-1].player is defined %}
-                            {{ war.warclans[wc].warplayers[rank-1].player.name }}
-                        {% endif %}
+                        <a href="{{ path('warplayer_edit',{'warplayer_id':war.warclans[wc].warplayers[rank-1].id} ) }}">
+                            {% if war.warclans[wc].warplayers[rank-1].player is defined %}
+                                {{ war.warclans[wc].warplayers[rank-1].player.name }}
+                            {% endif %}
+                        </a>
                     </td>
                     <td class="attacker">
                         {% if war.warclans[wc].warplayers[rank-1] is defined %}
                             TH{{ war.warclans[wc].warplayers[rank-1].th }}
                         {% endif %}
                     </td>
+
 
                     <td>&nbsp;</td>        
 
@@ -156,7 +160,7 @@
 
     {% for n in 0..war.size*4 %}
         {% if warevents[n] is defined %}
-            <tr class="{{warevents[n].defender.stars(warevents[n].time)>=warevents[n].stars?'gray':warevents[n].attacker.warclan.clan.id==1?'green':'red'}}">
+            <tr class="{{warevents[n].stars<=warevents[n].defender.stars(warevents[n].time)?'gray':warevents[n].attacker.warclan.clan.id==1?'green':'red'}}">
 
                 {% if warevents[n].attacker.warclan.clan.id==1 %}
 

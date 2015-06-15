@@ -15,6 +15,17 @@ th {
     font-family: clash;
     font-size: 10px;
 }
+.attacker a:link {
+    color: black;
+    text-decoration: none;
+}
+.attacker a:hover {
+    text-decoration: underline;
+}
+.attacker a:visited {
+    color: black;
+}
+
 .attack {
     font-size: 10px;
 }

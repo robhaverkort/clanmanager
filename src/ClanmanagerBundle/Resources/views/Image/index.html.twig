@@ -1,0 +1,11 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    {% for image in images %}
+        <a href="#">{{ image }}</a><br>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+
+    <h1>Edit Warplayer</h1>
+    
+    {{ form_start(form) }}
+    <table>
+        <tr>
+            <th>rank</th>
+            <th>name</th>
+            <th>TH</th>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.rank) }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+            <td>{{ form_widget(form.th) }}</td>
+            <td>{{ form_widget(form.save) }}</td>
+        <tr>
+    </table>
+    {{ form_end(form) }}
+
+{% endblock %}
