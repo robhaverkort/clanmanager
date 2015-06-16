@@ -68,6 +68,7 @@
                 {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2], 3:stars[3]+1 } %}
                 {% endif %}
                 
+                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[0].defender.rank) }}</td>
                 <td>{{ warplayer.attacks[0].defender }}</td>
                 <td>TH{{ warplayer.attacks[0].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
@@ -86,6 +87,7 @@
             </tr>
             <tr>
                 <td></td><td></td><td></td><td></td><td></td>
+                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[1].defender.rank) }}</td>
                 <td>{{ warplayer.attacks[1].defender }}</td>
                 <td>TH{{ warplayer.attacks[1].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
