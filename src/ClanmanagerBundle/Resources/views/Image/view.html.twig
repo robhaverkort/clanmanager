@@ -4,8 +4,6 @@
 
 {% block body %}
 
-    {% for image in images %}
-        <a href="{{ path('image_view',{'image_id':0} ) }}">{{ image }}</a><br>
-    {% endfor %}
+    <img src="{{ path('image_display',{'image_id':0} ) }}">
 
 {% endblock %}
