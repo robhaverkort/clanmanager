@@ -4,6 +4,15 @@
 
 {% block body %}
 
-    <img src="{{ path('image_display',{'image_id':0} ) }}">
+    <table>
+        {% for attack_id in 0..8 %}
+            <tr>
+                {% for part_id in 0..8 %}
+                    <td><img src="{{ path('image_display',{'image_id':0,'attack_id':attack_id, 'part_id':part_id} ) }}"></td>
+                    <td></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
