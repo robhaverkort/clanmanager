@@ -11,5 +11,25 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class WarRepository extends EntityRepository {
-    
+
+    public function findByPlayerId($player_id) {
+        return $this->createQueryBuilder('w')
+                        ->select('w')
+                        ->leftJoin('w.warclans', 'wc')
+                        ->leftJoin('wc.warplayers', 'wp')
+                        ->leftJoin('wp.player', 'p')
+                        ->leftjoin('p.memberships', 'm')
+                        ->where('p.id = :player_id')
+                        ->andWhere('m.stop IS NULL')
+                        ->orderBy('w.start', 'DESC')
+                        ->setParameter('player_id', $player_id)
+                        ->getQuery()
+                        ->getResult();
+    }
+
+// select * from War 
+// JOIN Warclan ON War.id=Warclan.war_id 
+// JOIN Warplayer ON Warclan.id=Warplayer.warclan_id 
+// JOIN Player ON Warplayer.player_id=Player.id 
+// WHERE Player.id=1;
 }

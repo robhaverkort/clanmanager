@@ -34,7 +34,9 @@ class PlayerController extends Controller {
                 ->getRepository('ClanmanagerBundle:Player');
         $player = $repository->find($player_id);
 
-        return $this->render('ClanmanagerBundle:Player:view.html.twig', array('player' => $player));
+        $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
+
+        return $this->render('ClanmanagerBundle:Player:view.html.twig', array('player' => $player, 'clan' => $clan));
     }
 
     /**

@@ -22,7 +22,9 @@ class WarController extends Controller {
     public function indexAction() {
         $repository = $this->getDoctrine()
                 ->getRepository('ClanmanagerBundle:War');
-        $wars = $repository->findAll();
+        //$wars = $repository->findAll();
+        $wars = $repository->findBy(array(), array('start' => 'DESC'));
+        //$wars = $repository->findByPlayerId($this->getUser()->getProfile()->getPlayers()[0]->getId());
         return $this->render('ClanmanagerBundle:War:index.html.twig', array('wars' => $wars));
     }
 

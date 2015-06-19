@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClanRepository extends EntityRepository {
 
+    public function findByPlayer($player) {
+        return $this->createQueryBuilder('c')
+                        ->select('c')
+                        ->join('c.memberships', 'm')
+                        ->where('m.player = :player')
+                        ->andwhere('m.stop IS NULL')
+                        ->setParameter('player', $player)
+                        ->getQuery()
+                        ->setMaxResults(1)
+                        ->getOneOrNullResult();
+    }
+
 }
