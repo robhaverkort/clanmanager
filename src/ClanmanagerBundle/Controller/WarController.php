@@ -96,6 +96,7 @@ class WarController extends Controller {
         $warclans = $em->getRepository('ClanmanagerBundle:Warclan')->findByWar($war);
         $warevents = $em->getRepository('ClanmanagerBundle:Warevent')->findByWarId($war->getId());
 
+        // graph attacks per stars
         $results = array();
         for ($n = 0; $n < 4; $n++) {
             $results[0][$n] = 0;
@@ -108,6 +109,7 @@ class WarController extends Controller {
                 $results[1][$warevent->getStars()]+=1;
             }
         }
+        
         return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results));
     }
 
