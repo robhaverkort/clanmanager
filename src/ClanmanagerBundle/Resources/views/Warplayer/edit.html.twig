@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td>{{ form_widget(form.rank) }}</td>
-            <td>{{ form_widget(form.name) }}</td>
+            <td>{{ form.name is defined ? form_widget(form.name) : form_widget(form.player)}}</td>
             <td>{{ form_widget(form.th) }}</td>
             <td>{{ form_widget(form.save) }}</td>
         <tr>

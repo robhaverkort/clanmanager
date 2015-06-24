@@ -132,22 +132,44 @@ class WarplayerController extends Controller {
     public function editAction(Request $request, $warplayer_id) {
         $warplayer = $this->getDoctrine()->getRepository('ClanmanagerBundle:Warplayer')->find($warplayer_id);
 
-        $form = $this->createFormBuilder($warplayer)
-                //->setAction($this->generateUrl('warplayer_new', array('warclan_id' => $warclan_id)))
-                ->add('rank', 'text', array('disabled' => true, 'read_only' => true, 'attr' => array('size' => 4, 'maxlength' => 3)))
-                ->add('name', 'text', array('mapped' => false, 'data' => $warplayer->getPlayer()->getName()))
-                ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
-                ->add('save', 'submit', array('label' => 'Edit Player'))
-                ->getForm();
+        if ($warplayer->getWarclan()->getClan()->getId() == 1) {
+            $form = $this->createFormBuilder($warplayer)
+                    ->add('rank', 'text', array('disabled' => true, 'read_only' => true, 'attr' => array('size' => 4, 'maxlength' => 3)))
+                    ->add('player', 'entity', array(
+                        'class' => 'ClanmanagerBundle:Player',
+                        'property' => 'name',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('p')
+                                    ->join('p.memberships', 'm')
+                                    ->where('m.clan=:clan_id')
+                                    ->andWhere('m.stop IS NULL')
+                                    ->setParameter('clan_id', 1)
+                                    ->orderBy('p.name', 'ASC');
+                        }))
+                    ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
+                    ->add('save', 'submit', array('label' => 'Edit Player'))
+                    ->getForm();
+        } else {
+            $form = $this->createFormBuilder($warplayer)
+                    ->add('rank', 'text', array('disabled' => true, 'read_only' => true, 'attr' => array('size' => 4, 'maxlength' => 3)))
+                    ->add('name', 'text', array('mapped' => false, 'data' => $warplayer->getPlayer()->getName()))
+                    ->add('th', 'text', array('attr' => array('size' => 3, 'maxlength' => 2)))
+                    ->add('save', 'submit', array('label' => 'Edit Player'))
+                    ->getForm();
+        }
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($warplayer);
-            $player = $warplayer->getPlayer();
-            $player->setName($form['name']->getData());
-            $em->persist($warplayer);
+            if ($warplayer->getWarclan()->getClan()->getId() == 1) {
+                $em->persist($warplayer);
+            } else {
+                $em->persist($warplayer);
+                $player = $warplayer->getPlayer();
+                $player->setName($form['name']->getData());
+                $em->persist($player);
+            }
             $em->flush();
             return $this->redirectToRoute('war_view', array('war_id' => $warplayer->getWarclan()->getWar()));
         }
