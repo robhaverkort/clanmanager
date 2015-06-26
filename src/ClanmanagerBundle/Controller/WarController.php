@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ClanmanagerBundle\Entity\War;
 use ClanmanagerBundle\Entity\Clan;
+use ClanmanagerBundle\Entity\Player;
+use ClanmanagerBundle\Entity\Membership;
 use ClanmanagerBundle\Entity\Warclan;
+use ClanmanagerBundle\Entity\Warplayer;
 
 class WarController extends Controller {
 
@@ -66,6 +69,13 @@ class WarController extends Controller {
             $mwarclan->setWins($form['myclanwins']->getData());
             $em->persist($mwarclan);
 
+            for ($rank = 1; $rank <= $war->getSize(); $rank++) {
+                $warplayer = new Warplayer();
+                $warplayer->setRank($rank);
+                $warplayer->setWarclan($mwarclan);
+                $em->persist($warplayer);
+            }
+
             // ENEMY CLAN
             $eclan = new Clan();
             $eclan->setName($form['clanname']->getData());
@@ -77,6 +87,23 @@ class WarController extends Controller {
             $ewarclan->setClan($eclan);
             $ewarclan->setWins($form['clanwins']->getData());
             $em->persist($ewarclan);
+
+            for ($rank = 1; $rank <= $war->getSize(); $rank++) {
+                $player = new Player();
+                $player->setName("---");
+                $em->persist($player);
+
+                $membership = new Membership();
+                $membership->setPlayer($player);
+                $membership->setClan($ewarclan->getClan());
+                $em->persist($membership);
+
+                $warplayer = new Warplayer();
+                $warplayer->setRank($rank);
+                $warplayer->setWarclan($ewarclan);
+                $warplayer->setPlayer($player);
+                $em->persist($warplayer);
+            }
 
             $em->flush();
 
@@ -109,7 +136,7 @@ class WarController extends Controller {
                 $results[1][$warevent->getStars()]+=1;
             }
         }
-        
+
         return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results));
     }
 

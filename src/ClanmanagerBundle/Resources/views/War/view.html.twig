@@ -28,7 +28,7 @@
 
                     <td class="attacker">
                         <a href="{{ war.warclans[wc].warplayers[rank-1].player is defined ? path('warplayer_edit',{'warplayer_id':war.warclans[wc].warplayers[rank-1].id} ) }}">
-                            {{ war.warclans[wc].warplayers[rank-1].player is defined ? war.warclans[wc].warplayers[rank-1].player.name : "---" }}
+                            {{ war.warclans[wc].warplayers[rank-1].player.name is defined ? war.warclans[wc].warplayers[rank-1].player.name : "---" }}
                         </a>
                     </td>
                     <td class="attacker">
