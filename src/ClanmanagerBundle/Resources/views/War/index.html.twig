@@ -2,12 +2,17 @@
 
 {% block title %}CoC ClanManager{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/war.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
     <h1>Wars</h1>
 
     <table>
         {% for war in wars %}
-            <tr>
+            <tr class="{{ war.warclans[0].stars == war.warclans[1].stars ? 'tie' : war.warclans[0].stars < war.warclans[1].stars ? 'win' : 'lose' }}">
                 <td>{{ war.id }}</td>
                 <td><a href="{{ path('war_view',{'war_id':war.id}) }}">{{ war.start|date('Y/m/d') }}</a></td>
                 <td>{{ war.size }}v{{ war.size }}</td>

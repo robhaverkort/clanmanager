@@ -61,3 +61,13 @@ th {
 .warevents .gray {
     background-color: #dddddd;
 }
+
+.win {
+    background-color: #ccffcc;
+}
+.lose {
+    background-color: #ffcccc;
+}
+.tie {
+    background-color: #dddddd;
+}
