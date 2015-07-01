@@ -184,15 +184,7 @@ class Warclan {
      * @return integer 
      */
     public function getStars() {
-        $nrstars = 0;
-        foreach ($this->getWarplayers() as $warplayer) {
-            $stars = array(0);
-            foreach ($warplayer->getDefends() as $warevent) {
-                $stars[] = $warevent->getStars();
-            }
-            $nrstars += max($stars);
-        }
-        return $nrstars;
+        return $this->stars;
     }
 
     public function getTimestars() {
@@ -231,17 +223,16 @@ class Warclan {
         return $totalattacks;
     }
 
-
     /**
      * Set stars
      *
      * @param integer $stars
      * @return Warclan
      */
-    public function setStars($stars)
-    {
+    public function setStars($stars) {
         $this->stars = $stars;
 
         return $this;
     }
+
 }

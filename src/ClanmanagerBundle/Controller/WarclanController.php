@@ -49,4 +49,31 @@ class WarclanController extends Controller {
         return new Response($comp[10] . "/" . $comp[9] . "/" . $comp[8]);
     }
 
+    /**
+     * @Route("/warclan/stars/{warclan_id}", name="warclan_stars")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function starsAction($warclan_id) {
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:Warclan');
+        $warclan = $repository->find($warclan_id);
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $nrstars = 0;
+            foreach ($warclan->getWarplayers() as $warplayer) {
+                $stars = array(0);
+                foreach ($warplayer->getDefends() as $warevent) {
+                    $stars[] = $warevent->getStars();
+                }
+                $nrstars += max($stars);
+            }
+            $warclan->setStars($nrstars);
+            $em = $this->getDoctrine()->getManager();
+            //$em->persist($warclan);
+            $em->flush();
+        }
+
+        return new Response($warclan->getStars());
+    }
+
 }
