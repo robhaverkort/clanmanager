@@ -11,7 +11,18 @@
     <h1>Wars</h1>
 
     <table>
+        <tr>
+            <th>id</th>
+            <th>start</th>
+            <th>size</th>
+            <th>my Clan</th>
+            <th></th>
+            <th>opponent Clan</th>
+            <th colspan="3">stars</th>
+            <th colspan="3">comp</th>
+        </tr>
         {% for war in wars %}
+
             <tr class="{{ war.warclans[0].stars == war.warclans[1].stars ? 'tie' : war.warclans[0].stars < war.warclans[1].stars ? 'win' : 'lose' }}">
                 <td>{{ war.id }}</td>
                 <td><a href="{{ path('war_view',{'war_id':war.id}) }}">{{ war.start|date('Y/m/d H:i') }}</a></td>
@@ -22,6 +33,11 @@
                 <td>{{ war.warclans[1].stars }}</td>
                 <td>-</td>
                 <td>{{ war.warclans[0].stars }}</td>
+                
+                <td>-/-/- {# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[0].id } )) #}</td>
+                <td>-</td>
+                <td>-/-/-</td>
+                
             </tr>
         {% endfor %}
     </table>

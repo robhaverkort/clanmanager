@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 
 class WarclanController extends Controller {
 
@@ -29,6 +30,23 @@ class WarclanController extends Controller {
                 ->getRepository('ClanmanagerBundle:Warclan');
         $warclan = $repository->find($warclan_id);
         return $this->render('ClanmanagerBundle:Warclan:view.html.twig', array('warclan' => $warclan));
+    }
+
+    /**
+     * @Route("/warclan/comp/{warclan_id}", name="warclan_comp")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function compAction($warclan_id) {
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:Warclan');
+        $warclan = $repository->find($warclan_id);
+
+        $comp = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        foreach ($warclan->getWarplayers() as $warplayer) {
+            $comp[$warplayer->getTh()]+=1;
+        }
+
+        return new Response($comp[10] . "/" . $comp[9] . "/" . $comp[8]);
     }
 
 }
