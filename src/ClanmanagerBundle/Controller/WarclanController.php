@@ -43,7 +43,8 @@ class WarclanController extends Controller {
 
         $comp = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         foreach ($warclan->getWarplayers() as $warplayer) {
-            $comp[$warplayer->getTh()]+=1;
+            if ($warplayer->getTh())
+                $comp[$warplayer->getTh()]+=1;
         }
 
         return new Response($comp[10] . "/" . $comp[9] . "/" . $comp[8]);
