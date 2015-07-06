@@ -205,6 +205,15 @@ class Warclan {
         return $totalstars;
     }
 
+    public function getNrTH($th) {
+        $nr = 0;
+        foreach ($this->getWarplayers() as $warplayer) {
+            if ($warplayer->getTh() == $th)
+                $nr++;
+        }
+        return $nr ? $nr : "-";
+    }
+
     public function getTimeattacks() {
         $totalattacks = array(0);
         for ($hour = 0; $hour < 24; $hour++) {

@@ -34,9 +34,9 @@
                 <td>-</td>
                 <td>{{ war.warclans[0].stars }}</td>
                 
-                <td>{{ render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[0].id } )) }}</td>
+                <td>{{ war.warclans[0].nrth(10) }}/{{ war.warclans[0].nrth(9) }}/{{ war.warclans[0].nrth(8) }}{# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[0].id } )) #}</td>
                 <td>-</td>
-                <td>{{ render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[1].id } )) }}</td>
+                <td>{{ war.warclans[1].nrth(10) }}/{{ war.warclans[1].nrth(9) }}/{{ war.warclans[1].nrth(8) }}{# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[1].id } )) #}</td>
                 
             </tr>
         {% endfor %}
