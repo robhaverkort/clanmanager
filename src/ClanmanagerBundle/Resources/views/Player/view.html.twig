@@ -75,6 +75,7 @@
                 <td>TH{{ warplayer.attacks[0].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[0].percent }}%</td>
+                <td>{{ warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] ? "virgin base " : "cleanup" }}</td>
             {% endif %}
             {% if warplayer.attacks[1] is defined %}
                 {% if warplayer.attacks[1].stars==0 %}
@@ -94,6 +95,7 @@
                 <td>TH{{ warplayer.attacks[1].defender.th }}</td>
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[1].percent }}%</td>
+                <td>{{ warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] ? "virgin base " : "cleanup" }}</td>
             {% endif %}
         </tr>
     {% endfor %}
