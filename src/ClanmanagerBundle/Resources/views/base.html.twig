@@ -70,6 +70,10 @@
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('image')}}">Images</a><br>
                 {% endif %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{path('warclanscom')}}">Warclans</a><br>
+                {% endif %}
+
 
             </p>
 

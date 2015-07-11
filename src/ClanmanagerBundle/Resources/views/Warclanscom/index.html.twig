@@ -1,0 +1,24 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/warclanscom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    TITLE: {{ title }} <br>
+    <p></p>
+
+    {% for player in players %}
+        {{ player.nodeValue }}<br>
+        {% if player.nodeValue.childNodes is defined %}
+            childNodes:
+            {% for key in player.nodeValue.childNodes %}
+                key: {{ key.nodeValue }} <br>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
