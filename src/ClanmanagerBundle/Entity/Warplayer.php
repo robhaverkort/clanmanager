@@ -221,7 +221,10 @@ class Warplayer {
     }
 
     public function __toString() {
-        return $this->getRank() . ". " . $this->getPlayer()->getName(); // . " - " . $this->getId();
+        if ($this->getPlayer())
+            return $this->getRank() . ". " . $this->getPlayer()->getName(); // . " - " . $this->getId();
+        else
+            return $this->getRank() . ". ---";
     }
 
     /**
@@ -235,7 +238,7 @@ class Warplayer {
         $nrstars = 0;
         $stars = array(0);
         foreach ($this->getDefends() as $warevent) {
-            if ($warevent->getTime() > $time ) //new \DateTime("23:10"))
+            if ($warevent->getTime() > $time) //new \DateTime("23:10"))
                 $stars[] = $warevent->getStars();
         }
         $nrstars += max($stars);

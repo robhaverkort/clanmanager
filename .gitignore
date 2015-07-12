@@ -1,3 +1,4 @@
 # Ignore cache and logs
 app/cache/
 app/logs/
+dbupdate.sh
