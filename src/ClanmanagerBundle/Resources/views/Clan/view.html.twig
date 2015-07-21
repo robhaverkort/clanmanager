@@ -39,6 +39,11 @@
                     {% if app.user and is_granted('ROLE_ADMIN') %}
                         <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
                     {% endif %}
+                    <td>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            {{ member.player.profile.user is defined ? member.player.profile.user.username : "---" }}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endif %}
         {% endfor %}
