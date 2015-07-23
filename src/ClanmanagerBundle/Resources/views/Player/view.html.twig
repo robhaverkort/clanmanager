@@ -41,6 +41,8 @@
     </tr>
 
     {% set stars=[0,0,0,0] %}
+    {% set virginbase=0 %}
+    {% set cleanup=0 %}
 
     {% for warplayer in player.warplayers %}
         <tr>
@@ -76,6 +78,11 @@
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[0].percent }}%</td>
                 <td>{{ warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] ? "virgin base " : "cleanup" }}</td>
+                {% if warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] %}
+                    {% set virginbase = virginbase + 1 %}
+                {% else %}
+                    {% set cleanup = cleanup + 1 %}
+                {% endif %}
             {% endif %}
             {% if warplayer.attacks[1] is defined %}
                 {% if warplayer.attacks[1].stars==0 %}
@@ -96,6 +103,11 @@
                 <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
                 <td>{{ warplayer.attacks[1].percent }}%</td>
                 <td>{{ warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] ? "virgin base " : "cleanup" }}</td>
+                {% if warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] %}
+                    {% set virginbase = virginbase + 1 %}
+                {% else %}
+                    {% set cleanup = cleanup + 1 %}
+                {% endif %}
             {% endif %}
         </tr>
     {% endfor %}
@@ -103,6 +115,7 @@
 </table>
 </p>
 
+virgin/cleanup: {{ virginbase }}/{{ cleanup }}<br>
 
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -124,10 +137,26 @@
             slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_stars'));
 
         chart.draw(data, options);
-    }
+
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Virgin Base',{{ virginbase }} ],
+            ['Cleanup',{{ cleanup }} ],
+        ]);
+
+        var options = {
+            title: 'Virgin Base / Cleanup',
+            slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_virgins'));
+
+        chart.draw(data, options);
+}
 </script>
-<div id="piechart" style="width: 900px; height: 500px;"></div>
+<div id="piechart_stars" style="width: 480px; height: 240px; float:left;"></div>
+<div id="piechart_virgins" style="width: 480px; height: 240px; float:left;"></div>
 {% endblock %}
