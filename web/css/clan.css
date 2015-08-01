@@ -13,3 +13,16 @@ table td {
 table th {
     text-align: left;
 }
+
+.stars0 {
+    color: red;
+}
+.stars1 {
+    color: orange;
+}
+.stars2 {
+    color: lightgreen;
+}
+.stars3 {
+    color: green;
+}

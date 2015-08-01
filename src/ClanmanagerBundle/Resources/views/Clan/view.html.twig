@@ -21,6 +21,11 @@
             <th>join</th>
             <th>leave</th>
             <th>acct</th>
+                {% for n in 0..10 %}
+                <th colspan="2" style="text-align:center">
+                    {{ n }}
+                </th>
+            {% endfor %}
         </tr>
         {% set n=0 %}
         {% for member in clan.memberships %}
@@ -45,6 +50,21 @@
                             {{ member.player.profile.user is defined ? member.player.profile.user.username : "---" }}
                         {% endif %}
                     </td>
+                    {% for warclan_id in warclan_ids %}
+                        {% for a in 1..0 %}
+                            <td>
+                                {% for n in 0..10 %}
+                                    {% if member.player.warplayers[member.player.warplayers|length-1-n] is defined and member.player.warplayers[member.player.warplayers|length-1-n].warclan.id == warclan_id %}
+                                        {% if member.player.warplayers[member.player.warplayers|length-1-n].attacks[0] is defined %}
+                                            <span class="stars{{member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars}}">
+                                                {{ member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars }}
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    {% endfor %}
                 </tr>
             {% endif %}
         {% endfor %}

@@ -31,7 +31,11 @@ class ClanController extends Controller {
         $repository = $this->getDoctrine()
                 ->getRepository('ClanmanagerBundle:Clan');
         $clan = $repository->find($clan_id);
-        return $this->render('ClanmanagerBundle:Clan:view.html.twig', array('clan' => $clan));
+        $wcs = $clan->getWarclans();
+        for ($n = sizeof($wcs); $n >= sizeof($wcs) - 10; $n--) {
+            $warclan_ids[] = $wcs[$n - 1]->getId();
+        }
+        return $this->render('ClanmanagerBundle:Clan:view.html.twig', array('clan' => $clan, 'warclan_ids' => $warclan_ids));
     }
 
     /**
