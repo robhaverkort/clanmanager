@@ -54,7 +54,7 @@
                         {% for a in 1..0 %}
                             <td>
                                 {% for n in 0..10 %}
-                                    {% if member.player.warplayers[member.player.warplayers|length-1-n] is defined and member.player.warplayers[member.player.warplayers|length-1-n].warclan.id == warclan_id %}
+                                    {% if member.player.warplayers[member.player.warplayers|length-1-n] is defined and member.player.warplayers[member.player.warplayers|length-1-n].warclan.id == warclan_id and member.player.warplayers[member.player.warplayers|length-1-n].attacks[a] is defined %}
                                         {% if member.player.warplayers[member.player.warplayers|length-1-n].attacks[0] is defined %}
                                             <span class="stars{{member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars}}">
                                                 {{ member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars }}
