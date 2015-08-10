@@ -137,7 +137,28 @@ class WarController extends Controller {
             }
         }
 
-        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results));
+        // Rankings
+        $rankings = array();
+        foreach ($warclans[0]->getWarPlayers() as $warplayer) {
+            $ranking = array();
+            $ranking['pos'] = $warplayer->getRank();
+            $ranking['name'] = $warplayer->getPlayer()->getName();
+
+            $ranking['diff1'] = !isset($warplayer->getAttacks()[0]) ? 0 : (($warplayer->getAttacks()[0]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank());
+            $ranking['diff2'] = !isset($warplayer->getAttacks()[1]) ? 0 : (($warplayer->getAttacks()[1]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank());
+            $ranking['stars3'] = !isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 3) + ($warplayer->getAttacks()[1]->getStars() == 3);
+            $ranking['stars2'] = !isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 2) + ($warplayer->getAttacks()[1]->getStars() == 2);
+            $ranking['stars1'] = !isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 1) + ($warplayer->getAttacks()[1]->getStars() == 1);
+            $ranking['stars0'] = !isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 0) + ($warplayer->getAttacks()[1]->getStars() == 0);
+            $ranking['totdmg'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getPercent()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getPercent());
+            $ranking['totstars'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getStars()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getStars());
+            $ranking['score'] = !isset($warplayer->getAttacks()[0]) ? 0 : ($ranking['stars3'] * 15 + $ranking['stars2'] * 6 + $ranking['stars1'] * 2 - (!isset($warplayer->getAttacks()[1]) ? 15 : 0) - (!isset($warplayer->getAttacks()[0]) ? 10 : 0)) * 100 + $ranking['totdmg'] + ($ranking['diff1'] + $ranking['diff2']) * 10 + ($warplayer->getAttacks()[0]->getStars() > 0 ? ((51 - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 20 + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) : 0) + ($warplayer->getAttacks()[1]->getStars() > 0 ? ((51 - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 20 + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) : 0); // BUG FOUND, last factor uses rank difference of 1st attack, should be second ???
+
+            $rankings[] = $ranking;
+        }
+
+
+        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results, 'rankings' => $rankings));
     }
 
 }

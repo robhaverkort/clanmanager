@@ -86,6 +86,36 @@
 
     </table>
 
+    <h1>Rankings (inc bug)</h1>
+    <table>
+        <th>pos</th>
+        <th>name</th>
+        <th>d1</th>
+        <th>d2</th>
+        <th>3*</th>
+        <th>2*</th>
+        <th>1*</th>
+        <th>0*</th>
+        <th>td</th>
+        <th>ts</th>
+        <th>score</th>
+        {% for player in rankings %}
+            <tr>
+                <td>{{ player.pos }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.diff1 }}</td>
+                <td>{{ player.diff2 }}</td>
+                <td>{{ player.stars3 }}</td>
+                <td>{{ player.stars2 }}</td>
+                <td>{{ player.stars1 }}</td>
+                <td>{{ player.stars0 }}</td>
+                <td>{{ player.totdmg }}</td>
+                <td>{{ player.totstars }}</td>
+                <td>{{ player.score }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# dump(rankings) #}
 
     <script type="text/javascript"
             src="https://www.google.com/jsapi?autoload={
