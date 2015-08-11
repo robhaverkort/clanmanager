@@ -86,10 +86,15 @@
 
     </table>
 
-    <h1>Rankings (inc error)</h1>
+    <h1>Rankings (inc error in attackscore)</h1>
     <table>
         <th>pos</th>
         <th>name</th>
+        <th colspan="9">Attack</th>
+        <th colspan="7">Defense</th>
+    </tr>
+    <tr>
+        <th></th><th></th>
         <th>d1</th>
         <th>d2</th>
         <th>3*</th>
@@ -99,81 +104,96 @@
         <th>td</th>
         <th>ts</th>
         <th>score</th>
-        {% for player in rankings %}
-            <tr>
-                <td>{{ player.pos }}</td>
-                <td>{{ player.name }}</td>
-                <td>{{ player.diff1 }}</td>
-                <td>{{ player.diff2 }}</td>
-                <td>{{ player.stars3 }}</td>
-                <td>{{ player.stars2 }}</td>
-                <td>{{ player.stars1 }}</td>
-                <td>{{ player.stars0 }}</td>
-                <td>{{ player.totdmg }}</td>
-                <td>{{ player.totstars }}</td>
-                <td>{{ player.score }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    {# dump(rankings) #}
+        <th>3*</th>
+        <th>2*</th>
+        <th>1*</th>
+        <th>0*</th>
+        <th>td</th>
+        <th>d</th>
+        <th>score</th>
+            {% for player in rankings %}
+        <tr>
+            <td>{{ player.pos }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.adiff1 }}</td>
+            <td>{{ player.adiff2 }}</td>
+            <td>{{ player.astars3 }}</td>
+            <td>{{ player.astars2 }}</td>
+            <td>{{ player.astars1 }}</td>
+            <td>{{ player.astars0 }}</td>
+            <td>{{ player.atotdmg }}</td>
+            <td>{{ player.atotstars }}</td>
+            <td>{{ player.ascore }}</td>
 
-    <script type="text/javascript"
-            src="https://www.google.com/jsapi?autoload={
-            'modules':[{
-            'name':'visualization',
-            'version':'1',
-            'packages':['corechart']
-            }]
-            }">
-    </script>
+            <td>{{ player.dstars3 }}</td>
+            <td>{{ player.dstars2 }}</td>
+            <td>{{ player.dstars1 }}</td>
+            <td>{{ player.dstars0 }}</td>
+            <td>{{ player.dtotdmg }}</td>
+            <td>{{ player.ddiff }}</td>
+            <td>{{ player.dscore }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{# dump(rankings) #}
 
-    <script type="text/javascript">
-        google.setOnLoadCallback(drawChart);
+<script type="text/javascript"
+        src="https://www.google.com/jsapi?autoload={
+        'modules':[{
+        'name':'visualization',
+        'version':'1',
+        'packages':['corechart']
+        }]
+        }">
+</script>
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr att', 'nr att'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
-                [[{{ hr }}, 0, 0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }} ],{% endfor %}
-            ]);
-            var options = {
-                title: 'War Stars',
-                legend: {position: 'bottom'},
-                //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
-                hAxis: {format: 'HH:mm', direction: -1, viewWindow: {min: [23, 0, 0], max: [0, 0, 0]}},
-                vAxis: {minValue:0, maxValue:{{ war.size*3 }}, viewWindowMode: 'maximized'},
-                seriesType: "line",
-                series: {
-                    0: {type: "line", color: "blue"},
-                    1: {type: "line", color: "red"},
-                    2: {type: "area", color: "lightblue"},
-                    3: {type: "area", color: "orange"}
-                }
-            };
-            var chart = new google.visualization.ComboChart(document.getElementById('chart_attacks'));
-            chart.draw(data, options);
+<script type="text/javascript">
+    google.setOnLoadCallback(drawChart);
 
-            var data = google.visualization.arrayToDataTable([
-                ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],{% for n in 3..0 %}
-                ['{{ n }}',{{ results[0][n] }} ,{{ results[1][n] }} ],{% endfor %}
-            ]);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time Remaining', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}', 'nr att', 'nr att'],{% set lasthr = warevents[0] is defined ? warevents[0].time|date('H') : 0 %}{% for hr in 23..lasthr %}
+            [[{{ hr }}, 0, 0],{{ war.warclans[1].timestars[hr] }} ,{{ war.warclans[0].timestars[hr] }} ,{{ war.warclans[1].timeattacks[hr] }} ,{{ war.warclans[0].timeattacks[hr] }} ],{% endfor %}
+        ]);
+        var options = {
+            title: 'War Stars',
+            legend: {position: 'bottom'},
+            //hAxis: {format: 'KK:mm', viewWindowMode: 'maximized', viewWindow: {min: '23:00', max: '00:00'}, minValue: '23:00', maxValue: '00:00'},
+            hAxis: {format: 'HH:mm', direction: -1, viewWindow: {min: [23, 0, 0], max: [0, 0, 0]}},
+            vAxis: {minValue:0, maxValue:{{ war.size*3 }}, viewWindowMode: 'maximized'},
+            seriesType: "line",
+            series: {
+                0: {type: "line", color: "blue"},
+                1: {type: "line", color: "red"},
+                2: {type: "area", color: "lightblue"},
+                3: {type: "area", color: "orange"}
+            }
+        };
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_attacks'));
+        chart.draw(data, options);
 
-            var view = new google.visualization.DataView(data);
-            //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
+        var data = google.visualization.arrayToDataTable([
+            ['stars', '{{ war.warclans[0].clan.name }}', '{{ war.warclans[1].clan.name }}'],{% for n in 3..0 %}
+            ['{{ n }}',{{ results[0][n] }} ,{{ results[1][n] }} ],{% endfor %}
+        ]);
 
-            var options = {
-                title: "Attacks per nr of Stars",
-                bar: {groupWidth: "80%"},
-                legend: {position: "none"},
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
-            chart.draw(view, options);
-        }
+        var view = new google.visualization.DataView(data);
+        //view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
 
-    </script>
+        var options = {
+            title: "Attacks per nr of Stars",
+            bar: {groupWidth: "80%"},
+            legend: {position: "none"},
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart_stars"));
+        chart.draw(view, options);
+    }
 
-    <p>
-    <div id="chart_attacks" style="width: 640px; height: 320px; float:left"></div>
-    <div id="chart_stars" style="width: 640px; height: 320px; float:left"></div>
+</script>
+
+<p>
+<div id="chart_attacks" style="width: 640px; height: 320px; float:left"></div>
+<div id="chart_stars" style="width: 640px; height: 320px; float:left"></div>
 </p>
 
 <table class="warevents">

@@ -144,19 +144,19 @@ class WarController extends Controller {
             $ranking['pos'] = $warplayer->getRank();
             $ranking['name'] = $warplayer->getPlayer()->getName();
 
-            $ranking['diff1'] = !isset($warplayer->getAttacks()[0]) ? 0 : (($warplayer->getAttacks()[0]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank());
-            $ranking['diff2'] = !isset($warplayer->getAttacks()[1]) ? 0 : (($warplayer->getAttacks()[1]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank());
-            $ranking['stars3'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 3)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 3));
-            $ranking['stars2'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 2)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 2));
-            $ranking['stars1'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 1)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 1));
-            $ranking['stars0'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 0)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 0));
-            $ranking['totdmg'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getPercent()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getPercent());
-            $ranking['totstars'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getStars()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getStars());
-            $ranking['score'] = 
-                    !isset($warplayer->getAttacks()[0]) ? 0 : ($ranking['stars3'] * 15 + $ranking['stars2'] * 6 + $ranking['stars1'] * 2 
+            $ranking['adiff1'] = !isset($warplayer->getAttacks()[0]) ? 0 : (($warplayer->getAttacks()[0]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank());
+            $ranking['adiff2'] = !isset($warplayer->getAttacks()[1]) ? 0 : (($warplayer->getAttacks()[1]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank());
+            $ranking['astars3'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 3)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 3));
+            $ranking['astars2'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 2)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 2));
+            $ranking['astars1'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 1)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 1));
+            $ranking['astars0'] = (!isset($warplayer->getAttacks()[0]) ? 0 : ($warplayer->getAttacks()[0]->getStars() == 0)) + (!isset($warplayer->getAttacks()[1]) ? 0 : ($warplayer->getAttacks()[1]->getStars() == 0));
+            $ranking['atotdmg'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getPercent()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getPercent());
+            $ranking['atotstars'] = (!isset($warplayer->getAttacks()[0]) ? 0 : $warplayer->getAttacks()[0]->getStars()) + (!isset($warplayer->getAttacks()[1]) ? 0 : $warplayer->getAttacks()[1]->getStars());
+            $ranking['ascore'] = 
+                    !isset($warplayer->getAttacks()[0]) ? 0 : ($ranking['astars3'] * 15 + $ranking['astars2'] * 6 + $ranking['astars1'] * 2 
                     - (!isset($warplayer->getAttacks()[1]) ? 15 : 0) 
                     - (!isset($warplayer->getAttacks()[0]) ? 10 : 0)) * 100 
-                    + $ranking['totdmg'] + ($ranking['diff1'] + $ranking['diff2']) * 10 
+                    + $ranking['atotdmg'] + ($ranking['adiff1'] + $ranking['adiff2']) * 10 
                     + ( (isset($warplayer->getAttacks()[0]))&&($warplayer->getAttacks()[0]->getStars() > 0 )
                         ? ((51 - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 20 
                             + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) 
@@ -165,6 +165,14 @@ class WarController extends Controller {
                         ? ((51 - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 20 + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) 
                         : 0); 
                     // BUG FOUND, last factor uses rank difference of 1st attack, should be second ???
+
+            $ranking['dstars3'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==3) $ranking['dstars3']++;
+            $ranking['dstars2'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==2) $ranking['dstars2']++;
+            $ranking['dstars1'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==1) $ranking['dstars1']++;
+            $ranking['dstars0'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==0) $ranking['dstars0']++;
+            $ranking['dtotdmg'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['dtotdmg']+=$defend->getPercent();
+            $ranking['ddiff'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['ddiff'] -= ($defend->getAttacker()->getRank() - $warplayer->getRank());// FINISH ME
+            $ranking['dscore'] = 0;
 
             $rankings[] = $ranking;
         }
