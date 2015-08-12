@@ -142,7 +142,7 @@ class WarController extends Controller {
         foreach ($warclans[0]->getWarPlayers() as $warplayer) {
             $ranking = array();
             $ranking['pos'] = $warplayer->getRank();
-            $ranking['name'] = defined( $warplayer->getPlayer() ) ? $warplayer->getPlayer()->getName() : "";
+            $ranking['name'] = "";//isset($warplayer->getPlayer()) ? $warplayer->getPlayer()->getName() : "";
 
             $ranking['adiff1'] = !isset($warplayer->getAttacks()[0]) ? 0 : (($warplayer->getAttacks()[0]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank());
             $ranking['adiff2'] = !isset($warplayer->getAttacks()[1]) ? 0 : (($warplayer->getAttacks()[1]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank());
