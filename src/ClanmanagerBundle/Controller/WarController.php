@@ -181,11 +181,13 @@ class WarController extends Controller {
                                         )/2
                                 ;
                                 // ROUND( IF(AG4=0,1000,(((AK4*1250+AJ4*1100+AI4*1000)/AG4)*VLOOKUP(AG4,$BP$4:$BR$13,3)-AL4+AM4*20)),0 )/2
+            
+            $ranking['tscore'] = $ranking['ascore']+$ranking['dscore'];
             $rankings[] = $ranking;
         }
 
         usort($rankings, function($a, $b) {
-                return $b['ascore'] - $a['ascore'];
+                return $b['tscore'] - $a['tscore'];
             });
 
         return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results, 'rankings' => $rankings));

@@ -93,6 +93,7 @@
         <th>name</th>
         <th colspan="9">Attack</th>
         <th colspan="7">Defense</th>
+        <th>total</th>
     </tr>
     <tr>
         <th></th><th></th><th></th>
@@ -136,6 +137,8 @@
             <td>{{ player.dtotdmg }}</td>
             <td>{{ player.ddiff }}</td>
             <td>{{ player.dscore }}</td>
+
+            <td>{{ player.tscore }}</td>
         </tr>
     {% endfor %}
 </table>
