@@ -142,7 +142,7 @@ class WarController extends Controller {
         foreach ($warclans[0]->getWarPlayers() as $warplayer) {
             $ranking = array();
             $ranking['pos'] = $warplayer->getRank();
-            $ranking['name'] = "";//isset($warplayer->getPlayer()) ? $warplayer->getPlayer()->getName() : "";
+            $ranking['name'] = $warplayer->getPlayer() ? $warplayer->getPlayer()->getName() : "";
 
             $ranking['adiff1'] = !isset($warplayer->getAttacks()[0]) ? 0 : (($warplayer->getAttacks()[0]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank());
             $ranking['adiff2'] = !isset($warplayer->getAttacks()[1]) ? 0 : (($warplayer->getAttacks()[1]->getStars() >= 1) && (0 >= $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) && ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank() >= -5) ? 0 : $warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank());
@@ -172,13 +172,27 @@ class WarController extends Controller {
             $ranking['dstars0'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==0) $ranking['dstars0']++;
             $ranking['dtotdmg'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['dtotdmg']+=$defend->getPercent();
             $ranking['ddiff'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['ddiff'] -= ($defend->getAttacker()->getRank() - $warplayer->getRank());// FINISH ME
-            $ranking['dscore'] = 0;
-
+            $ranking['dscore'] = sizeof($warplayer->getDefends())==0
+                                    ? 1000
+                                    : round(
+                                        ($ranking['dstars0']*1250 + $ranking['dstars1']*1100 + $ranking['dstars2']*1000 )/sizeof($warplayer->getDefends())*$this->dfactor(sizeof($warplayer->getDefends()))
+                                        - $ranking['dtotdmg']
+                                        + $ranking['ddiff']*20
+                                        )/2
+                                ;
+                                // ROUND( IF(AG4=0,1000,(((AK4*1250+AJ4*1100+AI4*1000)/AG4)*VLOOKUP(AG4,$BP$4:$BR$13,3)-AL4+AM4*20)),0 )/2
             $rankings[] = $ranking;
         }
 
+        usort($rankings, function($a, $b) {
+                return $b['ascore'] - $a['ascore'];
+            });
 
         return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results, 'rankings' => $rankings));
     }
-
-}
+    private function dfactor($n) {
+        $dfactor = 0;
+        for ($i = 1; $i <= $n; $i++)
+            $dfactor += 1/$i;
+        return $dfactor;
+    }}

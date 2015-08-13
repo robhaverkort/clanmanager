@@ -88,13 +88,14 @@
 
     <h1>Rankings (inc error in attackscore)</h1>
     <table>
-        <th>pos</th>
+        <th>#</th>
+        <th>#</th>
         <th>name</th>
         <th colspan="9">Attack</th>
         <th colspan="7">Defense</th>
     </tr>
     <tr>
-        <th></th><th></th>
+        <th></th><th></th><th></th>
         <th>d1</th>
         <th>d2</th>
         <th>3*</th>
@@ -111,9 +112,12 @@
         <th>td</th>
         <th>d</th>
         <th>score</th>
+            {% set rank=0 %}
             {% for player in rankings %}
+            {% set rank=rank+1 %}
         <tr>
-            <td>{{ player.pos }}</td>
+            <td>{{ rank }}</td>
+            <td>({{ player.pos }})</td>
             <td>{{ player.name }}</td>
             <td>{{ player.adiff1 }}</td>
             <td>{{ player.adiff2 }}</td>
