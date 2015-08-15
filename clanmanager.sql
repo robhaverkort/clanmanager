@@ -126,7 +126,7 @@ CREATE TABLE `Profile` (
 
 LOCK TABLES `Profile` WRITE;
 /*!40000 ALTER TABLE `Profile` DISABLE KEYS */;
-INSERT INTO `Profile` VALUES (1,1,'Rob','Rob Haverkort','https://www.facebook.com/rob.haverkort'),(2,2,'Stephen','Stephen Mark Cotty','https://www.facebook.com/stephen.m.cotty'),(3,3,'Joseph','Joseph Hocker','https://www.facebook.com/profile.php?id=100005491788904'),(4,6,'Joe','Joe Ross','https://www.facebook.com/joe.ross.7921975'),(5,7,'Duston','Duston Taylor','https://www.facebook.com/profile.php?id=100005336027175'),(6,4,'Brandon','Brandon Tyrell Stewart','https://www.facebook.com/BTyrellStewart'),(7,5,'Leandro','Leandro Puyol','https://www.facebook.com/leandro.puyol'),(8,8,'Koos Koets','Koos Koets',''),(11,9,'Josh','Josh Maki','https://www.facebook.com/joshua.maki'),(12,NULL,'Ben','Ben Wright',NULL),(13,NULL,'Lumar','Lumar Brown',NULL),(14,NULL,'William','William Bailey',NULL),(15,NULL,'Jannick','Jannick Hermans',NULL),(16,NULL,'William','William Rewitzer',NULL),(17,NULL,'Alex','Alex Chavarria',NULL),(18,NULL,'Jasper','Jasper Coppens',NULL),(19,NULL,'Robert','Robert S. Miller',NULL),(20,NULL,'Tomas','Tomas Coates',NULL),(21,NULL,'Asi','Asi Fenerli',NULL),(22,NULL,'Greg','Greg Gorka',NULL),(23,NULL,'Sam','Sam Fullerton',NULL),(24,NULL,'Ronald','Ronald Dip',NULL),(25,NULL,'Jorge','Jorge Xikra',NULL),(26,NULL,'Tyler','Tyler Gidley',NULL),(27,NULL,'Luiz','Luiz Strina',NULL),(28,NULL,'Zoheb','Zoheb Biswas',NULL),(29,NULL,'Joseph','Joseph Bashore',NULL),(30,NULL,'TC','TC Cagri Basaran',NULL),(31,NULL,'Knute','Knute Nesland',NULL),(32,NULL,'Chad','Chad Hackbarth',NULL),(33,NULL,'Jack','Jack Grimes',NULL),(34,NULL,'Steven','Steven Delossantos',NULL),(35,NULL,'Daniel','Daniel Burchell',NULL),(36,NULL,'Ryan','Ryan Shervey',NULL),(37,NULL,'Kane','Kane Ross',NULL),(38,NULL,'Jesse','Jesse Chang',NULL),(39,NULL,'Travis','Travis Mctwigandberries',NULL),(40,NULL,'Tim','Tim Bramble',NULL),(41,NULL,'Dio','Dio Cretus',NULL),(42,NULL,'Drake','Drake Descher',NULL),(43,NULL,'Mike','Mike Becker',NULL),(44,NULL,'Don','Don Ironmonkey',NULL),(45,NULL,'Enid','Enid Solo',NULL),(46,NULL,'Jimmy','Jimmy Le',NULL),(47,NULL,'Basel','Basel Dabbas',NULL),(48,NULL,'Josh','Josh Harnish',NULL),(49,NULL,'Paul','Paul Shap',NULL),(50,NULL,'Brock','Brock Hall',NULL),(51,NULL,'Sean','Sean Beaver',NULL),(52,NULL,'Christos','Christos',NULL),(53,NULL,'Jasper','Jasper Hertle',NULL),(54,NULL,'Quan','Quan Nguyen',NULL);
+INSERT INTO `Profile` VALUES (1,1,'Rob','Rob Haverkort','https://www.facebook.com/rob.haverkort'),(2,2,'Stephen','Stephen Mark Cotty','https://www.facebook.com/stephen.m.cotty'),(3,3,'Joseph','Joseph Hocker','https://www.facebook.com/profile.php?id=100005491788904'),(4,6,'Joe','Joe Ross','https://www.facebook.com/joe.ross.7921975'),(5,7,'Duston','Duston Taylor','https://www.facebook.com/profile.php?id=100005336027175'),(6,4,'Brandon','Brandon Tyrell Stewart','https://www.facebook.com/BTyrellStewart'),(7,5,'Leandro','Leandro Puyol','https://www.facebook.com/leandro.puyol'),(8,8,'Koos Koets','Koos Koets',''),(11,9,'Josh','Josh Maki','https://www.facebook.com/joshua.maki'),(12,NULL,'Ben','Ben Wright',NULL),(13,NULL,'Lumar','Lumar Brown',NULL),(14,NULL,'William','William Bailey',NULL),(15,NULL,'Jannick','Jannick Hermans',NULL),(16,NULL,'William','William Rewitzer',NULL),(17,NULL,'Alex','Alex Chavarria',NULL),(18,NULL,'Jasper','Jasper Coppens',NULL),(19,NULL,'Robert','Robert S. Miller',NULL),(20,NULL,'Tomas','Tomas Coates',NULL),(21,NULL,'Asi','Asi Fenerli',NULL),(22,NULL,'Greg','Greg Gorka',NULL),(23,NULL,'Sam','Sam Fullerton',NULL),(24,NULL,'Ronald','Ronald Dip',NULL),(25,NULL,'Jorge','Jorge Xikra',NULL),(26,NULL,'Tyler','Tyler Gidley',NULL),(27,NULL,'Luiz','Luiz Strina',NULL),(28,NULL,'Zoheb','Zoheb Biswas',NULL),(29,NULL,'Joseph','Joseph Bashore',NULL),(30,NULL,'TC','TC Cagri Basaran',NULL),(31,NULL,'Knute','Knute Nesland',NULL),(32,NULL,'Chad','Chad Hackbarth',NULL),(33,NULL,'Jack','Jack Grimes',NULL),(34,NULL,'Steven','Steven Delossantos',NULL),(35,NULL,'Daniel','Daniel Burchell',NULL),(36,10,'Ryan','Ryan Shervey',NULL),(37,NULL,'Kane','Kane Ross',NULL),(38,NULL,'Jesse','Jesse Chang',NULL),(39,NULL,'Travis','Travis Mctwigandberries',NULL),(40,NULL,'Tim','Tim Bramble',NULL),(41,NULL,'Dio','Dio Cretus',NULL),(42,NULL,'Drake','Drake Descher',NULL),(43,NULL,'Mike','Mike Becker',NULL),(44,NULL,'Don','Don Ironmonkey',NULL),(45,NULL,'Enid','Enid Solo',NULL),(46,NULL,'Jimmy','Jimmy Le',NULL),(47,NULL,'Basel','Basel Dabbas',NULL),(48,NULL,'Josh','Josh Harnish',NULL),(49,NULL,'Paul','Paul Shap',NULL),(50,NULL,'Brock','Brock Hall',NULL),(51,NULL,'Sean','Sean Beaver',NULL),(52,NULL,'Christos','Christos',NULL),(53,NULL,'Jasper','Jasper Hertle',NULL),(54,NULL,'Quan','Quan Nguyen',NULL);
 /*!40000 ALTER TABLE `Profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +172,7 @@ CREATE TABLE `User` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_2DA17977F85E0677` (`username`),
   UNIQUE KEY `UNIQ_2DA17977E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'robh','$2y$13$PPOr3SMYa/aOTDT2NM2yvuEDG4BPMNOd9sFUnj1eUkpS1jm38b9/2','rob.haverkort@ziggo.nl',1),(2,'stephenc','$2a$12$kfI325vh5ewWuPApNS6Zlel1Wh2iOgsYTmfd0BZL9LwffvijyKOvi','stephen@cotty.sa',1),(3,'joec','$2a$12$Xjfv/BfLp7CG/LzgtmxEmuQ7iKpbO1K3FnLt80Zd0SAuYRWXFSJlW','joec',0),(4,'bstewy','$2a$12$jk4Xd7MOJ3.EfogN5LT5iO4gMz/IGE/lu4vx3fg08yFXhHuSHm/V.','bstewy',1),(5,'leandro','','leandro',0),(6,'imperium','$2a$12$t5sOkdBS3H/1rU71AZoJHOWx56Ra60/BP1m13AIUt0M/UKmNMIZuy','josephross22@gmail.com',0),(7,'duston','','duston',0),(8,'kooskoets','$2a$12$uGq.AG3DlGliacvns689NurSEFGl7UH2s7OF6ojboRUC.isIuRXjy','koos@koets.nl',1),(9,'maki','$2a$12$.Boz26T9gN6FX/okBzf6ROhup048pRe6YL4i/U/vZKn.kyrZGi/.O','joshmaki@hotmail.ca',1);
+INSERT INTO `User` VALUES (1,'robh','$2y$13$PPOr3SMYa/aOTDT2NM2yvuEDG4BPMNOd9sFUnj1eUkpS1jm38b9/2','rob.haverkort@ziggo.nl',1),(2,'stephenc','$2a$12$kfI325vh5ewWuPApNS6Zlel1Wh2iOgsYTmfd0BZL9LwffvijyKOvi','stephen@cotty.sa',1),(3,'joec','$2a$12$Xjfv/BfLp7CG/LzgtmxEmuQ7iKpbO1K3FnLt80Zd0SAuYRWXFSJlW','joec',0),(4,'bstewy','$2a$12$jk4Xd7MOJ3.EfogN5LT5iO4gMz/IGE/lu4vx3fg08yFXhHuSHm/V.','bstewy',1),(5,'leandro','','leandro',0),(6,'imperium','$2a$12$t5sOkdBS3H/1rU71AZoJHOWx56Ra60/BP1m13AIUt0M/UKmNMIZuy','josephross22@gmail.com',0),(7,'duston','','duston',0),(8,'kooskoets','$2a$12$uGq.AG3DlGliacvns689NurSEFGl7UH2s7OF6ojboRUC.isIuRXjy','koos@koets.nl',1),(9,'maki','$2a$12$.Boz26T9gN6FX/okBzf6ROhup048pRe6YL4i/U/vZKn.kyrZGi/.O','joshmaki@hotmail.ca',1),(10,'ryan','$2a$12$GYPWe4/oQSrQo/Wzdkin4e4TbuvvvNn8K1B.TS4aNPTQtZo3o1vAu','shervey.ryan@gmail.com',1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +328,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,1),(2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2),(9,2);
+INSERT INTO `user_role` VALUES (1,1),(2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2),(9,2),(10,2);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -341,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-16  0:43:24
+-- Dump completed on 2015-08-16  1:32:23
