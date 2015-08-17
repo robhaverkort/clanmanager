@@ -12,13 +12,24 @@
     TITLE: {{ title }} <br>
     <p></p>
 
-    {% for player in players %}
-        {{ player.nodeValue }}<br>
-        {% if player.nodeValue.childNodes is defined %}
-            childNodes:
-            {% for key in player.nodeValue.childNodes %}
-                key: {{ key.nodeValue }} <br>
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
+    <table>
+        <th>nodeValue</th>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.nodeValue }}</td>
+                <td>{{ player.rank }}</td>
+                <td>{{ player.level }}</td>
+                <td>{{ player.profile }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.role }}</td>
+                <td>{{ player.score }}</td>
+                <td>{# dump(player) #}</td>
+            </tr>
+        {% endfor %}
+    </table>
+        
+    <h2>text</h2>
+    <p>{# text #}</p>
+    <p>{# dump(text) #}</p>
+
 {% endblock %}

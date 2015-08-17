@@ -21,32 +21,48 @@ class WarclanscomController extends Controller {
 
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
-        $doc->loadHTMLFile("/srv/www/htdocs/clanmanager/NDQPM3WQ0");
+        //$doc->loadHTMLFile("/srv/www/htdocs/clanmanager/NDQPM3WQ0.html"); 
+        $doc->loadHTMLFile("http://www.warclans.com/coc-clan/NDQPM3WQ0");
         libxml_use_internal_errors(false);
         $doc->preserveWhiteSpace = false;
 
-        $titles = $doc->getElementsByTagName("title");
-        $title = $titles->length;
-        $title = $titles->item(0);
-        //$title = $doc->saveHTML($title);
-        $title = $title->nodeValue;
+        $title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
 
         $xpath = new DOMXPath($doc);
-        //$nlist = $xpath->query("//a[@rel='nofollow']");
-        $elements = $xpath->query("//ul[@class='clan-list player-list']");
-
+        $playerlist_ul = $xpath->query("//ul[@class='clan-list player-list']")->item(0);
         $text = "";
-        foreach ($elements as $element) {
-            $text .= $element->nodeName . "\n";
-            $text .= $element->nodeValue . "\n";
-        }
+        //$text .= "nodeName:" . $playerlist_ul->nodeName . "\n";
+        //$text .= "nodeValue:" . $playerlist_ul->nodeValue . "\n";
 
-        $nodes = $element->childNodes;
+        $nodes = $playerlist_ul->childNodes;
         foreach ($nodes as $node) {
-            $text .= $node->nodeValue . "####";
+            if ($node->hasChildNodes()) {
+                $text .= $node->nodeValue . "####";
+
+                $player['nodeValue'] = $node->nodeValue;
+                $player['rank'] = trim($node->childNodes->item(1)->childNodes->item(1)->nodeValue);
+                $player['level'] = trim($node->childNodes->item(1)->childNodes->item(5)->nodeValue);
+                $player['profile'] = split("/", trim($node->childNodes->item(1)->childNodes->item(7)->childNodes->item(1)->childNodes->item(1)->attributes->getNamedItem("href")->textContent))[4];
+                $player['name'] = trim($node->childNodes->item(1)->childNodes->item(7)->childNodes->item(1)->childNodes->item(1)->nodeValue);
+                $player['role'] = trim($node->childNodes->item(1)->childNodes->item(7)->childNodes->item(3)->childNodes->item(1)->nodeValue);
+                $player['score'] = trim($node->childNodes->item(3)->childNodes->item(3)->nodeValue);
+
+                $playerinfo = new DOMDocument();
+                libxml_use_internal_errors(true);
+                $playerinfo->loadHTML($node->ownerDocument->saveHTML( $node ));
+                $xpath = new DOMXPath($playerinfo);
+                //$text .= ">>>" . $xpath->query("//span[@class='score']")->item(0)->nodeValue . "<<<";
+ 
+                $player['rank'] = $xpath->query("//span[@class='num']")->item(0)->nodeValue;
+                $player['level'] = $xpath->query("//span[@class='level']")->item(0)->nodeValue;
+
+                $player['score'] = $xpath->query("//span[@class='score']")->item(0)->nodeValue;
+                
+                $players[] = $player;
+            }
         }
 
-        $players = $element->childNodes;
+        //$players = $playerlist_ul->childNodes;
 
         return $this->render('ClanmanagerBundle:Warclanscom:index.html.twig', array('title' => $title, 'players' => $players, 'text' => $text));
     }
