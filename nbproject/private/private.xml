@@ -5,7 +5,6 @@
         <group>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WarclanscomController.php</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Warclanscom/index.html.twig</file>
-            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WarController.php</file>
             <file>file:/srv/www/htdocs/clanmanager/NDQPM3WQ0.html</file>
         </group>
     </open-files>

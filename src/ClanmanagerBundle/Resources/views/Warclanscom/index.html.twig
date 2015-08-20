@@ -13,21 +13,83 @@
     <p></p>
 
     <table>
-        <th>nodeValue</th>
-            {% for player in players %}
-            <tr>
-                <td>{{ player.nodeValue }}</td>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>BK</th>
+            <th>AQ</th>
+            <th>LS</th>
+            <th>HS</th>
+            <th>RS</th>
+            <th>JS</th>
+            <th>FS</th>
+            <th>BA</th>
+            <th>AR</th>
+            <th>GI</th>
+            <th>GB</th>
+            <th>WB</th>
+            <th>BA</th>
+            <th>WI</th>
+            <th>HE</th>
+            <th>DR</th>
+            <th>PE</th>
+            <th>MI</th>
+            <th>HO</th>
+            <th>VA</th>
+            <th>GO</th>
+            <th>WI</th>
+            <th>LA</th>
+        </tr>
+        {% for player in players %}
+            <tr valign="top">
+                <td>{# player.nodeValue #}</td>
                 <td>{{ player.rank }}</td>
+                <td>{{ player.league }}</td>
                 <td>{{ player.level }}</td>
                 <td>{{ player.profile }}</td>
                 <td>{{ player.name }}</td>
                 <td>{{ player.role }}</td>
                 <td>{{ player.score }}</td>
+                <td><!--
+                    {% for key in player.troops|keys %}
+                        {{ key }}:{{ player.troops[key] }}<br>
+                    {% endfor %}-->
+                </td>
+                <td>{{ player.troops['barbarianking'] }}</td>
+                <td>{{ player.troops['archerqueen'] }}</td>
+                <td>{{ player.troops['lightningspell'] }}</td>
+                <td>{{ player.troops['healingspell'] }}</td>
+                <td>{{ player.troops['ragespell'] }}</td>
+                <td>{{ player.troops['jumpspell'] }}</td>
+                <td>{{ player.troops['freezespell'] }}</td>
+                <td>{{ player.troops['barbarian'] }}</td>
+                <td>{{ player.troops['archer'] }}</td>
+                <td>{{ player.troops['giant'] }}</td>
+                <td>{{ player.troops['goblin'] }}</td>
+                <td>{{ player.troops['wallbreaker'] }}</td>
+                <td>{{ player.troops['balloon'] }}</td>
+                <td>{{ player.troops['wizard'] }}</td>
+                <td>{{ player.troops['healer'] }}</td>
+                <td>{{ player.troops['dragon'] }}</td>
+                <td>{{ player.troops['pekka'] }}</td>
+                <td>{{ player.troops['minion'] }}</td>
+                <td>{{ player.troops['hog-rider'] }}</td>
+                <td>{{ player.troops['valkyrie'] }}</td>
+                <td>{{ player.troops['golem'] }}</td>
+                <td>{{ player.troops['witch'] }}</td>
+                <td>{{ player.troops['lavahound'] }}</td>
                 <td>{# dump(player) #}</td>
             </tr>
         {% endfor %}
     </table>
-        
+
     <h2>text</h2>
     <p>{# text #}</p>
     <p>{# dump(text) #}</p>
