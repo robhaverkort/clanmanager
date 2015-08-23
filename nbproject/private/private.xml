@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WarclanscomController.php</file>
-            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Warclanscom/index.html.twig</file>
-            <file>file:/srv/www/htdocs/clanmanager/NDQPM3WQ0.html</file>
+            <file>file:/srv/www/htdocs/clanmanager/EQ88GX8QR.html</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WccclanController.php</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Wccplayer/index.html.twig</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WccplayerController.php</file>
         </group>
     </open-files>
 </project-private>

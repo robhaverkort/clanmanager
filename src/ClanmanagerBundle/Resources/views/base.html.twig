@@ -73,6 +73,12 @@
                 {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a href="{{path('warclanscom')}}">Warclans</a><br>
                 {% endif %}
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <a href="{{path('wccclan')}}">WCC Clan</a><br>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{path('wccplayer')}}">WCC Player</a><br>
+                {% endif %}
 
 
             </p>

@@ -1,0 +1,33 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/warclanscom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    TITLE: {{ title }} <br>
+    
+    level: {{ player.level }}<br>
+    name: {{ player.name }}<br>
+    clanprofile: {{ player.clanprofile }}<br>
+    clanname: {{ player.clanname }}<br>
+    score: {{ player.score }}<br>
+    clan_info: {{ player.clan_info }}<br>
+    goldgrab: {{ player.goldgrab }}<br>
+    elixergrab: {{ player.elixergrab }}<br>
+    darkelixergrab: {{ player.darkelixergrab }}<br>
+    wonbattles: {{ player.wonbattles }}<br>
+    defenseswon: {{ player.defenseswon }}<br>
+    warhero: {{ player.warhero }}<br>
+    goldinwar: {{ player.goldinwar }}<br>
+
+    <p>{{ dump(player.troops) }}</p>
+    <h2>text</h2>
+    <p>{# text #}</p>
+    <p>{# dump(text) #}</p>
+
+{% endblock %}
