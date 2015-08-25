@@ -172,14 +172,21 @@ class WarController extends Controller {
             $ranking['dstars1'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==1) $ranking['dstars1']++;
             $ranking['dstars0'] = 0; foreach ( $warplayer->getDefends() as $defend ) if($defend->getStars()==0) $ranking['dstars0']++;
             $ranking['dtotdmg'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['dtotdmg']+=$defend->getPercent();
-            $ranking['ddiff'] = 0; foreach ( $warplayer->getDefends() as $defend ) $ranking['ddiff'] -= ($defend->getAttacker()->getRank() - $warplayer->getRank());// FINISH ME
-            $ranking['dscore'] = sizeof($warplayer->getDefends())==0
+            $ranking['ddiff'] = 0; foreach ( $warplayer->getDefends() as $defend ){
+                                    if( $defend->getStars()>0 )
+                                        $ranking['ddiff'] -= ($defend->getAttacker()->getRank() - $warplayer->getRank());
+                                    else {
+                                        if( $defend->getAttacker()->getRank() - $warplayer->getRank() < 0 )
+                                            $ranking['ddiff'] -= ($defend->getAttacker()->getRank() - $warplayer->getRank());
+                                    }
+                                    }
+            $ranking['dscore'] = round( 
+                                    sizeof($warplayer->getDefends())==0
                                     ? 1000
-                                    : round(
-                                        ($ranking['dstars0']*1250 + $ranking['dstars1']*1100 + $ranking['dstars2']*1000 )/sizeof($warplayer->getDefends())*$this->dfactor(sizeof($warplayer->getDefends()))
+                                    :   ($ranking['dstars0']*1250 + $ranking['dstars1']*1100 + $ranking['dstars2']*1000 )/sizeof($warplayer->getDefends())*$this->dfactor(sizeof($warplayer->getDefends()))
                                         - $ranking['dtotdmg']
                                         + $ranking['ddiff']*20
-                                        )/2
+                                    )/2
                                 ;
                                 // ROUND( IF(AG4=0,1000,(((AK4*1250+AJ4*1100+AI4*1000)/AG4)*VLOOKUP(AG4,$BP$4:$BR$13,3)-AL4+AM4*20)),0 )/2
             
