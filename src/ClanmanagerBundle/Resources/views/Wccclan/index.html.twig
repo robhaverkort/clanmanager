@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('css/warclanscom.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/wcc.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -15,13 +15,13 @@
     <table>
         <tr>
             <th></th>
+            <th>#</th>
             <th></th>
+            <th>lv</th>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>name</th>
+            <th>role</th>
+            <th>score</th>
             <th></th>
             <th>BK</th>
             <th>AQ</th>
@@ -46,6 +46,13 @@
             <th>GO</th>
             <th>WI</th>
             <th>LA</th>
+            <th>Gold Grab</th>
+            <th>Elixer Grab</th>
+            <th>Dark Elixer Grab</th>
+            <th>Won Battles</th>
+            <th>Defenses Won</th>
+            <th>War Hero</th>
+            <th>Gold in Wars</th>
         </tr>
         {% for player in players %}
             <tr valign="top">
@@ -53,7 +60,7 @@
                 <td>{{ player.rank }}</td>
                 <td>{{ player.league }}</td>
                 <td>{{ player.level }}</td>
-                <td>{{ player.profile }}</td>
+                <td>{# player.profile #}</td>
                 <td>{{ player.name }}</td>
                 <td>{{ player.role }}</td>
                 <td>{{ player.score }}</td>
