@@ -162,7 +162,8 @@ class WarController extends Controller {
                             + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) 
                         : 0) 
                     + ( (isset($warplayer->getAttacks()[1]))&&($warplayer->getAttacks()[1]->getStars() > 0) 
-                        ? ((51 - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 20 + ($warplayer->getRank() - $warplayer->getAttacks()[0]->getDefender()->getRank()) * 10) 
+                        ? ((51 - $warplayer->getAttacks()[1]->getDefender()->getRank()) * 20 
+                            + ($warplayer->getRank() - $warplayer->getAttacks()[1]->getDefender()->getRank()) * 10) 
                         : 0); 
                     // BUG FOUND, last factor uses rank difference of 1st attack, should be second ???
 

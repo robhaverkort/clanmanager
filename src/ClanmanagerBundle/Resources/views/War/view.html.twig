@@ -86,63 +86,6 @@
 
     </table>
 
-    <h1>Rankings (inc error in attackscore)</h1>
-    <table>
-        <th>#</th>
-        <th>#</th>
-        <th>name</th>
-        <th colspan="9">Attack</th>
-        <th colspan="7">Defense</th>
-        <th>total</th>
-    </tr>
-    <tr>
-        <th></th><th></th><th></th>
-        <th>d1</th>
-        <th>d2</th>
-        <th>3*</th>
-        <th>2*</th>
-        <th>1*</th>
-        <th>0*</th>
-        <th>td</th>
-        <th>ts</th>
-        <th>score</th>
-        <th>3*</th>
-        <th>2*</th>
-        <th>1*</th>
-        <th>0*</th>
-        <th>td</th>
-        <th>d</th>
-        <th>score</th>
-            {% set rank=0 %}
-            {% for player in rankings %}
-            {% set rank=rank+1 %}
-        <tr>
-            <td>{{ rank }}</td>
-            <td>({{ player.pos }})</td>
-            <td>{{ player.name }}</td>
-            <td>{{ player.adiff1 }}</td>
-            <td>{{ player.adiff2 }}</td>
-            <td>{{ player.astars3 }}</td>
-            <td>{{ player.astars2 }}</td>
-            <td>{{ player.astars1 }}</td>
-            <td>{{ player.astars0 }}</td>
-            <td>{{ player.atotdmg }}</td>
-            <td>{{ player.atotstars }}</td>
-            <td>{{ player.ascore }}</td>
-
-            <td>{{ player.dstars3 }}</td>
-            <td>{{ player.dstars2 }}</td>
-            <td>{{ player.dstars1 }}</td>
-            <td>{{ player.dstars0 }}</td>
-            <td>{{ player.dtotdmg }}</td>
-            <td>{{ player.ddiff }}</td>
-            <td>{{ player.dscore }}</td>
-
-            <td>{{ player.tscore }}</td>
-        </tr>
-    {% endfor %}
-</table>
-{# dump(rankings) #}
 
 <script type="text/javascript"
         src="https://www.google.com/jsapi?autoload={
@@ -202,6 +145,73 @@
 <div id="chart_attacks" style="width: 640px; height: 320px; float:left"></div>
 <div id="chart_stars" style="width: 640px; height: 320px; float:left"></div>
 </p>
+
+
+    <h1>Rankings</h1>
+    <table>
+        <th>#</th>
+        <th>#</th>
+        <th>name</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>total</th>
+    </tr>
+    <tr>
+        <th></th><th></th><th></th>
+        <!--
+        <th>d1</th>
+        <th>d2</th>
+        <th>3*</th>
+        <th>2*</th>
+        <th>1*</th>
+        <th>0*</th>
+        <th>td</th>
+        <th>ts</th>
+        -->
+        <th>score</th>
+        <!--
+        <th>3*</th>
+        <th>2*</th>
+        <th>1*</th>
+        <th>0*</th>
+        <th>td</th>
+        <th>d</th>
+        -->
+        <th>score</th>
+            {% set rank=0 %}
+            {% for player in rankings %}
+            {% set rank=rank+1 %}
+        <tr>
+            <td>{{ rank }}</td>
+            <td>({{ player.pos }})</td>
+            <td>{{ player.name }}</td>
+            <!--
+            <td>{{ player.adiff1 }}</td>
+            <td>{{ player.adiff2 }}</td>
+            <td>{{ player.astars3 }}</td>
+            <td>{{ player.astars2 }}</td>
+            <td>{{ player.astars1 }}</td>
+            <td>{{ player.astars0 }}</td>
+            <td>{{ player.atotdmg }}</td>
+            <td>{{ player.atotstars }}</td>
+            -->
+            <td>{{ player.ascore }}</td>
+            <!--
+            <td>{{ player.dstars3 }}</td>
+            <td>{{ player.dstars2 }}</td>
+            <td>{{ player.dstars1 }}</td>
+            <td>{{ player.dstars0 }}</td>
+            <td>{{ player.dtotdmg }}</td>
+            <td>{{ player.ddiff }}</td>
+            -->
+            <td>{{ player.dscore }}</td>
+
+            <td>{{ player.tscore }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{# dump(rankings) #}
+
 
 <table class="warevents">
     <tr><th colspan="7">War Events</th></tr>

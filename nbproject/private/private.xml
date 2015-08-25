@@ -7,6 +7,8 @@
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WccclanController.php</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Wccplayer/index.html.twig</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WccplayerController.php</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/base.html.twig</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Wccclan/index.html.twig</file>
         </group>
     </open-files>
 </project-private>
