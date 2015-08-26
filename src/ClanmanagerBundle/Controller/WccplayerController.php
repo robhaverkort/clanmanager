@@ -85,6 +85,7 @@ class WccplayerController extends Controller {
         $player['playerinfo']['playername'] = $xpath->query("//h1[@class='title']")->item(0)->textContent;
         $player['playerinfo']['clanprofile'] = explode("/",$xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->getAttribute("href"))[4];
         $player['playerinfo']['clanname'] = $xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->getAttribute("title");
+        $player['playerinfo']['clanrole'] = $xpath->query("//span[@class='members']")->item(0)->childNodes->item(3)->textContent;
         $player['playerinfo']['score'] = $xpath->query("//span[@class='score']")->item(0)->textContent;
         //$player['playerinfo']['clan_info'] = $xpath->query("//div[@class='clan-info']")->item(0)->textContent;
 
