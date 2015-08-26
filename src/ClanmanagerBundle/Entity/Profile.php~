@@ -30,21 +30,21 @@ class Profile {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=32)
+     * @ORM\Column(name="name", type="string", length=32, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="facebookname", type="string", length=32)
+     * @ORM\Column(name="facebookname", type="string", length=32, nullable=true)
      */
     private $facebookname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="facebookprofile", type="string", length=64, unique=true)
+     * @ORM\Column(name="facebookprofile", type="string", length=64, nullable=true)
      */
     private $facebookprofile;
 

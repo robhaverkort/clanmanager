@@ -25,7 +25,7 @@ class Player {
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=9, nullable=true)
+     * @ORM\Column(name="tag", type="string", length=10, nullable=true)
      */
     private $tag;
 
