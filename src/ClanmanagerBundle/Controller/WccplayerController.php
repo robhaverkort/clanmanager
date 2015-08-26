@@ -79,28 +79,36 @@ class WccplayerController extends Controller {
 
         $player = array();
 
-        $player['level'] = $xpath->query("//div[@class='level']")->item(0)->textContent;
-        $player['name'] = $xpath->query("//h1[@class='title']")->item(0)->textContent;
-        $player['clanprofile'] = $xpath->query("//span[@class='members']")->item(0)->getAttribute("href");
-        $player['clanname'] = $xpath->query("//span[@class='members']")->item(0)->getAttribute("title");
-        $player['score'] = $xpath->query("//span[@class='score']")->item(0)->textContent;
-        $player['clan_info'] = $xpath->query("//div[@class='clan-info']")->item(0)->textContent;
-        $player['goldgrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(0)->childNodes->item(1)->textContent);
-        $player['elixergrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(2)->childNodes->item(1)->textContent);
-        $player['darkelixergrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(4)->childNodes->item(1)->textContent);
-        $player['wonbattles'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(6)->childNodes->item(1)->textContent);
-        $player['defenseswon'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(8)->childNodes->item(1)->textContent);
-        $player['warhero'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(10)->childNodes->item(1)->textContent);
-        $player['goldinwar'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(12)->childNodes->item(1)->textContent);
-        $troopswrap = $xpath->query("//span[contains(concat(' ',normalize-space(@class),' '),' army-icon ')]");
+        $player['playerinfo'] = array();
+        $player['playerinfo']['level'] = $xpath->query("//div[@class='level']")->item(0)->textContent;
+        $player['playerinfo']['playername'] = $xpath->query("//h1[@class='title']")->item(0)->textContent;
+        $player['playerinfo']['clanprofile'] = $xpath->query("//span[@class='members']")->item(0)->getAttribute("href");
+        $player['playerinfo']['clanname'] = $xpath->query("//span[@class='members']")->item(0)->getAttribute("title");
+        $player['playerinfo']['score'] = $xpath->query("//span[@class='score']")->item(0)->textContent;
+        //$player['playerinfo']['clan_info'] = $xpath->query("//div[@class='clan-info']")->item(0)->textContent;
+
+        $player['claninfo'] = array();
+        $player['claninfo']['goldgrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(0)->childNodes->item(1)->textContent);
+        $player['claninfo']['elixergrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(2)->childNodes->item(1)->textContent);
+        $player['claninfo']['darkelixergrab'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(4)->childNodes->item(1)->textContent);
+        $player['claninfo']['wonbattles'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(6)->childNodes->item(1)->textContent);
+        $player['claninfo']['defenseswon'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(8)->childNodes->item(1)->textContent);
+        $player['claninfo']['warhero'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(10)->childNodes->item(1)->textContent);
+        $player['claninfo']['goldinwar'] = str_replace(" ", "", $xpath->query("//div[@class='clan-info']")->item(0)->childNodes->item(1)->childNodes->item(12)->childNodes->item(1)->textContent);
+
         $player['troops'] = array();
+        $troopswrap = $xpath->query("//span[contains(concat(' ',normalize-space(@class),' '),' army-icon ')]");
         foreach ($troopswrap as $troopsnode) {
             $key = trim(str_replace(array("army-icon", "no-icon", "active", "-icon", "top-lvl"), "", $troopsnode->getAttribute("class")));
             if ($key)
                 $player['troops'][$key] = $troopsnode->nodeValue;
         }
 
-        return $this->render('ClanmanagerBundle:Wccplayer:view.html.twig', array('title' => $title, 'player' => $player));
+        $player['achievements'] = array();
+
+        $response = new Response($this->renderView('ClanmanagerBundle:Wccplayer:view.xml.twig', array('player' => $player)),200);
+        $response->headers->set('Content-Type', 'text/xml');
+        return $response;
     }
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cocplayer>
+
+    <playerinfo>
+        {% for key in player.playerinfo|keys %}
+            <{{ key }}>{{ player.playerinfo[key] }}</{{ key }}>
+        {% endfor %}
+    </playerinfo>
+
+    <claninfo>
+        {% for key in player.claninfo|keys %}
+            <{{ key }}>{{ player.claninfo[key]|number_format }}</{{ key }}>
+        {% endfor %}
+    </claninfo>
+
+    <troops>
+        {% for key in player.troops|keys %}
+            <{{ key }}>{{ player.troops[key] }}</{{ key }}>
+        {% endfor %}
+    </troops>
+
+    <achievements>
+        {% for key in player.achievements|keys %}
+            <{{ key }}>{{ player.achievements[key] }}</{{ key }}>
+        {% endfor %}
+    </achievements>
+
+</cocplayer>

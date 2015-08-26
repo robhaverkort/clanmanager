@@ -57,7 +57,7 @@ class WccclanController extends Controller {
                 $player['league'] = substr(explode(" ", $xpath->query("//span[contains(concat(' ',normalize-space(@class),' '),' legue ')]")->item(0)->getAttribute("class"))[1], 5);
                 $player['level'] = $xpath->query("//span[@class='level']")->item(0)->textContent;
                 $player['profile'] = explode("/", $xpath->query("//h2[@class='title']")->item(0)->childNodes->item(1)->getAttribute("href"))[4];
-                $player['name'] = $xpath->query("//h2[@class='title']")->item(0)->childNodes->item(1)->getAttribute("title");
+                $player['playername'] = $xpath->query("//h2[@class='title']")->item(0)->childNodes->item(1)->getAttribute("title");
                 //$player['name'] = $xpath->query("//h2[@class='title']")->item(0)->childNodes->item(1)->textContent; //nodeValue?
                 $player['role'] = $xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->textContent;
                 $player['score'] = $xpath->query("//span[@class='score']")->item(0)->textContent;

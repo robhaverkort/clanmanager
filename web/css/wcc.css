@@ -11,3 +11,6 @@ and open the template in the editor.
 table {
     font-size: 80%;
 }
+.nr {
+    text-align: right;
+}

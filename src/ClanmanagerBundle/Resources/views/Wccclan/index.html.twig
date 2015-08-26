@@ -16,7 +16,7 @@
         <tr>
             <th></th>
             <th>#</th>
-            <th></th>
+            <th>lg</th>
             <th>lv</th>
             <th></th>
             <th>name</th>
@@ -60,8 +60,8 @@
                 <td>{{ player.rank }}</td>
                 <td>{{ player.league }}</td>
                 <td>{{ player.level }}</td>
-                <td>{# player.profile #}</td>
-                <td>{{ player.name }}</td>
+                <td>{{ player.profile }}</td>
+                <td>{{ player.playername }}</td>
                 <td>{{ player.role }}</td>
                 <td>{{ player.score }}</td>
                 <td><!--
@@ -92,12 +92,55 @@
                 <td>{{ player.troops['golem'] }}</td>
                 <td>{{ player.troops['witch'] }}</td>
                 <td>{{ player.troops['lavahound'] }}</td>
-                <td>{# dump(player) #}</td>
+                <td class="nr"><div id="goldgrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="elixergrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="darkelixergrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="wonbattles_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="defenseswon_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="warhero_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="goldinwar_{{ player.profile }}"></div></td>
             </tr>
         {% endfor %}
     </table>
 
     <p>{# text #}</p>
     <p>{# dump(text) #}</p>
+
+    <script language="JavaScript">
+
+        function loadXMLDoc(profile)
+        {
+            var xmlhttp;
+            var x;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                {
+                    x = xmlhttp.responseXML.documentElement;
+                    document.getElementById('goldgrab_' + profile).innerHTML = x.getElementsByTagName("goldgrab")[0].childNodes[0].nodeValue;
+                    document.getElementById('elixergrab_' + profile).innerHTML = x.getElementsByTagName("elixergrab")[0].childNodes[0].nodeValue;
+                    document.getElementById('darkelixergrab_' + profile).innerHTML = x.getElementsByTagName("darkelixergrab")[0].childNodes[0].nodeValue;
+                    document.getElementById('wonbattles_' + profile).innerHTML = x.getElementsByTagName("wonbattles")[0].childNodes[0].nodeValue;
+                    document.getElementById('defenseswon_' + profile).innerHTML = x.getElementsByTagName("defenseswon")[0].childNodes[0].nodeValue;
+                    document.getElementById('warhero_' + profile).innerHTML = x.getElementsByTagName("warhero")[0].childNodes[0].nodeValue;
+                    document.getElementById('goldinwar_' + profile).innerHTML = x.getElementsByTagName("goldinwar")[0].childNodes[0].nodeValue;
+                }
+            }
+            str = "{{ path('wccplayer_view', {'profile':'BLABLA'} ) }}";
+            xmlhttp.open("GET", str.replace("BLABLA", profile), true);
+            xmlhttp.send();
+        }
+        {% for player in players %}
+            loadXMLDoc("{{ player.profile }}");
+        {% endfor %}
+    </script>
 
 {% endblock %}
