@@ -138,9 +138,43 @@
             xmlhttp.open("GET", str.replace("BLABLA", profile), true);
             xmlhttp.send();
         }
+
+        function loadJSONDoc(profile)
+        {
+            var xmlhttp;
+            var x;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                {
+                    var x = JSON.parse(xmlhttp.responseText);
+                    document.getElementById('goldgrab_' + profile).innerHTML = Number(x.claninfo.goldgrab).toLocaleString();
+                    document.getElementById('elixergrab_' + profile).innerHTML = Number(x.claninfo.elixergrab).toLocaleString();
+                    document.getElementById('darkelixergrab_' + profile).innerHTML = Number(x.claninfo.darkelixergrab).toLocaleString();
+                    document.getElementById('wonbattles_' + profile).innerHTML = Number(x.claninfo.wonbattles).toLocaleString();
+                    document.getElementById('defenseswon_' + profile).innerHTML = Number(x.claninfo.defenseswon).toLocaleString();
+                    document.getElementById('warhero_' + profile).innerHTML = Number(x.claninfo.warhero).toLocaleString();
+                    document.getElementById('goldinwar_' + profile).innerHTML = Number(x.claninfo.goldinwar).toLocaleString();
+                }
+            }
+            str = "{{ path('wccplayer_view', {'profile':'BLABLA'} ) }}";
+            xmlhttp.open("GET", str.replace("BLABLA", profile), true);
+            xmlhttp.send();
+        }
+
+        window.onload = function (e) {
         {% for player in players %}
-            loadXMLDoc("{{ player.profile }}");
+                loadJSONDoc("{{ player.profile }}");
         {% endfor %}
+            }
     </script>
 
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use \DOMDocument;
 use \DOMXPath;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class WccplayerController extends Controller {
 
@@ -83,10 +84,10 @@ class WccplayerController extends Controller {
         $player['playerinfo']['profile'] = $profile;
         $player['playerinfo']['level'] = $xpath->query("//div[@class='level']")->item(0)->textContent;
         $player['playerinfo']['playername'] = $xpath->query("//h1[@class='title']")->item(0)->textContent;
-        $player['playerinfo']['clanprofile'] = explode("/",$xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->getAttribute("href"))[4];
+        $player['playerinfo']['clanprofile'] = explode("/", $xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->getAttribute("href"))[4];
         $player['playerinfo']['clanname'] = $xpath->query("//span[@class='members']")->item(0)->childNodes->item(1)->getAttribute("title");
         $player['playerinfo']['clanrole'] = $xpath->query("//span[@class='members']")->item(0)->childNodes->item(3)->textContent;
-        $player['playerinfo']['league'] = str_replace(".png","",explode("/",$xpath->query("//div[@class='player-legue-wrap']")->item(0)->childNodes->item(1)->getAttribute("src"))[5]);
+        $player['playerinfo']['league'] = str_replace(".png", "", explode("/", $xpath->query("//div[@class='player-legue-wrap']")->item(0)->childNodes->item(1)->getAttribute("src"))[5]);
         $player['playerinfo']['score'] = $xpath->query("//div[@class='player-legue-wrap']")->item(0)->childNodes->item(2)->textContent;
         //$player['playerinfo']['clan_info'] = $xpath->query("//div[@class='clan-info']")->item(0)->textContent;
 
@@ -109,8 +110,13 @@ class WccplayerController extends Controller {
 
         $player['achievements'] = array();
 
-        $response = new Response($this->renderView('ClanmanagerBundle:Wccplayer:view.xml.twig', array('player' => $player)),200);
-        $response->headers->set('Content-Type', 'text/xml');
+        // XML
+        //$response = new Response($this->renderView('ClanmanagerBundle:Wccplayer:view.xml.twig', array('player' => $player)),200);
+        //$response->headers->set('Content-Type', 'text/xml');
+        // JSON
+        $response = new JsonResponse();
+        $response->setData($player);
+
         return $response;
     }
 
