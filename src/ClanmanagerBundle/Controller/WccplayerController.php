@@ -109,7 +109,14 @@ class WccplayerController extends Controller {
         }
 
         $player['achievements'] = array();
-
+        $achievements = $xpath->query("//div[@class='achievement-head']");
+        foreach( $achievements as $node){
+            $player['achievements'][strtolower(str_replace(" ","",$node->childNodes->item(1)->textContent))] = 
+                    stristr(trim($node->childNodes->item(5)->textContent),":")
+                    ? str_replace(" ","",trim(explode(":",$node->childNodes->item(5)->textContent)[1]))
+                    : str_replace(" ","",trim(explode("/",$node->childNodes->item(5)->textContent)[0]));
+        }
+        
         // XML
         //$response = new Response($this->renderView('ClanmanagerBundle:Wccplayer:view.xml.twig', array('player' => $player)),200);
         //$response->headers->set('Content-Type', 'text/xml');
