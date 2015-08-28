@@ -46,6 +46,11 @@ class Clan {
      */
     protected $warclans;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Wccclan", mappedBy="clan")
+     * */
+    private $wccclan;
+
     public function __construct() {
         $this->memberships = new ArrayCollection();
         $this->wars = new ArrayCollection();
@@ -161,5 +166,29 @@ class Clan {
      */
     public function getWarclans() {
         return $this->warclans;
+    }
+
+
+    /**
+     * Set wccclan
+     *
+     * @param \ClanmanagerBundle\Entity\Wccclan $wccclan
+     * @return Clan
+     */
+    public function setWccclan(\ClanmanagerBundle\Entity\Wccclan $wccclan = null)
+    {
+        $this->wccclan = $wccclan;
+
+        return $this;
+    }
+
+    /**
+     * Get wccclan
+     *
+     * @return \ClanmanagerBundle\Entity\Wccclan 
+     */
+    public function getWccclan()
+    {
+        return $this->wccclan;
     }
 }

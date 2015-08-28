@@ -59,11 +59,15 @@ class Player {
      */
     protected $warplayers;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Wccplayer", mappedBy="player")
+     * */
+    private $wccplayer;
+
     public function __construct() {
         $this->memberships = new ArrayCollection();
         $this->warplayers = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -173,8 +177,7 @@ class Player {
      * @param \ClanmanagerBundle\Entity\War $warplayers
      * @return Player
      */
-    public function addWarplayer(\ClanmanagerBundle\Entity\War $warplayers)
-    {
+    public function addWarplayer(\ClanmanagerBundle\Entity\War $warplayers) {
         $this->warplayers[] = $warplayers;
 
         return $this;
@@ -185,8 +188,7 @@ class Player {
      *
      * @param \ClanmanagerBundle\Entity\War $warplayers
      */
-    public function removeWarplayer(\ClanmanagerBundle\Entity\War $warplayers)
-    {
+    public function removeWarplayer(\ClanmanagerBundle\Entity\War $warplayers) {
         $this->warplayers->removeElement($warplayers);
     }
 
@@ -195,8 +197,7 @@ class Player {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWarplayers()
-    {
+    public function getWarplayers() {
         return $this->warplayers;
     }
 
@@ -206,8 +207,7 @@ class Player {
      * @param string $tag
      * @return Player
      */
-    public function setTag($tag)
-    {
+    public function setTag($tag) {
         $this->tag = $tag;
 
         return $this;
@@ -218,8 +218,31 @@ class Player {
      *
      * @return string 
      */
-    public function getTag()
-    {
+    public function getTag() {
         return $this->tag;
+    }
+
+
+    /**
+     * Set wccplayer
+     *
+     * @param \ClanmanagerBundle\Entity\Wccplayer $wccplayer
+     * @return Player
+     */
+    public function setWccplayer(\ClanmanagerBundle\Entity\Wccplayer $wccplayer = null)
+    {
+        $this->wccplayer = $wccplayer;
+
+        return $this;
+    }
+
+    /**
+     * Get wccplayer
+     *
+     * @return \ClanmanagerBundle\Entity\Wccplayer 
+     */
+    public function getWccplayer()
+    {
+        return $this->wccplayer;
     }
 }

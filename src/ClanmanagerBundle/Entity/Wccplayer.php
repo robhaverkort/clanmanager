@@ -36,6 +36,11 @@ class Wccplayer {
     private $name;
 
     /**
+     * @ORM\OneToOne(targetEntity="Player", inversedBy="wccplayer")
+     * */
+    private $player;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -44,15 +49,13 @@ class Wccplayer {
         return $this->id;
     }
 
-
     /**
      * Set profile
      *
      * @param string $profile
      * @return Wccplayer
      */
-    public function setProfile($profile)
-    {
+    public function setProfile($profile) {
         $this->profile = $profile;
 
         return $this;
@@ -63,8 +66,7 @@ class Wccplayer {
      *
      * @return string 
      */
-    public function getProfile()
-    {
+    public function getProfile() {
         return $this->profile;
     }
 
@@ -74,8 +76,7 @@ class Wccplayer {
      * @param string $name
      * @return Wccplayer
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -86,8 +87,31 @@ class Wccplayer {
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
+    }
+
+
+    /**
+     * Set player
+     *
+     * @param \ClanmanagerBundle\Entity\Player $player
+     * @return Wccplayer
+     */
+    public function setPlayer(\ClanmanagerBundle\Entity\Player $player = null)
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * Get player
+     *
+     * @return \ClanmanagerBundle\Entity\Player 
+     */
+    public function getPlayer()
+    {
+        return $this->player;
     }
 }
