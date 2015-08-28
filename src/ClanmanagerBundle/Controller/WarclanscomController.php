@@ -18,9 +18,8 @@ class WarclanscomController extends Controller {
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction() {
-
-        $title="WARCLANS.COM";
-        return $this->render('ClanmanagerBundle:Warclanscom:index.html.twig', array('title' => $title));
+        return $this->render('ClanmanagerBundle:Warclanscom:index.html.twig');
     }
+
 
 }

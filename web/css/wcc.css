@@ -8,9 +8,10 @@ and open the template in the editor.
     Author     : rob
 */
 
-table {
+.detail {
     font-size: 80%;
 }
+
 .nr {
     text-align: right;    
 }

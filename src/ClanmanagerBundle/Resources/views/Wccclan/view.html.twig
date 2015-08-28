@@ -1,0 +1,152 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/wcc.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    TITLE: {{ title }} <br>
+    <p></p>
+
+    <table class="detail">
+        <tr>
+            <th></th>
+            <th>#</th>
+            <th>lg</th>
+            <th>lv</th>
+            <th></th>
+            <th>name</th>
+            <th>role</th>
+            <th>score</th>
+            <th></th>
+            <th>BK</th>
+            <th>AQ</th>
+            <th>LS</th>
+            <th>HS</th>
+            <th>RS</th>
+            <th>JS</th>
+            <th>FS</th>
+            <th>BA</th>
+            <th>AR</th>
+            <th>GI</th>
+            <th>GB</th>
+            <th>WB</th>
+            <th>BA</th>
+            <th>WI</th>
+            <th>HE</th>
+            <th>DR</th>
+            <th>PE</th>
+            <th>MI</th>
+            <th>HO</th>
+            <th>VA</th>
+            <th>GO</th>
+            <th>WI</th>
+            <th>LA</th>
+            <th>Gold Grab</th>
+            <th>Elixer Grab</th>
+            <th>Dark Grab</th>
+            <th>Attks</th>
+            <th>Defs</th>
+            <th>Stars</th>
+            <th>War Gold</th>
+            <th>Donate</th>
+        </tr>
+        {% for player in players %}
+            <tr valign="top">
+                <td>{# player.nodeValue #}</td>
+                <td>{{ player.rank }}</td>
+                <td>{{ player.league }}</td>
+                <td>{{ player.level }}</td>
+                <td>{# player.profile #}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.role }}</td>
+                <td>{{ player.score }}</td>
+                <td><!--
+                    {% for key in player.troops|keys %}
+                        {{ key }}:{{ player.troops[key] }}<br>
+                    {% endfor %}-->
+                </td>
+                <td>{{ player.troops['barbarianking'] }}</td>
+                <td>{{ player.troops['archerqueen'] }}</td>
+                <td>{{ player.troops['lightningspell'] }}</td>
+                <td>{{ player.troops['healingspell'] }}</td>
+                <td>{{ player.troops['ragespell'] }}</td>
+                <td>{{ player.troops['jumpspell'] }}</td>
+                <td>{{ player.troops['freezespell'] }}</td>
+                <td>{{ player.troops['barbarian'] }}</td>
+                <td>{{ player.troops['archer'] }}</td>
+                <td>{{ player.troops['giant'] }}</td>
+                <td>{{ player.troops['goblin'] }}</td>
+                <td>{{ player.troops['wallbreaker'] }}</td>
+                <td>{{ player.troops['balloon'] }}</td>
+                <td>{{ player.troops['wizard'] }}</td>
+                <td>{{ player.troops['healer'] }}</td>
+                <td>{{ player.troops['dragon'] }}</td>
+                <td>{{ player.troops['pekka'] }}</td>
+                <td>{{ player.troops['minion'] }}</td>
+                <td>{{ player.troops['hog-rider'] }}</td>
+                <td>{{ player.troops['valkyrie'] }}</td>
+                <td>{{ player.troops['golem'] }}</td>
+                <td>{{ player.troops['witch'] }}</td>
+                <td>{{ player.troops['lavahound'] }}</td>
+                <td class="nr"><div id="goldgrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="elixergrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="darkelixergrab_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="wonbattles_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="defenseswon_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="warhero_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="goldinwar_{{ player.profile }}"></div></td>
+                <td class="nr"><div id="friendinneed_{{ player.profile }}"></div></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <p>{# text #}</p>
+    <p>{# dump(text) #}</p>
+
+    <script language="JavaScript">
+
+        function loadJSONDoc(profile)
+        {
+            var xmlhttp;
+            var x;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function ()
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                {
+                    var x = JSON.parse(xmlhttp.responseText);
+                    document.getElementById('goldgrab_' + profile).innerHTML = Number(x.claninfo.goldgrab).toLocaleString();
+                    document.getElementById('elixergrab_' + profile).innerHTML = Number(x.claninfo.elixergrab).toLocaleString();
+                    document.getElementById('darkelixergrab_' + profile).innerHTML = Number(x.claninfo.darkelixergrab).toLocaleString();
+                    document.getElementById('wonbattles_' + profile).innerHTML = Number(x.claninfo.wonbattles).toLocaleString();
+                    document.getElementById('defenseswon_' + profile).innerHTML = Number(x.claninfo.defenseswon).toLocaleString();
+                    document.getElementById('warhero_' + profile).innerHTML = Number(x.claninfo.warhero).toLocaleString();
+                    document.getElementById('goldinwar_' + profile).innerHTML = Number(x.claninfo.goldinwar).toLocaleString();
+                    document.getElementById('friendinneed_' + profile).innerHTML = Number(x.achievements.friendinneed).toLocaleString();
+                }
+            }
+            str = "{{ path('wccplayer_view', {'profile':'BLABLA'} ) }}";
+            xmlhttp.open("GET", str.replace("BLABLA", profile), true);
+            xmlhttp.send();
+        }
+
+        window.onload = function (e) {
+        {% for player in players %}
+                loadJSONDoc("{{ player.profile }}");
+        {% endfor %}
+            }
+    </script>
+
+{% endblock %}
