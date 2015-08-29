@@ -37,10 +37,18 @@ class WccclanController extends Controller {
         libxml_use_internal_errors(false);
         $doc->preserveWhiteSpace = false;
 
-        $title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
 
         $xpath = new DOMXPath($doc);
+        $title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
+        $name = $xpath->query("//h1[@class='title']")->item(0)->textContent;
+        $title = $name;
         $playerlist_ul = $xpath->query("//ul[@class='clan-list player-list']")->item(0);
+
+        if (!$playerlist_ul) {
+            $this->addFlash('notice', 'Clan ' . $profile . ' not found !');
+            return $this->redirectToRoute('wccclan');
+        }
+
         $text = "";
         //$text .= "nodeName:" . $playerlist_ul->nodeName . "\n";
         //$text .= "nodeValue:" . $playerlist_ul->nodeValue . "\n";
@@ -83,7 +91,7 @@ class WccclanController extends Controller {
             }
         }
 
-        return $this->render('ClanmanagerBundle:Wccclan:view.html.twig', array('title' => $title, 'players' => $players, 'text' => $text));
+        return $this->render('ClanmanagerBundle:Wccclan:view.html.twig', array('name' => $name, 'players' => $players, 'text' => $text));
     }
 
 }
