@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use \DOMDocument;
 use \DOMXPath;
+use ClanmanagerBundle\Entity\Wccclan;
 
 class WccclanController extends Controller {
 
@@ -39,14 +40,24 @@ class WccclanController extends Controller {
 
 
         $xpath = new DOMXPath($doc);
-        $title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
         $name = $xpath->query("//h1[@class='title']")->item(0)->textContent;
-        $title = $name;
         $playerlist_ul = $xpath->query("//ul[@class='clan-list player-list']")->item(0);
 
         if (!$playerlist_ul) {
             $this->addFlash('notice', 'Clan ' . $profile . ' not found !');
             return $this->redirectToRoute('wccclan');
+        }
+
+        $repository = $this->getDoctrine()
+                ->getRepository('ClanmanagerBundle:Wccclan');
+        $wccclan = $repository->findByProfile($profile);
+        if (!$wccclan) {
+            $wccclan = new Wccclan();
+            $wccclan->setProfile($profile);
+            $wccclan->setName($name);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($wccclan);
+            $em->flush();
         }
 
         $text = "";
