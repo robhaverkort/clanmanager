@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use \DOMDocument;
 use \DOMXPath;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use ClanmanagerBundle\Entity\Wccclan;
 use ClanmanagerBundle\Entity\Wccplayer;
+use ClanmanagerBundle\Entity\Wccstats;
 
 class WccplayerController extends Controller {
 
@@ -83,17 +85,34 @@ class WccplayerController extends Controller {
             $player['achievements'][strtolower(str_replace(" ", "", $node->childNodes->item(1)->textContent))] = stristr(trim($node->childNodes->item(5)->textContent), ":") ? str_replace(" ", "", trim(explode(":", $node->childNodes->item(5)->textContent)[1])) : str_replace(" ", "", trim(explode("/", $node->childNodes->item(5)->textContent)[0]));
         }
 
-        $repository = $this->getDoctrine()
-                ->getRepository('ClanmanagerBundle:Wccplayer');
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccclan');
+        $wccclan = $repository->findOneByProfile($player['playerinfo']['clanprofile']);
+        if (!$wccclan) {
+            $wccclan = new Wccclan();
+            $wccclan->setProfile($profile);
+            $wccclan->setName($name);
+            $em->persist($wccclan);
+        }
+
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
         $wccplayer = $repository->findOneByProfile($player['playerinfo']['profile']);
         if (!$wccplayer) {
             $wccplayer = new Wccplayer();
             $wccplayer->setProfile($player['playerinfo']['profile']);
             $wccplayer->setName($player['playerinfo']['name']);
-            $em = $this->getDoctrine()->getManager();
             $em->persist($wccplayer);
-            $em->flush();
         }
+
+        $wccstats = new Wccstats();
+        $wccstats->setWccclan($wccclan);
+        $wccstats->setWccplayer($wccplayer);
+        $wccstats->setJson(json_encode($player));
+        $em->persist($wccstats);
+
+        $em->flush();
+
         // XML
         //$response = new Response($this->renderView('ClanmanagerBundle:Wccplayer:view.xml.twig', array('player' => $player)),200);
         //$response->headers->set('Content-Type', 'text/xml');

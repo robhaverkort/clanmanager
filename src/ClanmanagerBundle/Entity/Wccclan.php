@@ -37,8 +37,17 @@ class Wccclan {
 
     /**
      * @ORM\OneToOne(targetEntity="Clan", inversedBy="wccclan")
-     **/
+     * */
     private $clan;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Wccstats", mappedBy="wccclan")
+     */
+    protected $wccstats;
+
+    public function __construct() {
+        $this->wccstats = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -91,15 +100,13 @@ class Wccclan {
         return $this->name;
     }
 
-
     /**
      * Set clan
      *
      * @param \ClanmanagerBundle\Entity\Clan $clan
      * @return Wccclan
      */
-    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null)
-    {
+    public function setClan(\ClanmanagerBundle\Entity\Clan $clan = null) {
         $this->clan = $clan;
 
         return $this;
@@ -110,8 +117,74 @@ class Wccclan {
      *
      * @return \ClanmanagerBundle\Entity\Clan 
      */
-    public function getClan()
-    {
+    public function getClan() {
         return $this->clan;
+    }
+
+
+    /**
+     * Add wccclan
+     *
+     * @param \ClanmanagerBundle\Entity\Wccstats $wccclan
+     * @return Wccclan
+     */
+    public function addWccclan(\ClanmanagerBundle\Entity\Wccstats $wccclan)
+    {
+        $this->wccclan[] = $wccclan;
+
+        return $this;
+    }
+
+    /**
+     * Remove wccclan
+     *
+     * @param \ClanmanagerBundle\Entity\Wccstats $wccclan
+     */
+    public function removeWccclan(\ClanmanagerBundle\Entity\Wccstats $wccclan)
+    {
+        $this->wccclan->removeElement($wccclan);
+    }
+
+    /**
+     * Get wccclan
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWccclan()
+    {
+        return $this->wccclan;
+    }
+
+    /**
+     * Add wccstats
+     *
+     * @param \ClanmanagerBundle\Entity\Wccstats $wccstats
+     * @return Wccclan
+     */
+    public function addWccstat(\ClanmanagerBundle\Entity\Wccstats $wccstats)
+    {
+        $this->wccstats[] = $wccstats;
+
+        return $this;
+    }
+
+    /**
+     * Remove wccstats
+     *
+     * @param \ClanmanagerBundle\Entity\Wccstats $wccstats
+     */
+    public function removeWccstat(\ClanmanagerBundle\Entity\Wccstats $wccstats)
+    {
+        $this->wccstats->removeElement($wccstats);
+    }
+
+    /**
+     * Get wccstats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWccstats()
+    {
+        return $this->wccstats;
     }
 }

@@ -48,8 +48,7 @@ class WccclanController extends Controller {
             return $this->redirectToRoute('wccclan');
         }
 
-        $repository = $this->getDoctrine()
-                ->getRepository('ClanmanagerBundle:Wccclan');
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccclan');
         $wccclan = $repository->findByProfile($profile);
         if (!$wccclan) {
             $wccclan = new Wccclan();
