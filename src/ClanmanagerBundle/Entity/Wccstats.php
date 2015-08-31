@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
- */
+ * @ORM\HasLifecycleCallbacks
+ *  */
 class Wccstats {
 
     /**
@@ -22,9 +23,9 @@ class Wccstats {
     private $id;
 
     /**
-     * @ORM\Column(type="datetime", name="posted_at",nullable=true)
+     * @ORM\Column(type="datetime",name="created_at",nullable=true)
      */
-    private $postedAt;
+    private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Wccplayer", inversedBy="wccstats")
@@ -40,6 +41,13 @@ class Wccstats {
      * @ORM\Column(type="text")
      */
     private $json;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function doStuffOnPrePersist() {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -132,6 +140,27 @@ class Wccstats {
      */
     public function getJson() {
         return $this->json;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Wccstats
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
     }
 
 }
