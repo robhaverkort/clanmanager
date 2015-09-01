@@ -4,19 +4,26 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('css/warclanscom.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/wcc.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
 
     <table>
-    {% for wccplayer in wccplayers %}
-        <tr>
-            <td>{{ wccplayer.id }}</td>
-            <td>{{ wccplayer.profile }}</td>
-            <td>{{ wccplayer.name }}</td>
-        </tr>
-    {% endfor %}
+        {% for player in players %}
+            <tr>
+                <td class="atop">{{ player.wccplayer.id }}</td>
+                <td class="atop">{{ player.wccplayer.profile }}</td>
+                <td class="atop">{{ player.wccplayer.name }}</td>
+                <td class="atop">{{ player.wccstats|length }}</td>
+                <td class="atop">
+                    {% for stats in player.wccstats %}
+                        {{ stats.id }} - {{ stats.createdat|date() }} - {{ stats.wccclan.name }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
     </table>
-    
+
+    {# dump(players) #}
 {% endblock %}

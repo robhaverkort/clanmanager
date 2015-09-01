@@ -23,11 +23,20 @@ class WccplayerController extends Controller {
      */
     public function indexAction() {
 
-        $repository = $this->getDoctrine()
-                ->getRepository('ClanmanagerBundle:Wccplayer');
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
         $wccplayers = $repository->findAll();
 
-        return $this->render('ClanmanagerBundle:Wccplayer:index.html.twig', array('wccplayers' => $wccplayers));
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
+        $players = array();
+        foreach ($wccplayers as $wccplayer) {
+            $player = array();
+            $player['wccplayer'] = $wccplayer;
+            $wccstats = $repository->findByWccplayer($wccplayer);
+            $player['wccstats'] = $wccstats;
+            $players[] = $player;
+        }
+
+        return $this->render('ClanmanagerBundle:Wccplayer:index.html.twig', array('players' => $players));
     }
 
     /**

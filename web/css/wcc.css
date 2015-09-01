@@ -15,3 +15,7 @@ and open the template in the editor.
 .nr {
     text-align: right;    
 }
+
+.atop {
+    vertical-align: top;
+}
