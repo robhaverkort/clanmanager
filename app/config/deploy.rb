@@ -6,6 +6,7 @@ set :app_path,    "app"
 #set :user,"pi"
 
 set  :keep_releases,  3
+after "deploy", "deploy:cleanup"
 
 #set :repository,  "#{domain}:/var/repos/#{application}.git"
 set :repository,  "https://github.com/robhaverkort/clanmanager.git"
