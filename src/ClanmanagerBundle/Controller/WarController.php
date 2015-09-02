@@ -123,6 +123,32 @@ class WarController extends Controller {
         $warclans = $em->getRepository('ClanmanagerBundle:Warclan')->findByWar($war);
         $warevents = $em->getRepository('ClanmanagerBundle:Warevent')->findByWarId($war->getId());
 
+        // Calc net stars
+        $players = array();
+        foreach ($warclans[0]->getWarPlayers() as $warplayer) {
+            $player = array();
+            $attstars = 0;
+            foreach( $warplayer->getAttacks() as $attack ){
+                $defends = $attack->getDefender()->getDefends();
+                foreach( $attack->getDefender()->getDefends() as $defend ){
+                    if( $attack->getDefender()->getStars() == $defend->getStars() ){
+                        if( $defend->getAttacker() == $warplayer ){
+                            $attstars += $attack->getStars();
+                        }
+                        break;
+                    }
+                }
+            }
+            $defstars = 0;
+            foreach( $warplayer->getDefends() as $defend ){
+                if( $defend->getStars() > $defstars ){
+                    $defstars = $defend->getStars();
+                }
+            }
+            $player['netstars'] = $attstars - $defstars;
+            $players[] = $player;
+        }
+        
         // graph attacks per stars
         $results = array();
         for ($n = 0; $n < 4; $n++) {
@@ -198,11 +224,14 @@ class WarController extends Controller {
                 return $b['tscore'] - $a['tscore'];
             });
 
-        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results, 'rankings' => $rankings));
+        return $this->render('ClanmanagerBundle:War:view.html.twig', array('war' => $war, 'warevents' => $warevents, 'results' => $results, 'rankings' => $rankings, 'players'=>$players));
     }
+    
     private function dfactor($n) {
         $dfactor = 0;
         for ($i = 1; $i <= $n; $i++)
             $dfactor += 1/$i;
         return $dfactor;
-    }}
+    }
+    
+    }
