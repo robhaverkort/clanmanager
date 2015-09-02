@@ -26,6 +26,12 @@ set :model_manager, "doctrine"
 
 set :shared_files, ["app/config/parameters.yml"]
 
+#new
+#set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads"]
+set :use_composer, false
+set :update_vendors, false
+
 task :production do
   role :web, "www.rhbv.nl"
   role :app, "www.rhbv.nl"

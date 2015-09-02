@@ -59,27 +59,6 @@ class Wccstats {
     }
 
     /**
-     * Set postedAt
-     *
-     * @param \timestamp $postedAt
-     * @return Wccstats
-     */
-    public function setPostedAt(\timestamp $postedAt) {
-        $this->postedAt = $postedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get postedAt
-     *
-     * @return \timestamp 
-     */
-    public function getPostedAt() {
-        return $this->postedAt;
-    }
-
-    /**
      * Set wccplayer
      *
      * @param \ClanmanagerBundle\Entity\Wccplayer $wccplayer

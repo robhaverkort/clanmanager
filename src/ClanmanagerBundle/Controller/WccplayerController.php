@@ -52,8 +52,6 @@ class WccplayerController extends Controller {
         libxml_use_internal_errors(false);
         $doc->preserveWhiteSpace = false;
 
-        $title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
-
         $xpath = new DOMXPath($doc);
         //$player_info = $xpath->query("//div[@class='plyer-content']")->item(0);
         $player_info = $xpath->query("//div[contains(concat(' ',normalize-space(@class),' '),' player-info ')]")->item(0);
