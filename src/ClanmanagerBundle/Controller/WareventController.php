@@ -19,6 +19,16 @@ class WareventController extends Controller {
      * @Security("has_role('ROLE_USER')")
      */
     public function indexAction() {
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:War');
+        $war = $repository->createQueryBuilder('w')
+                ->select('w')
+                ->orderBy('w.start','DESC')
+                //->setMaxResults(1)
+                ->getQuery()
+                ->getResult()[0];
+        //dump($war);exit;
+        return $this->redirectToRoute('warevent_view',array('war_id'=>$war->getId()));
+        
         $repository = $this->getDoctrine()
                 ->getRepository('ClanmanagerBundle:Warevent');
         $warevents = $repository->findAll();
