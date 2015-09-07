@@ -59,40 +59,40 @@
             <tr valign="top">
                 <td>{# player.nodeValue #}</td>
                 <td>{{ player.rank }}</td>
-                <td>{{ player.league }}</td>
-                <td>{{ player.level }}</td>
+                <td class="nr"><div id="league_{{ player.profile }}"><span style="color:gray">{{ player.league }}</span></div></td>
+                <td class="nr"><div id="level_{{ player.profile }}"><span style="color:gray">{{ player.level }}</span></div></td>
                 <td>{# player.profile #}</td>
                 <td>{{ player.name }}</td>
-                <td>{{ player.role }}</td>
-                <td>{{ player.score }}</td>
+                <td><div id="clanrole_{{ player.profile }}"><span style="color:gray">{{ player.role }}</span></div></td>
+                <td class="nr"><div id="score_{{ player.profile }}"><span style="color:gray">{{ player.score }}</span></div></td>
                 <td><!--
                     {% for key in player.troops|keys %}
                         {{ key }}:{{ player.troops[key] }}<br>
                     {% endfor %}-->
                 </td>
-                <td class="nr"><div id="barbarianking_{{ player.profile }}">{{ player.troops['barbarianking'] }}</div></td>
-                <td class="nr"><div id="archerqueen_{{ player.profile }}">{{ player.troops['archerqueen'] }}</div></td>
-                <td class="nr"><div id="lightningspell_{{ player.profile }}">{{ player.troops['lightningspell'] }}</div></td>
-                <td class="nr"><div id="healingspell_{{ player.profile }}">{{ player.troops['healingspell'] }}</div></td>
-                <td class="nr"><div id="ragespell_{{ player.profile }}">{{ player.troops['ragespell'] }}</div></td>
-                <td class="nr"><div id="jumpspell_{{ player.profile }}">{{ player.troops['jumpspell'] }}</div></td>
-                <td class="nr"><div id="freezespell_{{ player.profile }}">{{ player.troops['freezespell'] }}</div></td>
-                <td class="nr"><div id="barbarian_{{ player.profile }}">{{ player.troops['barbarian'] }}</div></td>
-                <td class="nr"><div id="archer_{{ player.profile }}">{{ player.troops['archer'] }}</div></td>
-                <td class="nr"><div id="giant_{{ player.profile }}">{{ player.troops['giant'] }}</div></td>
-                <td class="nr"><div id="goblin_{{ player.profile }}">{{ player.troops['goblin'] }}</div></td>
-                <td class="nr"><div id="wallbreaker_{{ player.profile }}">{{ player.troops['wallbreaker'] }}</div></td>
-                <td class="nr"><div id="balloon_{{ player.profile }}">{{ player.troops['balloon'] }}</div></td>
-                <td class="nr"><div id="wizard_{{ player.profile }}">{{ player.troops['wizard'] }}</div></td>
-                <td class="nr"><div id="healer_{{ player.profile }}">{{ player.troops['healer'] }}</div></td>
-                <td class="nr"><div id="dragon_{{ player.profile }}">{{ player.troops['dragon'] }}</div></td>
-                <td class="nr"><div id="pekka_{{ player.profile }}">{{ player.troops['pekka'] }}</div></td>
-                <td class="nr"><div id="minion_{{ player.profile }}">{{ player.troops['minion'] }}</div></td>
-                <td class="nr"><div id="hog-rider_{{ player.profile }}">{{ player.troops['hog-rider'] }}</div></td>
-                <td class="nr"><div id="valkyrie_{{ player.profile }}">{{ player.troops['valkyrie'] }}</div></td>
-                <td class="nr"><div id="golem_{{ player.profile }}">{{ player.troops['golem'] }}</div></td>
-                <td class="nr"><div id="witch_{{ player.profile }}">{{ player.troops['witch'] }}</div></td>
-                <td class="nr"><div id="lavahound_{{ player.profile }}">{{ player.troops['lavahound'] }}</div></td>
+                <td class="nr"><div id="barbarianking_{{ player.profile }}"><span style="color:gray">{{ player.troops['barbarianking'] }}</span></div></td>
+                <td class="nr"><div id="archerqueen_{{ player.profile }}"><span style="color:gray">{{ player.troops['archerqueen'] }}</span></div></td>
+                <td class="nr"><div id="lightningspell_{{ player.profile }}"><span style="color:gray">{{ player.troops['lightningspell'] }}</span></div></td>
+                <td class="nr"><div id="healingspell_{{ player.profile }}"><span style="color:gray">{{ player.troops['healingspell'] }}</span></div></td>
+                <td class="nr"><div id="ragespell_{{ player.profile }}"><span style="color:gray">{{ player.troops['ragespell'] }}</span></div></td>
+                <td class="nr"><div id="jumpspell_{{ player.profile }}"><span style="color:gray">{{ player.troops['jumpspell'] }}</span></div></td>
+                <td class="nr"><div id="freezespell_{{ player.profile }}"><span style="color:gray">{{ player.troops['freezespell'] }}</span></div></td>
+                <td class="nr"><div id="barbarian_{{ player.profile }}"><span style="color:gray">{{ player.troops['barbarian'] }}</span></div></td>
+                <td class="nr"><div id="archer_{{ player.profile }}"><span style="color:gray">{{ player.troops['archer'] }}</span></div></td>
+                <td class="nr"><div id="giant_{{ player.profile }}"><span style="color:gray">{{ player.troops['giant'] }}</span></div></td>
+                <td class="nr"><div id="goblin_{{ player.profile }}"><span style="color:gray">{{ player.troops['goblin'] }}</span></div></td>
+                <td class="nr"><div id="wallbreaker_{{ player.profile }}"><span style="color:gray">{{ player.troops['wallbreaker'] }}</span></div></td>
+                <td class="nr"><div id="balloon_{{ player.profile }}"><span style="color:gray">{{ player.troops['balloon'] }}</span></div></td>
+                <td class="nr"><div id="wizard_{{ player.profile }}"><span style="color:gray">{{ player.troops['wizard'] }}</span></div></td>
+                <td class="nr"><div id="healer_{{ player.profile }}"><span style="color:gray">{{ player.troops['healer'] }}</span></div></td>
+                <td class="nr"><div id="dragon_{{ player.profile }}"><span style="color:gray">{{ player.troops['dragon'] }}</span></div></td>
+                <td class="nr"><div id="pekka_{{ player.profile }}"><span style="color:gray">{{ player.troops['pekka'] }}</span></div></td>
+                <td class="nr"><div id="minion_{{ player.profile }}"><span style="color:gray">{{ player.troops['minion'] }}</span></div></td>
+                <td class="nr"><div id="hogrider_{{ player.profile }}"><span style="color:gray">{{ player.troops['hog-rider'] }}</span></div></td>
+                <td class="nr"><div id="valkyrie_{{ player.profile }}"><span style="color:gray">{{ player.troops['valkyrie'] }}</span></div></td>
+                <td class="nr"><div id="golem_{{ player.profile }}"><span style="color:gray">{{ player.troops['golem'] }}</span></div></td>
+                <td class="nr"><div id="witch_{{ player.profile }}"><span style="color:gray">{{ player.troops['witch'] }}</span></div></td>
+                <td class="nr"><div id="lavahound_{{ player.profile }}"><span style="color:gray">{{ player.troops['lavahound'] }}</span></div></td>
                 <td class="nr"><div id="goldgrab_{{ player.profile }}"></div></td>
                 <td class="nr"><div id="elixergrab_{{ player.profile }}"></div></td>
                 <td class="nr"><div id="darkelixergrab_{{ player.profile }}"></div></td>
@@ -127,6 +127,33 @@
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
                 {
                     var x = JSON.parse(xmlhttp.responseText);
+                    document.getElementById('league_' + profile).innerHTML = x.playerinfo.league;
+                    document.getElementById('level_' + profile).innerHTML = x.playerinfo.level;
+                    document.getElementById('clanrole_' + profile).innerHTML = x.playerinfo.clanrole;
+                    document.getElementById('score_' + profile).innerHTML = Number(x.playerinfo.score).toLocaleString();
+                    document.getElementById('barbarianking_' + profile).innerHTML = x.troops.barbarianking;
+                    document.getElementById('archerqueen_' + profile).innerHTML = x.troops.archerqueen;
+                    document.getElementById('lightningspell_' + profile).innerHTML = x.troops.lightningspell;
+                    document.getElementById('healingspell_' + profile).innerHTML = x.troops.healingspell;
+                    document.getElementById('ragespell_' + profile).innerHTML = x.troops.ragespell;
+                    document.getElementById('jumpspell_' + profile).innerHTML = x.troops.jumpspell;
+                    document.getElementById('freezespell_' + profile).innerHTML = x.troops.freezespell;
+                    document.getElementById('barbarian_' + profile).innerHTML = x.troops.barbarian;
+                    document.getElementById('archer_' + profile).innerHTML = x.troops.lavahound;
+                    document.getElementById('giant_' + profile).innerHTML = x.troops.giant;
+                    document.getElementById('goblin_' + profile).innerHTML = x.troops.goblin;
+                    document.getElementById('wallbreaker_' + profile).innerHTML = x.troops.wallbreaker;
+                    document.getElementById('balloon_' + profile).innerHTML = x.troops.balloon;
+                    document.getElementById('wizard_' + profile).innerHTML = x.troops.wizard;
+                    document.getElementById('healer_' + profile).innerHTML = x.troops.healer;
+                    document.getElementById('dragon_' + profile).innerHTML = x.troops.dragon;
+                    document.getElementById('pekka_' + profile).innerHTML = x.troops.pekka;
+                    document.getElementById('minion_' + profile).innerHTML = x.troops.minion;
+                    document.getElementById('hogrider_' + profile).innerHTML = x.troops.hogrider;
+                    document.getElementById('valkyrie_' + profile).innerHTML = x.troops.valkyrie;
+                    document.getElementById('golem_' + profile).innerHTML = x.troops.golem;
+                    document.getElementById('witch_' + profile).innerHTML = x.troops.witch;
+                    document.getElementById('lavahound_' + profile).innerHTML = x.troops.lavahound;
                     document.getElementById('goldgrab_' + profile).innerHTML = Number(x.claninfo.goldgrab).toLocaleString();
                     document.getElementById('elixergrab_' + profile).innerHTML = Number(x.claninfo.elixergrab).toLocaleString();
                     document.getElementById('darkelixergrab_' + profile).innerHTML = Number(x.claninfo.darkelixergrab).toLocaleString();
@@ -144,9 +171,8 @@
 
         window.onload = function (e) {
         {% for player in players %}
-                loadJSONDoc("{{ player.profile }}");
-        {% endfor %}
+                loadJSONDoc("{{ player.profile }}");{% endfor %}
             }
-    </script>
+        </script>
 
-{% endblock %}
+        {% endblock %}

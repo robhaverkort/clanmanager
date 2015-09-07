@@ -81,7 +81,7 @@ class WccplayerController extends Controller {
         $player['troops'] = array();
         $troopswrap = $xpath->query("//span[contains(concat(' ',normalize-space(@class),' '),' army-icon ')]");
         foreach ($troopswrap as $troopsnode) {
-            $key = trim(str_replace(array("army-icon", "no-icon", "active", "-icon", "top-lvl"), "", $troopsnode->getAttribute("class")));
+            $key = trim(str_replace(array("army-icon", "no-icon", "active", "-icon", "top-lvl", "-"), "", $troopsnode->getAttribute("class")));
             if ($key)
                 $player['troops'][$key] = $troopsnode->nodeValue;
         }
