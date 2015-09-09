@@ -54,7 +54,7 @@ class WccplayerController extends Controller {
                 ->andWhere('ws.createdAt > :now')
                 ->orderBY('ws.createdAt','DESC')
                 //->setParameters(array('wccplayer' => $wccplayer, 'now' => '20150909080000'))
-                //->setParameters(array('wccplayer' => $wccplayer, 'now' => date("YmdHis",strtotime("-2 hours"))))
+                ->setParameters(array('wccplayer' => $wccplayer, 'now' => date("YmdHis",strtotime("-2 hours"))))
                 ->setMaxResults( 1 )
                 ->getQuery();
         $wccstats = $query->getResult();
