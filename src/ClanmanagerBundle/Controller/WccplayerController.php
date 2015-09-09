@@ -45,6 +45,25 @@ class WccplayerController extends Controller {
      */
     public function viewAction($profile) {
 
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
+        $wccplayer = $repository->findOneByProfile($profile);
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
+        //$wccstats = $repository->findOneByWccplayer($wccplayer);
+        $query = $repository->createQueryBuilder('ws')
+                ->where('ws.wccplayer = :wccplayer')
+                ->andWhere('ws.createdAt > :now')
+                ->orderBY('ws.createdAt','DESC')
+                //->setParameters(array('wccplayer' => $wccplayer, 'now' => '20150909080000'))
+                //->setParameters(array('wccplayer' => $wccplayer, 'now' => date("YmdHis",strtotime("-2 hours"))))
+                ->setMaxResults( 1 )
+                ->getQuery();
+        $wccstats = $query->getResult();
+        if ($wccstats) {
+            $response = new JsonResponse();
+            $response->setData(json_decode($wccstats[0]->getJson()));
+            return $response;
+        }
+
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         //$doc->loadHTMLFile("/srv/www/htdocs/clanmanager/EQ88GX8QR.html");
