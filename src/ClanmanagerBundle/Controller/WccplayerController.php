@@ -44,6 +44,22 @@ class WccplayerController extends Controller {
      * @Security("has_role('ROLE_USER')")
      */
     public function viewAction($profile) {
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
+        $wccplayer = $repository->findOneByProfile($profile);
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
+        $wccstats = $repository->findByWccplayer($wccplayer);
+    
+        $player['wccplayer'] = $wccplayer;
+        $player['wccstats'] = $wccstats;
+        
+        return $this->render('ClanmanagerBundle:Wccplayer:view.html.twig', array('player' => $player));
+    }
+
+    /**
+     * @Route("/wccplayer/json/{profile}", name="wccplayer_json")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function jsonAction($profile) {
 
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
         $wccplayer = $repository->findOneByProfile($profile);
@@ -52,10 +68,10 @@ class WccplayerController extends Controller {
         $query = $repository->createQueryBuilder('ws')
                 ->where('ws.wccplayer = :wccplayer')
                 ->andWhere('ws.createdAt > :now')
-                ->orderBY('ws.createdAt','DESC')
+                ->orderBY('ws.createdAt', 'DESC')
                 //->setParameters(array('wccplayer' => $wccplayer, 'now' => '20150909080000'))
-                ->setParameters(array('wccplayer' => $wccplayer, 'now' => date("YmdHis",strtotime("-2 hours"))))
-                ->setMaxResults( 1 )
+                ->setParameters(array('wccplayer' => $wccplayer, 'now' => date("YmdHis", strtotime("-2 hours"))))
+                ->setMaxResults(1)
                 ->getQuery();
         $wccstats = $query->getResult();
         if ($wccstats) {

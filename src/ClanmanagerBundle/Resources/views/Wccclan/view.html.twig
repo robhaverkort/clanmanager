@@ -164,7 +164,7 @@
                     document.getElementById('friendinneed_' + profile).innerHTML = Number(x.achievements.friendinneed).toLocaleString();
                 }
             }
-            str = "{{ path('wccplayer_view', {'profile':'BLABLA'} ) }}";
+            str = "{{ path('wccplayer_json', {'profile':'BLABLA'} ) }}";
             xmlhttp.open("GET", str.replace("BLABLA", profile), true);
             xmlhttp.send();
         }

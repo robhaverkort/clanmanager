@@ -9,25 +9,6 @@
 
 {% block body %}
 
-    TITLE: {{ title }} <br>
-    
-    level: {{ player.level }}<br>
-    name: {{ player.name }}<br>
-    clanprofile: {{ player.clanprofile }}<br>
-    clanname: {{ player.clanname }}<br>
-    score: {{ player.score|number_format }}<br>
-    clan_info: {{ player.clan_info }}<br>
-    goldgrab: {{ player.goldgrab|number_format }}<br>
-    elixergrab: {{ player.elixergrab|number_format }}<br>
-    darkelixergrab: {{ player.darkelixergrab|number_format }}<br>
-    wonbattles: {{ player.wonbattles|number_format }}<br>
-    defenseswon: {{ player.defenseswon|number_format }}<br>
-    warhero: {{ player.warhero|number_format }}<br>
-    goldinwar: {{ player.goldinwar|number_format }}<br>
-
-    <p>{{ dump(player.troops) }}</p>
-    <h2>text</h2>
-    <p>{# text #}</p>
-    <p>{# dump(text) #}</p>
+{{ dump( player ) }}
 
 {% endblock %}
