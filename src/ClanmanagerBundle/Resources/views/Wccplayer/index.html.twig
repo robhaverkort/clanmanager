@@ -16,11 +16,6 @@
                 <td class="atop">{{ player.wccplayer.profile }}</td>
                 <td class="atop"><a href="{{ path('wccplayer_view',{'profile':player.wccplayer.profile }) }}">{{ player.wccplayer.name }}</a></td>
                 <td class="atop">{{ player.wccstats|length }}</td>
-                <td class="atop">
-                    {% for stats in player.wccstats %}
-                        {{ stats.id }} - {{ stats.createdat|date('YmdHis') }} - {{ stats.wccclan.name }}<br>
-                    {% endfor %}
-                </td>
             </tr>
         {% endfor %}
     </table>

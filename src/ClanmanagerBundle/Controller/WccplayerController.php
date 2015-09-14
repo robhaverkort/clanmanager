@@ -48,10 +48,19 @@ class WccplayerController extends Controller {
         $wccplayer = $repository->findOneByProfile($profile);
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
         $wccstats = $repository->findByWccplayer($wccplayer);
-    
+
         $player['wccplayer'] = $wccplayer;
-        $player['wccstats'] = $wccstats;
-        
+
+        foreach ($wccstats as $stats) {
+            $p = array();
+            $p['wccstats'] = $stats;
+            //$p['json'] = $stats->getJson();
+            $p['info'] = json_decode($stats->getJson());
+            $player['wccstats'][] = $p;
+        }
+
+
+
         return $this->render('ClanmanagerBundle:Wccplayer:view.html.twig', array('player' => $player));
     }
 
