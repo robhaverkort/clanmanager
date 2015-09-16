@@ -29,8 +29,9 @@ set :shared_files, ["app/config/parameters.yml"]
 #new
 #set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :shared_children,     [app_path + "/logs", web_path + "/uploads"]
-set :use_composer, false
-set :update_vendors, false
+set :use_composer, true
+set :update_vendors, true
+set :copy_vendors, true
 
 task :production do
   role :web, "www.rhbv.nl"
@@ -49,7 +50,6 @@ task :staging do
   set :deploy_to, "/var/www/clanmanager"
   set :user, "pi"
 end
-
 
 
 # Be more verbose by uncommenting the following line
