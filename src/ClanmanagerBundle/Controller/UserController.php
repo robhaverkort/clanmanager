@@ -45,7 +45,7 @@ class UserController extends Controller {
                 ->getRepository('ClanmanagerBundle:User');
         $user = $repository->find($user_id);
 
-        if (false === $this->get('security.authorization_checker')->isGranted('view', $user)) {
+        if (false === $this->get('security.authorization_checker')->isGranted('edit', $user)) {
             throw new AccessDeniedException('Unauthorised access!');
         }
 
