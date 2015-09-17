@@ -29,9 +29,9 @@ set :shared_files, ["app/config/parameters.yml"]
 #new
 #set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :shared_children,     [app_path + "/logs", web_path + "/uploads"]
-set :use_composer, true
-set :update_vendors, true
-set :copy_vendors, true
+set :use_composer, false
+set :update_vendors, false
+set :copy_vendors, false
 
 task :production do
   role :web, "www.rhbv.nl"
@@ -53,4 +53,4 @@ end
 
 
 # Be more verbose by uncommenting the following line
-# logger.level = Logger::MAX_LEVEL
+#logger.level = Logger::MAX_LEVEL
