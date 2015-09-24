@@ -35,7 +35,7 @@
                     <td>{{ n }}.&nbsp;{{ member.id }}</td>
                     <td>{{ member.player.tag }}</td>
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
-                    <td>{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</td>
+                    <td><a href="{{ path('profile_edit',{'player_id':member.player.id}) }}">{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</a></td>
                     <td>{{ member.player.th }}</td>
                     <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
                     <td>

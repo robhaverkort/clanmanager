@@ -1,0 +1,24 @@
+{% extends 'ClanmanagerBundle::base.html.twig' %}
+
+{% block title %}CoC ClanManager{% endblock %}
+
+{% block body %}
+    <h1>Profile</h1>
+
+    {{ form_start(form) }}
+    <table>
+        <tr><td>playername :</td><td>{{ player.name }}</td></tr>
+        <tr><td>playertag :</td><td>{{ player.tag }}</td></tr>
+        <tr><td>current TH :</td><td>{{ player.th }}</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>name :</td><td>{{ form_widget(form.name) }}</td></tr>
+        <tr><td>facebookname :</td><td>{{ form_widget(form.facebookname) }}</td></tr>
+        <tr><td>facebookprofile :</td><td>{{ form_widget(form.facebookprofile) }}</td></tr>
+        <tr><td></td><td>{{ form_widget(form.save) }}</td></tr>
+
+    </table>
+    {{ form_end(form) }}
+
+
+
+{% endblock %}
