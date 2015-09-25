@@ -36,6 +36,15 @@ class WccplayerController extends Controller {
             $players[] = $player;
         }
 
+        // clean out wccplayers without stats
+        $em = $this->getDoctrine()->getManager();
+        foreach ($players as $player) {
+            if (sizeof($player['wccstats']) == 0) {
+                $em->remove($player['wccplayer']);
+            }
+        }
+        $em->flush();
+
         return $this->render('ClanmanagerBundle:Wccplayer:index.html.twig', array('players' => $players));
     }
 
@@ -51,14 +60,16 @@ class WccplayerController extends Controller {
 
         $player['wccplayer'] = $wccplayer;
 
+        $player['wccstats'] = array();
         foreach ($wccstats as $stats) {
             $p = array();
-            $p['wccstats'] = $stats;
-            //$p['json'] = $stats->getJson();
             $p['info'] = json_decode($stats->getJson());
+            $p['wccstats'] = $stats;
             $player['wccstats'][] = $p;
         }
-
+        foreach ($player['wccstats'] as $stats) {
+            
+        }
 
 
         return $this->render('ClanmanagerBundle:Wccplayer:view.html.twig', array('player' => $player));
