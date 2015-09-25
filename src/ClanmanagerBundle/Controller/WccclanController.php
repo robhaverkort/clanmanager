@@ -104,4 +104,38 @@ class WccclanController extends Controller {
         return $this->render('ClanmanagerBundle:Wccclan:view.html.twig', array('name' => $name, 'players' => $players, 'text' => $text));
     }
 
+    /**
+     * @Route("/wccclan/delete/{wccclan_id}", name="wccclan_delete")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deleteAction($wccclan_id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccclan');
+        $wccclan = $repository->find($wccclan_id);
+
+        // remove stats
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
+        $wccstats = $repository->findByWccclan($wccclan);
+        $nr_stats=0;
+        foreach ($wccstats as $stats) {
+            $nr_stats+=1;
+            $wccplayers[] = $stats->getWccplayer();
+            $em->remove($stats);
+        }
+        // remove wccplayers
+        $wccplayers = array_unique($wccplayers);
+        $nr_players=0;
+        foreach ($wccplayers as $wccplayer) {
+            $nr_players+=1;
+            $em->remove($wccplayer);
+        }
+        // remove wccclan
+        $em->remove($wccclan);
+
+        $em->flush();
+        $this->addFlash('notice', 'removed '.$nr_stats.' stats and '.$nr_players .' players.');
+        return $this->redirectToRoute('wccclan');
+    }
+
 }

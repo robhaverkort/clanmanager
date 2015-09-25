@@ -15,6 +15,7 @@
                 <td>{{ wccclan.id }}</td>
                 <td><a href="{{ path('wccclan_view',{'profile':wccclan.profile}) }}">{{ wccclan.profile }}</a></td>
                 <td>{{ wccclan.name }}</td>
+                <td><a href="{{ path('wccclan_delete',{'wccclan_id':wccclan.id}) }}">delete</a></td>
             </tr>
         {% endfor %}
     </table>

@@ -188,4 +188,8 @@ class Wccplayer {
     {
         return $this->wccstats;
     }
+    
+    public function __toString() {
+        return $this->profile;
+    }
 }
