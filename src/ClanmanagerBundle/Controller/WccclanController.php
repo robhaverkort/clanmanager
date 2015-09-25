@@ -92,14 +92,20 @@ class WccclanController extends Controller {
                 $player['score'] = $xpath->query("//span[@class='score']")->item(0)->textContent;
                 $troopswrap = $xpath->query("//span[contains(concat(' ',normalize-space(@class),' '),' army-icon ')]");
                 $player['troops'] = array();
+                $player['troops']['total'] = 0;
                 foreach ($troopswrap as $troopsnode) {
                     $key = trim(str_replace(array("army-icon", "no-icon", "active", "-icon", "top-lvl"), "", $troopsnode->getAttribute("class")));
-                    if ($key)
+                    if ($key) {
                         $player['troops'][$key] = $troopsnode->nodeValue;
+                        $player['troops']['total']+=$troopsnode->nodeValue;
+                    }
                 }
                 $players[] = $player;
             }
         }
+        usort($players, function($a, $b) {
+                return $b['troops']['total'] - $a['troops']['total'];
+            });
 
         return $this->render('ClanmanagerBundle:Wccclan:view.html.twig', array('name' => $name, 'players' => $players, 'text' => $text));
     }
@@ -117,7 +123,7 @@ class WccclanController extends Controller {
         // remove stats
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccstats');
         $wccstats = $repository->findByWccclan($wccclan);
-        $nr_stats=0;
+        $nr_stats = 0;
         foreach ($wccstats as $stats) {
             $nr_stats+=1;
             $wccplayers[] = $stats->getWccplayer();
@@ -125,7 +131,7 @@ class WccclanController extends Controller {
         }
         // remove wccplayers
         $wccplayers = array_unique($wccplayers);
-        $nr_players=0;
+        $nr_players = 0;
         foreach ($wccplayers as $wccplayer) {
             $nr_players+=1;
             $em->remove($wccplayer);
@@ -134,7 +140,7 @@ class WccclanController extends Controller {
         $em->remove($wccclan);
 
         $em->flush();
-        $this->addFlash('notice', 'removed '.$nr_stats.' stats and '.$nr_players .' players.');
+        $this->addFlash('notice', 'removed ' . $nr_stats . ' stats and ' . $nr_players . ' players.');
         return $this->redirectToRoute('wccclan');
     }
 

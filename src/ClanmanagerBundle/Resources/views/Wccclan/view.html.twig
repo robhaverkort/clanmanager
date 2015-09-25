@@ -22,7 +22,7 @@
             <th>name</th>
             <th>role</th>
             <th>score</th>
-            <th></th>
+            <th>attk</th>
             <th>BK</th>
             <th>AQ</th>
             <th>LS</th>
@@ -69,6 +69,7 @@
                     {% for key in player.troops|keys %}
                         {{ key }}:{{ player.troops[key] }}<br>
                     {% endfor %}-->
+                    {{ player.troops.total }}
                 </td>
                 <td class="nr"><div id="barbarianking_{{ player.profile }}"><span style="color:gray">{{ player.troops['barbarianking'] }}</span></div></td>
                 <td class="nr"><div id="archerqueen_{{ player.profile }}"><span style="color:gray">{{ player.troops['archerqueen'] }}</span></div></td>
