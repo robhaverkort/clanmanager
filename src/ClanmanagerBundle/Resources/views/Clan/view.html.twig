@@ -32,7 +32,7 @@
             {% if not member.stop %}
                 {% set n=n+1 %}
                 <tr>
-                    <td>{{ n }}.&nbsp;{{ member.id }}</td>
+                    <td>{{ n }}.&nbsp;{{ member.id }}&nbsp;{{ member.player.wccplayer.id is defined ? member.player.wccplayer.id : "---" }}</td>
                     <td>{{ member.player.tag }}</td>
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td><a href="{{ path('profile_edit',{'player_id':member.player.id}) }}">{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</a></td>
