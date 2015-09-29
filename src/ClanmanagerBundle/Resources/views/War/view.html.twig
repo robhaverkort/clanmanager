@@ -27,7 +27,7 @@
 
 
                     <td class="attacker">
-                        <a href="{{ war.warclans[wc].warplayers[rank-1].player is defined ? path('warplayer_edit',{'warplayer_id':war.warclans[wc].warplayers[rank-1].id} ) }}">
+                        <a href="{{ war.warclans[wc].warplayers[rank-1].player is defined and app.user and is_granted('ROLE_ADMIN') ? path('warplayer_edit',{'warplayer_id':war.warclans[wc].warplayers[rank-1].id} ) : '#' }}">
                             {{ war.warclans[wc].warplayers[rank-1].player.name is defined ? war.warclans[wc].warplayers[rank-1].player.name : "---" }}
                         </a>
                     </td>
