@@ -128,7 +128,8 @@ class WarController extends Controller {
             $player = array();
 
             // Calc attacking power
-            $player['offense'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight() : 0;
+            $player['offenseweight'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight() : 0;
+            $offenseranks[]=$player['offenseweight'];
 
             // Calc net stars
             $attstars = 0;
@@ -153,7 +154,12 @@ class WarController extends Controller {
             
             $players[] = $player;
         }
-      
+
+        rsort($offenseranks);
+        foreach( $players as $key=>$player ){
+            $players[$key]['offenserank'] = array_search($player['offenseweight'], $offenseranks)+1;
+        }
+        
         // graph attacks per stars
         $results = array();
         for ($n = 0; $n < 4; $n++) {
