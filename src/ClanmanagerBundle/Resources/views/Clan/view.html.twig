@@ -18,6 +18,7 @@
             <th>tag</th>
             <th colspan="2">name</th>
             <th>TH</th>
+            <th>offense</th>
             <th>join</th>
             <th>leave</th>
             <th>acct</th>
@@ -37,6 +38,7 @@
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td><a href="{{ path('profile_edit',{'player_id':member.player.id}) }}">{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</a></td>
                     <td>{{ member.player.th }}</td>
+                    <td>{{ member.player.wccplayer.offenseweight|number_format }}</td>
                     <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
                     <td>
                         {% if app.user and is_granted('ROLE_ADMIN') %}
@@ -80,7 +82,9 @@
                     <td>{{ member.id }}</td>
                     <td>{{ member.player.tag }}</td>
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
+                    <td></td>
                     <td>{{ member.player.th }}</td>
+                    <td></td>
                     <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
                     <td>{{ member.stop ? member.stop|date('Y/m/d') : "---" }}</td>
                     {% if app.user and is_granted('ROLE_ADMIN') %}

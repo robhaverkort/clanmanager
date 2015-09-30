@@ -20,7 +20,7 @@
         {% for rank in 1 .. war.size %}
             <tr>
 
-                <td>&nbsp;{{ "%+d"|format(players[rank-1].netstars) }}</td>                    
+                <td>&nbsp;{{ "%+d"|format(players[rank-1].netstars) }}&nbsp;{{ players[rank-1].offense|number_format }}</td>                    
 
                 {% for wc in 0..1 %}
                     <td class="attacker">{{ rank }}.</td>

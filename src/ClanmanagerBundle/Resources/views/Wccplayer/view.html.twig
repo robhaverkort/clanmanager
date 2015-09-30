@@ -24,6 +24,7 @@
             <th>Def</th>
             <th>Star</th>
             <th>WarGold</th>
+            <th>Offense</th>
         </tr>
         {% for stats in player.wccstats %}
             <tr>
@@ -38,9 +39,10 @@
                 <td>{{ stats.info.claninfo.defenseswon|number_format }}</td>
                 <td>{{ stats.info.claninfo.warhero|number_format }}</td>
                 <td>{{ stats.info.claninfo.goldinwar|number_format }}</td>
+                <td>{{ player.wccplayer.offenseweight(stats.wccstats.createdat)|number_format }}</td>
             </tr>
         {% endfor %}
     </table>
     {{ dump( player ) }}
-
+    current offense weight: {{ player.wccplayer.offenseweight }}
 {% endblock %}

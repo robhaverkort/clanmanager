@@ -122,11 +122,15 @@ class WarController extends Controller {
         $war = $em->getRepository('ClanmanagerBundle:War')->find($war_id);
         $warclans = $em->getRepository('ClanmanagerBundle:Warclan')->findByWar($war);
         $warevents = $em->getRepository('ClanmanagerBundle:Warevent')->findByWarId($war->getId());
-
-        // Calc net stars
+            
         $players = array();
         foreach ($warclans[0]->getWarPlayers() as $warplayer) {
             $player = array();
+
+            // Calc attacking power
+            $player['offense'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight() : 0;
+
+            // Calc net stars
             $attstars = 0;
             foreach( $warplayer->getAttacks() as $attack ){
                 $defends = $attack->getDefender()->getDefends();
@@ -146,9 +150,10 @@ class WarController extends Controller {
                 }
             }
             $player['netstars'] = $attstars - $defstars;
+            
             $players[] = $player;
         }
-        
+      
         // graph attacks per stars
         $results = array();
         for ($n = 0; $n < 4; $n++) {

@@ -2,15 +2,20 @@
     <th></th>
     <th>tag</th>
     <th>name</th>
+    <th></th>
     <th>TH</th>
+    <th></th>
+    <th>join</th>
 </tr>
 {{ form_start(form) }}
 <tr>
     <td></td>
     <td>{{ form_widget(form.tag) }}</td>
     <td>{{ form_widget(form.name) }}</td>
+    <td></td>
     <td>{{ form_widget(form.th) }}</td>
-    <td>{{ form_widget(form.start) }}</td>
-    <td>{{ form_widget(form.save) }}</td>
+    <td></td>
+    <td colspan="3">{{ form_widget(form.start) }}</td>
+    <td colspan="99">{{ form_widget(form.save) }}</td>
 <tr>
     {{ form_end(form) }}
