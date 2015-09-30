@@ -23,7 +23,7 @@
                 <td>&nbsp;{{ "%+d"|format(players[rank-1].netstars) }}&nbsp;{{ players[rank-1].offenseweight|number_format }}</td>                    
 
                 {% for wc in 0..1 %}
-                    <td class="attacker">{{ rank }}. {{ players[rank-1].offenserank is defined ? ["(",players[rank-1].offenserank,")"]|join :"" }}</td>
+                    <td class="attacker">{{ rank }}. {{ wc==0 and players[rank-1].offenserank is defined ? ["(",players[rank-1].offenserank,")"]|join :"" }}</td>
 
 
                     <td class="attacker">
