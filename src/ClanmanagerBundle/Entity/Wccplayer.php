@@ -216,12 +216,25 @@ class Wccplayer {
         $offenseweight = 0;
 
         if (sizeof($wccstats)) {
-            $wccstat = end($wccstats);
-            if ($timestamp) {
-                while ($wccstat->getCreatedat() >= $timestamp && prev($wccstats)) {
-                    $wccstat = current($wccstats);
+
+            $wccstat = reset($wccstats);
+            if ($wccstat->getCreatedat() > $timestamp)
+                return 0;
+
+            for ($n = sizeof($wccstats) - 1; $n >= 0; $n--) {
+                if ($wccstats[$n]->getCreatedat() <= $timestamp) {
+                    $wccstat = $wccstats[$n];
+                    break;
                 }
             }
+//            $wccstat = end($wccstats);
+//            if ($timestamp) {
+//                while ($wccstat->getCreatedat() >= $timestamp && prev($wccstats)) {
+//                    $wccstat = current($wccstats);
+//                }
+//            }
+
+
             $wccstat = json_decode($wccstat->getJson());
             foreach (array_keys($values) as $key) {
                 $offenseweight += $wccstat->{'troops'}->{$key} ? $values[$key][$wccstat->{'troops'}->{$key}] : 0;
