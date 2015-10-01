@@ -186,7 +186,7 @@ class Wccplayer {
         return $this->profile;
     }
 
-    public function getOffenseWeight($timestamp = NULL) {
+    public function getOffenseweight($timestamp = NULL) {
 
         $values['barbarianking'] = array(0, 15, 30, 45, 60, 76, 92, 108, 124, 140, 157, 174, 191, 208, 225, 243, 261, 279, 297, 315, 335, 353, 372, 391, 410, 430, 450, 470, 490, 510, 531, 552, 573, 594, 615, 637, 659, 681, 703, 725, 747);
         $values['archerqueen'] = array(0, 26, 52, 78, 104, 131, 158, 185, 212, 239, 267, 295, 323, 351, 379, 408, 437, 466, 495, 524, 554, 584, 614, 644, 674, 705, 736, 767, 798, 829, 861, 893, 925, 957, 989, 1022, 1055, 1088, 1121, 1154, 1187);
@@ -217,14 +217,18 @@ class Wccplayer {
 
         if (sizeof($wccstats)) {
 
-            $wccstat = reset($wccstats);
-            if ($wccstat->getCreatedat() > $timestamp)
-                return 0;
+            $wccstat = end($wccstats);
 
-            for ($n = sizeof($wccstats) - 1; $n >= 0; $n--) {
-                if ($wccstats[$n]->getCreatedat() <= $timestamp) {
-                    $wccstat = $wccstats[$n];
-                    break;
+            if ($timestamp) {
+                $wccstat = reset($wccstats);
+                if ($wccstat->getCreatedat() > $timestamp)
+                    return 0;
+
+                for ($n = sizeof($wccstats) - 1; $n >= 0; $n--) {
+                    if ($wccstats[$n]->getCreatedat() <= $timestamp) {
+                        $wccstat = $wccstats[$n];
+                        break;
+                    }
                 }
             }
 //            $wccstat = end($wccstats);
