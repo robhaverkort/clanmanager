@@ -135,7 +135,7 @@ class WarController extends Controller {
             // Calc net stars
             $attstars = 0;
             foreach( $warplayer->getAttacks() as $attack ){
-                $defends = $attack->getDefender()->getDefends();
+                //$defends = $attack->getDefender()->getDefends();
                 foreach( $attack->getDefender()->getDefends() as $defend ){
                     if( $attack->getDefender()->getStars() == $defend->getStars() ){
                         if( $defend->getAttacker() == $warplayer ){
