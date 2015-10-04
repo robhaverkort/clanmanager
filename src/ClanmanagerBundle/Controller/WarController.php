@@ -128,8 +128,8 @@ class WarController extends Controller {
             $player = array();
 
             // Calc attacking power
-            //$player['offenseweight'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight(date_add($war->getStart(),date_interval_create_from_date_string("1 day"))) : 0;
-            $player['offenseweight'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight($war->getStart()) : 0;
+            $player['offenseweight'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight(date_add($war->getStart(),date_interval_create_from_date_string("1 day"))) : 0;
+            //$player['offenseweight'] = $warplayer->getPlayer() && $warplayer->getPlayer()->getWccplayer() ? $warplayer->getPlayer()->getWccplayer()->getOffenseweight($war->getStart()) : 0;
             $offenseranks[]=$player['offenseweight'];
 
             // Calc net stars

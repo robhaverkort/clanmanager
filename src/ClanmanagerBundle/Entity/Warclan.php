@@ -35,6 +35,13 @@ class Warclan {
      */
     private $stars;
 
+     /**
+     * @var float
+     *
+     * @ORM\Column(name="percent", type="float", nullable=true)
+     */
+    private $percent;
+
     /**
      * @ORM\ManyToOne(targetEntity="Clan", inversedBy="warclans")
      * @ORM\JoinColumn(name="clan_id", referencedColumnName="id")
@@ -244,4 +251,27 @@ class Warclan {
         return $this;
     }
 
+
+    /**
+     * Set percent
+     *
+     * @param float $percent
+     * @return Warclan
+     */
+    public function setPercent($percent)
+    {
+        $this->percent = $percent;
+
+        return $this;
+    }
+
+    /**
+     * Get percent
+     *
+     * @return float 
+     */
+    public function getPercent()
+    {
+        return $this->percent;
+    }
 }
