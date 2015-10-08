@@ -9,9 +9,6 @@
 
 {% block body %}
 
-    wars:{{ dump(wars) }}
-    players:{{ dump(players) }}
-
     <h1>{{ clan.tag }} {{ clan.name }}</h1>
 
     <table>
@@ -65,9 +62,7 @@
                 <td></td>
             </tr>
         {% endfor %}
-    </table>
 
-    <table>
         <tr>
             <th></th>
             <th>tag</th>
@@ -83,50 +78,9 @@
                 </th>
             {% endfor %}
         </tr>
-        {% set n=0 %}
-        {% for member in clan.memberships %}
-            {% if not member.stop %}
-                {% set n=n+1 %}
-                <tr>
-                    <td>{{ n }}.&nbsp;{{ member.id }}&nbsp;{{ member.player.wccplayer.id is defined ? member.player.wccplayer.id : "---" }}</td>
-                    <td>{{ member.player.tag }}</td>
-                    <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
-                    <td><a href="{{ path('profile_edit',{'player_id':member.player.id}) }}">{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</a></td>
-                    <td>{{ member.player.th }}</td>
-                    <td>{{ member.player.wccplayer.offenseweight is defined ? member.player.wccplayer.offenseweight|number_format }}</td>
-                    <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
-                    <td>
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path( 'player_stop',{'membership_id':member.id} ) }}">---</a>
-                        {% endif %}
-                    </td>
-                    {% if app.user and is_granted('ROLE_ADMIN') %}
-                        <!-- <td><a href="{{ path('player_delete',{'player_id':member.player.id} ) }}">delete</a></td> -->
-                    {% endif %}
-                    <td>
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                            {{ member.player.profile.user.username is defined ? member.player.profile.user.username : "---" }}
-                        {% endif %}
-                    </td>
-                    {% for warclan_id in warclan_ids %}
-                        {% for a in 1..0 %}
-                            <td>
-                                {% for n in 0..10 %}
-                                    {% if member.player.warplayers[member.player.warplayers|length-1-n] is defined and member.player.warplayers[member.player.warplayers|length-1-n].warclan.id == warclan_id and member.player.warplayers[member.player.warplayers|length-1-n].attacks[a] is defined %}
-                                        {% if member.player.warplayers[member.player.warplayers|length-1-n].attacks[0] is defined %}
-                                            <span class="stars{{member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars}}">
-                                                {{ member.player.warplayers[member.player.warplayers|length-1-n].attacks[a].stars }}
-                                            </span>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                        {% endfor %}
-                    {% endfor %}
-                </tr>
-            {% endif %}
-        {% endfor %}
 
+        <tr><td>&nbsp;</td></tr>
+        
         {% if app.user and is_granted('ROLE_ADMIN') %}
             {{ render(controller('ClanmanagerBundle:Player:new',{'clan_id':clan.id} )) }}
         {% endif %}
@@ -134,7 +88,7 @@
         {% for member in clan.memberships %}
             {% if member.stop %}
                 <tr>
-                    <td>{{ member.id }}</td>
+                    <td></td>
                     <td>{{ member.player.tag }}</td>
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td></td>
