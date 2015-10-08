@@ -38,7 +38,39 @@ class ClanController extends Controller {
                 $warclan_ids[] = $wcs[$n - 1]->getId();
             }
         }
-        return $this->render('ClanmanagerBundle:Clan:view.html.twig', array('clan' => $clan, 'warclan_ids' => $warclan_ids));
+
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Membership');
+        $members = $repository->findByClan($clan);
+
+        $wars = array();
+        $warclans = array_reverse(array_slice($clan->getWarclans()->toArray(), -11));
+        foreach ($warclans as $wpkey => $warclan) {
+            $w = array();
+            foreach ($warclan->getWarplayers() as $warplayer) {
+                foreach ($warplayer->getAttacks() as $attkey => $attack) {
+                    $w['players'][$warplayer->getPlayer()->getId()]['attacks'][$attkey]['stars'] = $attack->getStars();
+                }
+            }
+            $wars[] = $w;
+        }
+
+        $players = array();
+        foreach ($members as $member) {
+            if (!$member->getStop()) {
+                $p = array();
+                $p['membership'] = $member;
+                $p['player'] = $member->getPlayer();
+                $p['profile'] = $member->getPlayer()->getProfile();
+                $p['wccplayer'] = $member->getPlayer()->getWccplayer();
+                $players[] = $p;
+            }
+        }
+
+        usort($players, function($a, $b) {
+            return $b['wccplayer']->getOffenseweight() - $a['wccplayer']->getOffenseweight();
+        });
+
+        return $this->render('ClanmanagerBundle:Clan:view.html.twig', array('clan' => $clan, 'warclan_ids' => $warclan_ids, 'players' => $players, 'wars' => $wars));
     }
 
     /**

@@ -8,9 +8,64 @@
 {% endblock %}
 
 {% block body %}
+
+    wars:{{ dump(wars) }}
+    players:{{ dump(players) }}
+
     <h1>{{ clan.tag }} {{ clan.name }}</h1>
 
-
+    <table>
+        <tr>
+            <th></th>
+            <th>tag</th>
+            <th colspan="2">name</th>
+            <th>TH</th>
+            <th>offense</th>
+            <th>join</th>
+            <th>leave</th>
+            <th>acct</th>
+                {% for n in 0..10 %}
+                <th colspan="2" style="text-align:center">
+                    {{ n }}
+                </th>
+            {% endfor %}
+        </tr>
+        {% set n=0 %}
+        {% for player in players %}
+            {% set n=n+1 %}
+            <tr>
+                <td>{{ n }}.</td>
+                <td>{{ player.player.tag }}</td>
+                <td><a href="{{ path('player_view',{'player_id':player.player.id}) }}">{{ player.player.name }}</a></td>
+                <td><a href="{{ path('profile_edit',{'player_id':player.player.id}) }}">{{player.profile.name is defined ? ["(",player.profile.name,")"]|join: "---"}}</a></td>
+                <td>TH{{ player.player.th }}</td>
+                <td>{{ player.wccplayer.offenseweight is defined ? player.wccplayer.offenseweight|number_format }}</td>
+                <td>{{ player.membership.start|date('Y/m/d') }}</td>
+                <td>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path( 'player_stop',{'membership_id':player.membership.id} ) }}">---</a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        {{ player.profile.user.username is defined ? player.profile.user.username : "---" }}
+                    {% endif %}
+                </td>
+                {% for w in 0..10 %}
+                    {% for a in 1..0 %}
+                        <td>
+                            {% if(wars[w].players[player.player.id].attacks[a].stars is defined) %}
+                                <span class="stars{{wars[w].players[player.player.id].attacks[a].stars}}">
+                                    {{ wars[w].players[player.player.id].attacks[a].stars }}
+                                </span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                {% endfor %}
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
 
     <table>
         <tr>
@@ -38,7 +93,7 @@
                     <td><a href="{{ path('player_view',{'player_id':member.player.id}) }}">{{ member.player.name }}</a></td>
                     <td><a href="{{ path('profile_edit',{'player_id':member.player.id}) }}">{{member.player.profile.name is defined ? ["(",member.player.profile.name,")"]|join: "---"}}</a></td>
                     <td>{{ member.player.th }}</td>
-                    <td>{{ member.player.wccplayer.offenseweight|number_format }}</td>
+                    <td>{{ member.player.wccplayer.offenseweight is defined ? member.player.wccplayer.offenseweight|number_format }}</td>
                     <td>{{ member.start ? member.start|date('Y/m/d') : "---" }}</td>
                     <td>
                         {% if app.user and is_granted('ROLE_ADMIN') %}
