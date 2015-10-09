@@ -12,9 +12,9 @@
     <table>
         <tr>
             <th>{{ war.id }}.</th>
-            <th colspan="10">{#{{ war.warclans[0].id }}. #}{{ war.warclans[0].clan.name }} ({{ war.warclans[0].wins }}) {{ war.warclans[0].nrattacks }}/{{ war.size*2 }} {# war.warclans[1].stars #} {{ render(controller('ClanmanagerBundle:Warclan:stars',{ 'warclan_id': war.warclans[1].id } )) }}</th>
+            <th colspan="10">{#{{ war.warclans[0].id }}. #}{{ war.warclans[0].clan.name }} ({{ war.warclans[0].wins }}) {{ war.warclans[0].nrattacks }}/{{ war.size*2 }} {# war.warclans[1].stars #} {{ render(controller('ClanmanagerBundle:Warclan:stars',{ 'warclan_id': war.warclans[1].id } )) }}<img height="14px" src="{{ asset('images/star.png') }}"> {{ render(controller('ClanmanagerBundle:Warclan:percent',{ 'warclan_id': war.warclans[1].id } ))|number_format(2) }}%</th>
             <th></th>
-            <th colspan="10">{#{{ war.warclans[1].id }}. #}{{ war.warclans[1].clan.name }} ({{ war.warclans[1].wins }}) {{ war.warclans[1].nrattacks }}/{{ war.size*2 }} {# war.warclans[0].stars #} {{ render(controller('ClanmanagerBundle:Warclan:stars',{ 'warclan_id': war.warclans[0].id } )) }}</th>
+            <th colspan="10">{#{{ war.warclans[1].id }}. #}{{ war.warclans[1].clan.name }} ({{ war.warclans[1].wins }}) {{ war.warclans[1].nrattacks }}/{{ war.size*2 }} {# war.warclans[0].stars #} {{ render(controller('ClanmanagerBundle:Warclan:stars',{ 'warclan_id': war.warclans[0].id } )) }}<img height="14px" src="{{ asset('images/star.png') }}"> {{ render(controller('ClanmanagerBundle:Warclan:percent',{ 'warclan_id': war.warclans[0].id } ))|number_format(2) }}%</th>
         </tr>
 
         {% for rank in 1 .. war.size %}
