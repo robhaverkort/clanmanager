@@ -19,6 +19,7 @@
             <th></th>
             <th>opponent Clan</th>
             <th colspan="3">stars</th>
+            <th colspan="3">perc</th>
             <th colspan="3">comp</th>
         </tr>
         {% for war in wars %}
@@ -33,6 +34,9 @@
                 <td>{{ war.warclans[1].stars }}</td>
                 <td>-</td>
                 <td>{{ war.warclans[0].stars }}</td>
+                <td>{{ war.warclans[1].percent|number_format(2) }}%</td>
+                <td>-</td>
+                <td>{{ war.warclans[0].percent|number_format(2) }}%</td>
                 
                 <td>{{ war.warclans[0].nrth(10) }}/{{ war.warclans[0].nrth(9) }}/{{ war.warclans[0].nrth(8) }}{# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[0].id } )) #}</td>
                 <td>-</td>
