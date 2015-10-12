@@ -245,4 +245,54 @@ class Warplayer {
         return $nrstars;
     }
 
+    /**
+     * Get Bestattack
+     * 
+     * returns the best attack suffered by this warplayer.
+     *
+     * @return \ClanmanagerBundle\Entity\Warevent 
+     */
+    public function getBestattack() {
+        $warevents = $this->getDefends()->toArray();
+
+        if (sizeof($warevents)) {
+            // sort on time
+            usort($warevents, function($a, $b) {
+                return $b->getTime()->getTimestamp() - $a->getTime()->getTimestamp();
+            });
+            // sort on percentage
+            usort($warevents, function($a, $b) {
+                return $a->getPercent() - $b->getPercent();
+            });
+            // then sort on nr of stars
+            usort($warevents, function($a, $b) {
+                return $b->getStars() - $a->getStars();
+            });
+            // sort on
+            /*
+            usort($warevents, function($a, $b) {
+                if ($a->getStars() == $b->getStars()) {
+                    if ($a->getPercent() > $b->getPercent()) {
+                        return 1;
+                    } elseif ($a->getPercent() < $b->getPercent()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                } elseif ($a->getStars() > $b->getStars()) {
+                    return 1;
+                } elseif ($a->getStars() < $b->getStars()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+             */
+            // first is best
+            return $warevents[0];
+        } else {
+            return NULL;
+        }
+    }
+
 }
