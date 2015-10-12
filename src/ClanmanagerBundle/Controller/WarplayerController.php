@@ -164,6 +164,11 @@ class WarplayerController extends Controller {
             $em = $this->getDoctrine()->getManager();
             if ($warplayer->getWarclan()->getClan()->getId() == 1) {
                 $em->persist($warplayer);
+                if ($warplayer->getTh() <> $warplayer->getPlayer()->getTh()) {
+                    $player = $warplayer->getPlayer();
+                    $player->setTh($warplayer->getTh());
+                    $em->persist($player);
+                }
             } else {
                 $em->persist($warplayer);
                 $player = $warplayer->getPlayer();
