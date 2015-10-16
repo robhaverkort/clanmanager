@@ -94,7 +94,7 @@ class WccplayerController extends Controller {
                 ->setMaxResults(1)
                 ->getQuery();
         $wccstats = $query->getResult();
-        if ($wccstats) {
+        if ($wccstats) { ////CHANGEME////
             $response = new JsonResponse();
             $response->setData(json_decode($wccstats[0]->getJson()));
             return $response;
@@ -146,6 +146,30 @@ class WccplayerController extends Controller {
         foreach ($achievements as $node) {
             $player['achievements'][strtolower(str_replace(" ", "", $node->childNodes->item(1)->textContent))] = stristr(trim($node->childNodes->item(5)->textContent), ":") ? str_replace(" ", "", trim(explode(":", $node->childNodes->item(5)->textContent)[1])) : str_replace(" ", "", trim(explode("/", $node->childNodes->item(5)->textContent)[0]));
         }
+
+        $player['village'] = array();
+
+        $villagebuildings = $xpath->query("//div[@class='village-buildings']");
+
+        $player['village']['walls'] = array();
+        $walls = $xpath->query("//div[@class='walls']");
+        foreach ($walls as $wall) {
+            $key = explode(" ", trim(str_replace(array("background-position:", "; width: 25px; height: 50px;", "px", "-"), "", $wall->getAttribute("style"))))[1];
+            $key = $key / 50 + 1;
+            if ($key) {
+                if (isset($player['village']['walls'][$key]))
+                    $player['village']['walls'][$key] ++;
+                else
+                    $player['village']['walls'][$key] = 1;
+            }
+        }
+
+        $player['village']['buildings'] = array();
+        $buildings = $xpath->query("//div[@class='buildings']");
+        foreach ($buildings as $building) {
+            
+        }
+
 
         $em = $this->getDoctrine()->getManager();
 
