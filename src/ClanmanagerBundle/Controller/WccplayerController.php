@@ -63,7 +63,7 @@ class WccplayerController extends Controller {
         $player['wccstats'] = array();
         foreach ($wccstats as $stats) {
             $p = array();
-            $p['info'] = json_decode($stats->getJson());
+            $p['info'] = json_decode($stats->getJson(),true);
             $p['wccstats'] = $stats;
             $player['wccstats'][] = $p;
         }
@@ -151,20 +151,20 @@ class WccplayerController extends Controller {
 
         $villagebuildings = $xpath->query("//div[@class='village-buildings']");
 
-        $player['village']['walls'] = array();
+        $player['village']['wall'] = array();
         $walls = $xpath->query("//div[@class='walls']");
         foreach ($walls as $wall) {
             $key = explode(" ", trim(str_replace(array("background-position:", "; width: 25px; height: 50px;", "px", "-"), "", $wall->getAttribute("style"))))[1];
             $key = $key / 50 + 1;
             if ($key) {
-                if (isset($player['village']['walls'][$key]))
-                    $player['village']['walls'][$key] ++;
+                if (isset($player['village']['wall'][$key]))
+                    $player['village']['wall'][$key] ++;
                 else
-                    $player['village']['walls'][$key] = 1;
+                    $player['village']['wall'][$key] = 1;
             }
         }
 
-        $player['village']['buildings'] = array();
+        //$player['village']['buildings'] = array();
         $buildings = $xpath->query("//div[@class='buildings']");
         foreach ($buildings as $building) {
             

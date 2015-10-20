@@ -4,9 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/srv/www/htdocs/clanmanager/EQ88GX8QR.html</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Clan/view.html.twig</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Wccplayer/view.html.twig</file>
             <file>file:/srv/www/htdocs/clanmanager/EQ88GX8QR_buildings.html</file>
+            <file>file:/srv/www/htdocs/clanmanager/village.json</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WccplayerController.php</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Entity/Wccplayer.php</file>
         </group>
     </open-files>
 </project-private>

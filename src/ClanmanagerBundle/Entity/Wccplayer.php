@@ -248,4 +248,63 @@ class Wccplayer {
         return $offenseweight;
     }
 
+    public function getDefenseweight($timestamp = NULL) {
+
+        //$values['walls'] = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+        $values['cannon'] = array(0, 100, 199, 297, 394, 490, 585, 679, 772, 864, 955, 1045, 1134, 1222);
+        $values['archertower'] = array(0, 100, 199, 297, 394, 490, 585, 679, 772, 864, 955, 1045, 1134, 1222);
+        $values['wizardtower'] = array(0, 500, 970, 1410, 1820, 2200, 2550, 2870, 3160);
+        $values['airdefense'] = array(0, 40, 80, 120, 160, 200, 240, 280, 320);
+        $values['mortar'] = array(0, 500, 990, 1470, 1940, 2400, 2850, 3290, 3720);
+        $values['tesla'] = array(0, 100, 200, 300, 400, 500, 600, 700, 800);
+        $values['xbow'] = array(0, 400, 800, 1200, 1600);
+        $values['inferno'] = array(0, 1000, 2000, 3000);
+        $values['airsweeper'] = array(0, 10, 20, 30, 40, 50, 60);
+        $values['smallbomb'] = array(0, 100, 200, 300, 400, 500, 600);
+        $values['giantbomb'] = array(0, 100, 200, 300, 400);
+        $values['seekingairmine'] = array(0, 20, 40, 60);
+        $values['airbomb'] = array(0, 50, 100, 150, 200);
+        $values['skeletontrap'] = array(0, 50, 50, 50);
+        $values['wall'] = array(0, 4.3, 8.4, 12.6, 16.8, 21.0, 25.2, 29.4, 33.6, 37.8, 42.0, 46.2);
+        $values['springtrap'] = array(0, 20.0);
+
+        $wccstats = $this->getWccstats()->toArray();
+        $defenseweight = 0;
+
+        if (sizeof($wccstats)) {
+
+            $wccstat = end($wccstats);
+
+            if ($timestamp) {
+                $wccstat = reset($wccstats);
+                if ($wccstat->getCreatedat() > $timestamp)
+                    return 0;
+
+                for ($n = sizeof($wccstats) - 1; $n >= 0; $n--) {
+                    if ($wccstats[$n]->getCreatedat() <= $timestamp) {
+                        $wccstat = $wccstats[$n];
+                        break;
+                    }
+                }
+            }
+
+            $wccstat = json_decode($wccstat->getJson(), true);
+            if (isset($wccstat['village'])) {
+                foreach ($wccstat['village'] as $key=>$bld) {
+                    //var_dump($wccstat['village']);
+                    //var_dump($key);var_dump($bld);
+                    foreach ($bld as $lev => $val) {
+                        //var_dump($key);var_dump(array_keys($values));var_dump(in_array($key, array_keys($values)));exit;
+                        //var_dump($lev);var_dump($val);exit;
+                        if (in_array($key, array_keys($values))) {
+                            $defenseweight += $val * $values[$key][$lev];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $defenseweight;
+    }
+
 }

@@ -40,6 +40,10 @@
                 <td>{{ stats.info.claninfo.warhero|number_format }}</td>
                 <td>{{ stats.info.claninfo.goldinwar|number_format }}</td>
                 <td>{{ player.wccplayer.offenseweight(stats.wccstats.createdat)|number_format }}</td>
+                <td>{{ player.wccplayer.defenseweight(stats.wccstats.createdat)|number_format }}</td>
+                {% for lev in 1..11 %}
+                <td>{{ stats.info.village is defined and stats.info.village.wall is defined and stats.info.village.wall[lev] is defined ? stats.info.village.wall[lev] : 0 }}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
     </table>

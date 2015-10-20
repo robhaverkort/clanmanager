@@ -1,0 +1,77 @@
+{
+    "playerinfo": {
+        "profile": "7QKBXPJQK",
+        "level": "120",
+        "name": "RobH",
+        "clanprofile": "NDQPM3WQ0",
+        "clanname": "Red Onslaught",
+        "clanrole": "Co-Leader",
+        "league": "14",
+        "score": "2978"
+    },
+    "claninfo": {
+        "goldgrab": "363044231",
+        "elixergrab": "372428829",
+        "darkelixergrab": "1687928",
+        "wonbattles": "4326",
+        "defenseswon": "193",
+        "warhero": "762",
+        "goldinwar": "153298634"
+    },
+    "troops": {
+        "barbarianking": "20",
+        "archerqueen": "21",
+        "lightningspell": "6",
+        "healingspell": "6",
+        "ragespell": "5",
+        "jumpspell": "2",
+        "freezespell": "",
+        "barbarian": "6",
+        "archer": "6",
+        "giant": "6",
+        "goblin": "5",
+        "wallbreaker": "5",
+        "balloon": "6",
+        "wizard": "5",
+        "healer": "4",
+        "dragon": "4",
+        "pekka": "3",
+        "minion": "5",
+        "hogrider": "5",
+        "valkyrie": "4",
+        "golem": "4",
+        "witch": "2",
+        "lavahound": "2"
+    },
+    "achievements": {
+        "biggercoffers": "GoldStorageLevel",
+        "getthosegoblins!": "150",
+        "bigger\u0026better": "9",
+        "niceandtidy": "1730",
+        "releasethebeasts": "",
+        "goldgrab": "363044231",
+        "elixirescapade": "372428829",
+        "sweetvictory!": "3208",
+        "empirebuilder": "5",
+        "wallbuster": "32408",
+        "humiliator": "3555",
+        "unionbuster": "8998",
+        "conqueror": "4326",
+        "unbreakable": "193",
+        "friendinneed": "69527",
+        "mortarmauler": "6380",
+        "heroicheist": "1687928",
+        "leagueall-star": "",
+        "x-bowexterminator": "837",
+        "firefighter": "65",
+        "warhero": "762",
+        "spoilsofwar": "153298634"
+    },
+    "village": {
+        "walls": {
+            "9": 175,
+            "10": 75
+        },
+        "buildings": []
+    }
+}

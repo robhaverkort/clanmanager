@@ -18,6 +18,7 @@
             <th colspan="2">name</th>
             <th>TH</th>
             <th>offense</th>
+            <th>defense</th>
             <th>join</th>
             <th>leave</th>
             <th>acct</th>
@@ -37,6 +38,7 @@
                 <td><a href="{{ path('profile_edit',{'player_id':player.player.id}) }}">{{player.profile.name is defined ? ["(",player.profile.name,")"]|join: "---"}}</a></td>
                 <td>TH{{ player.player.th }}</td>
                 <td>{{ player.wccplayer.offenseweight is defined ? player.wccplayer.offenseweight|number_format }}</td>
+                <td>{{ player.wccplayer.defenseweight is defined ? player.wccplayer.defenseweight|number_format }}</td>
                 <td>{{ player.membership.start|date('Y/m/d') }}</td>
                 <td>
                     {% if app.user and is_granted('ROLE_ADMIN') %}
