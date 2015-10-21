@@ -63,7 +63,7 @@ class WccplayerController extends Controller {
         $player['wccstats'] = array();
         foreach ($wccstats as $stats) {
             $p = array();
-            $p['info'] = json_decode($stats->getJson(),true);
+            $p['info'] = json_decode($stats->getJson(), true);
             $p['wccstats'] = $stats;
             $player['wccstats'][] = $p;
         }
@@ -94,10 +94,10 @@ class WccplayerController extends Controller {
                 ->setMaxResults(1)
                 ->getQuery();
         $wccstats = $query->getResult();
-        if ($wccstats) { ////CHANGEME////
+        if ($wccstats) {
             $response = new JsonResponse();
             $response->setData(json_decode($wccstats[0]->getJson()));
-            return $response;
+            //return $response; ////CHANGEME////
         }
 
         $doc = new DOMDocument();
@@ -164,13 +164,154 @@ class WccplayerController extends Controller {
             }
         }
 
-        //$player['village']['buildings'] = array();
+        $values = array();
+        $values[408][0] = array('townhall', 5);
+        $values[510][0] = array('townhall', 6);
+        $values[714][0] = array('townhall', 8);
+        $values[816][0] = array('townhall', 9);
+        $values[918][0] = array('townhall', 10);
+        $values[306][97] = array('laboratory', 3);
+        $values[204][97] = array('laboratory', 4);
+        $values[510][97] = array('laboratory', 6);
+        $values[612][97] = array('laboratory', 7);
+        $values[714][97] = array('laboratory', 8);
+        $values[516][194] = array('camp', 5);
+        $values[645][194] = array('camp', 6);
+        $values[774][194] = array('camp', 7);
+        $values[903][194] = array('camp', 8);
+        $values[152][291] = array('clancastle', 3);
+        $values[228][291] = array('clancastle', 4);
+        $values[304][291] = array('clancastle', 5);
+        $values[380][291] = array('clancastle', 6);
+        $values[456][291] = array('clancastle', 7);
+        $values[693][291] = array('buildershut', 0);
+        $values[742][291] = array('barbarianking', 0);
+        $values[818][291] = array('archerqueen', 0);
+        $values[380][388] = array('barracks', 6);
+        $values[456][388] = array('barracks', 7);
+        $values[532][388] = array('barracks', 8);
+        $values[608][388] = array('barracks', 9);
+        $values[684][388] = array('barracks', 10);
+        $values[228][485] = array('archertower', 4);
+        $values[380][485] = array('archertower', 6);
+        $values[456][485] = array('archertower', 7);
+        $values[532][485] = array('archertower', 8);
+        $values[608][485] = array('archertower', 9);
+        $values[684][485] = array('archertower', 10);
+        $values[760][485] = array('archertower', 11);
+        $values[836][485] = array('archertower', 12);
+        $values[912][485] = array('archertower', 13);
+        $values[76][582] = array('cannon', 2);
+        $values[228][582] = array('cannon', 4);
+        $values[380][582] = array('cannon', 6);
+        $values[456][582] = array('cannon', 7);
+        $values[532][582] = array('cannon', 8);
+        $values[608][582] = array('cannon', 9);
+        $values[684][582] = array('cannon', 10);
+        $values[760][582] = array('cannon', 11);
+        $values[836][582] = array('cannon', 12);
+        $values[912][582] = array('cannon', 13);
+        $values[152][679] = array('airdefense', 3);
+        $values[304][679] = array('airdefense', 5);
+        $values[380][679] = array('airdefense', 6);
+        $values[456][679] = array('airdefense', 7);
+        $values[532][679] = array('airdefense', 8);
+        $values[769][679] = array('xbow', 2);
+        $values[845][679] = array('xbow', 3);
+        $values[921][679] = array('xbow', 4);
+        $values[304][776] = array('goldmine', 5);
+        $values[380][776] = array('goldmine', 6);
+        $values[532][776] = array('goldmine', 8);
+        $values[608][776] = array('goldmine', 9);
+        $values[684][776] = array('goldmine', 10);
+        $values[760][776] = array('goldmine', 11);
+        $values[836][776] = array('goldmine', 12);
+        $values[76][873] = array('goldstorage', 2);
+        $values[228][873] = array('goldstorage', 4);
+        $values[304][873] = array('goldstorage', 5);
+        $values[608][873] = array('goldstorage', 9);
+        $values[684][873] = array('goldstorage', 10);
+        $values[760][873] = array('goldstorage', 11);
+        $values[943][873] = array('inferno', 2);
+        $values[992][873] = array('inferno', 3);
+        $values[76][970] = array('darkbarracks', 2);
+        $values[152][970] = array('darkbarracks', 3);
+        $values[228][970] = array('darkbarracks', 4);
+        $values[304][970] = array('darkbarracks', 5);
+        $values[380][970] = array('darkbarracks', 6);
+        $values[623][970] = array('spellfactory', 2);
+        $values[699][970] = array('spellfactory', 3);
+        $values[775][970] = array('spellfactory', 4);
+        $values[851][970] = array('spellfactory', 5);
+        $values[76][1067] = array('wizardtower', 2);
+        $values[152][1067] = array('wizardtower', 3);
+        $values[228][1067] = array('wizardtower', 4);
+        $values[304][1067] = array('wizardtower', 5);
+        $values[380][1067] = array('wizardtower', 6);
+        $values[456][1067] = array('wizardtower', 7);
+        $values[532][1067] = array('wizardtower', 8);
+        $values[721][1067] = array('darkelixerdrill', 2);
+        $values[797][1067] = array('darkelixerdrill', 3);
+        $values[873][1067] = array('darkelixerdrill', 4);
+        $values[949][1067] = array('darkelixerdrill', 5);
+        $values[1025][1067] = array('darkelixerdrill', 6);
+        $values[152][1164] = array('mortar', 3);
+        $values[228][1164] = array('mortar', 4);
+        $values[304][1164] = array('mortar', 5);
+        $values[380][1164] = array('mortar', 6);
+        $values[532][1164] = array('mortar', 7);
+        $values[456][1164] = array('mortar', 8);
+        $values[721][1164] = array('darkelixerstorage', 2);
+        $values[797][1164] = array('darkelixerstorage', 3);
+        $values[873][1164] = array('darkelixerstorage', 4);
+        $values[949][1164] = array('darkelixerstorage', 5);
+        $values[1025][1164] = array('darkelixerstorage', 6);
+        $values[304][1261] = array('elixercollector', 5);
+        $values[380][1261] = array('elixercollector', 6);
+        $values[456][1261] = array('elixercollector', 7);
+        $values[608][1261] = array('elixercollector', 9);
+        $values[684][1261] = array('elixercollector', 10);
+        $values[760][1261] = array('elixercollector', 11);
+        $values[836][1261] = array('elixercollector', 12);
+        $values[76][1358] = array('elixerstorage', 2);
+        $values[304][1358] = array('elixerstorage', 5);
+        $values[608][1358] = array('elixerstorage', 9);
+        $values[684][1358] = array('elixerstorage', 10);
+        $values[760][1358] = array('elixerstorage', 11);
+        $values[988][1358] = array('darkspellfactory', 2);
+        $values[1064][1358] = array('darkspellfactory', 3);
+        $values[547][1455] = array('airsweeper', 1);
+        $values[596][1455] = array('airsweeper', 2);
+        $values[645][1455] = array('airsweeper', 3);
+        $values[694][1455] = array('airsweeper', 4);
+        $values[743][1455] = array('airsweeper', 5);
+
         $buildings = $xpath->query("//div[@class='buildings']");
+        $coords = array();
         foreach ($buildings as $building) {
-            
+            $coords[] = explode(" ", trim(str_replace(array("background-position: ", "width: ", "height: ", "px", ";", "-"), "", $building->getAttribute("style"))));
         }
+        
+        echo"<pre>";
+        //var_dump($coords);
+        foreach ($coords as $coord) {
+            echo implode(",", $coord);
+            echo isset($values[$coord[0]][$coord[1]]) ? "=" . $values[$coord[0]][$coord[1]][0] . ":" . $values[$coord[0]][$coord[1]][1] : "";
+            echo "<br>";
 
-
+            if (isset($values[$coord[0]][$coord[1]])) {
+                $bld = 1;
+                if (isset($player['village'][$values[$coord[0]][$coord[1]][0]][$values[$coord[0]][$coord[1]][1]]))
+                    $player['village'][$values[$coord[0]][$coord[1]][0]][$values[$coord[0]][$coord[1]][1]] ++;
+                else
+                    $player['village'][$values[$coord[0]][$coord[1]][0]][$values[$coord[0]][$coord[1]][1]] = 1;
+            }
+        }
+        //print_r($coords);
+        echo"</pre>";
+        exit;
+        
+        
         $em = $this->getDoctrine()->getManager();
 
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccclan');
