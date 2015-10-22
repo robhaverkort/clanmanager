@@ -13,7 +13,7 @@
         {% for player in players %}
             <tr>
                 <td class="atop">{{ player.wccplayer.id }}</td>
-                <td class="atop">{{ player.wccplayer.profile }}</td>
+                <td class="atop"><a href="{{ path('wccplayer_json',{'profile':player.wccplayer.profile }) }}">{{ player.wccplayer.profile }}</a></td>
                 <td class="atop"><a href="{{ path('wccplayer_view',{'profile':player.wccplayer.profile }) }}">{{ player.wccplayer.name }}</a></td>
                 <td class="atop">{{ player.wccstats|length }}</td>
             </tr>

@@ -97,7 +97,7 @@ class WccplayerController extends Controller {
         if ($wccstats) {
             $response = new JsonResponse();
             $response->setData(json_decode($wccstats[0]->getJson()));
-            //return $response; ////CHANGEME////
+            return $response; ////CHANGEME////
         }
 
         $doc = new DOMDocument();
@@ -167,11 +167,13 @@ class WccplayerController extends Controller {
         $values = array();
         $values[408][0] = array('townhall', 5);
         $values[510][0] = array('townhall', 6);
+        $values[612][0] = array('townhall', 7);
         $values[714][0] = array('townhall', 8);
         $values[816][0] = array('townhall', 9);
         $values[918][0] = array('townhall', 10);
         $values[306][97] = array('laboratory', 3);
         $values[204][97] = array('laboratory', 4);
+        $values[408][97] = array('laboratory', 5);
         $values[510][97] = array('laboratory', 6);
         $values[612][97] = array('laboratory', 7);
         $values[714][97] = array('laboratory', 8);
@@ -187,12 +189,14 @@ class WccplayerController extends Controller {
         $values[693][291] = array('buildershut', 0);
         $values[742][291] = array('barbarianking', 0);
         $values[818][291] = array('archerqueen', 0);
+        $values[304][388] = array('barracks', 5);
         $values[380][388] = array('barracks', 6);
         $values[456][388] = array('barracks', 7);
         $values[532][388] = array('barracks', 8);
         $values[608][388] = array('barracks', 9);
         $values[684][388] = array('barracks', 10);
         $values[228][485] = array('archertower', 4);
+        $values[304][485] = array('archertower', 5);
         $values[380][485] = array('archertower', 6);
         $values[456][485] = array('archertower', 7);
         $values[532][485] = array('archertower', 8);
@@ -203,6 +207,7 @@ class WccplayerController extends Controller {
         $values[912][485] = array('archertower', 13);
         $values[76][582] = array('cannon', 2);
         $values[228][582] = array('cannon', 4);
+        $values[304][582] = array('cannon', 5);
         $values[380][582] = array('cannon', 6);
         $values[456][582] = array('cannon', 7);
         $values[532][582] = array('cannon', 8);
@@ -211,7 +216,9 @@ class WccplayerController extends Controller {
         $values[760][582] = array('cannon', 11);
         $values[836][582] = array('cannon', 12);
         $values[912][582] = array('cannon', 13);
+        $values[76][679] = array('airdefense', 2);
         $values[152][679] = array('airdefense', 3);
+        $values[228][679] = array('airdefense', 4);
         $values[304][679] = array('airdefense', 5);
         $values[380][679] = array('airdefense', 6);
         $values[456][679] = array('airdefense', 7);
@@ -221,6 +228,7 @@ class WccplayerController extends Controller {
         $values[921][679] = array('xbow', 4);
         $values[304][776] = array('goldmine', 5);
         $values[380][776] = array('goldmine', 6);
+        $values[456][776] = array('goldmine', 7);
         $values[532][776] = array('goldmine', 8);
         $values[608][776] = array('goldmine', 9);
         $values[684][776] = array('goldmine', 10);
@@ -255,6 +263,7 @@ class WccplayerController extends Controller {
         $values[873][1067] = array('darkelixerdrill', 4);
         $values[949][1067] = array('darkelixerdrill', 5);
         $values[1025][1067] = array('darkelixerdrill', 6);
+        $values[76][1164] = array('mortar', 2);
         $values[152][1164] = array('mortar', 3);
         $values[228][1164] = array('mortar', 4);
         $values[304][1164] = array('mortar', 5);
@@ -269,12 +278,14 @@ class WccplayerController extends Controller {
         $values[304][1261] = array('elixercollector', 5);
         $values[380][1261] = array('elixercollector', 6);
         $values[456][1261] = array('elixercollector', 7);
+        $values[532][1261] = array('elixercollector', 8);
         $values[608][1261] = array('elixercollector', 9);
         $values[684][1261] = array('elixercollector', 10);
         $values[760][1261] = array('elixercollector', 11);
         $values[836][1261] = array('elixercollector', 12);
         $values[76][1358] = array('elixerstorage', 2);
         $values[304][1358] = array('elixerstorage', 5);
+        $values[456][1358] = array('elixerstorage', 7);
         $values[608][1358] = array('elixerstorage', 9);
         $values[684][1358] = array('elixerstorage', 10);
         $values[760][1358] = array('elixerstorage', 11);
@@ -291,13 +302,12 @@ class WccplayerController extends Controller {
         foreach ($buildings as $building) {
             $coords[] = explode(" ", trim(str_replace(array("background-position: ", "width: ", "height: ", "px", ";", "-"), "", $building->getAttribute("style"))));
         }
-        
-        echo"<pre>";
-        //var_dump($coords);
+
+        //echo"<pre>";
         foreach ($coords as $coord) {
-            echo implode(",", $coord);
-            echo isset($values[$coord[0]][$coord[1]]) ? "=" . $values[$coord[0]][$coord[1]][0] . ":" . $values[$coord[0]][$coord[1]][1] : "";
-            echo "<br>";
+            //echo implode(",", $coord);
+            //echo isset($values[$coord[0]][$coord[1]]) ? "=" . $values[$coord[0]][$coord[1]][0] . ":" . $values[$coord[0]][$coord[1]][1] : "";
+            //echo "<br>";
 
             if (isset($values[$coord[0]][$coord[1]])) {
                 $bld = 1;
@@ -305,13 +315,15 @@ class WccplayerController extends Controller {
                     $player['village'][$values[$coord[0]][$coord[1]][0]][$values[$coord[0]][$coord[1]][1]] ++;
                 else
                     $player['village'][$values[$coord[0]][$coord[1]][0]][$values[$coord[0]][$coord[1]][1]] = 1;
+            } else {
+                $this->addFlash('notice', 'missing coords: ' . $coord[0] . "," . $coord[1]);
             }
         }
         //print_r($coords);
-        echo"</pre>";
-        exit;
-        
-        
+        //echo"</pre>";
+        //exit;
+
+
         $em = $this->getDoctrine()->getManager();
 
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccclan');
