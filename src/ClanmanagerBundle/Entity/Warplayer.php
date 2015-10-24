@@ -256,21 +256,8 @@ class Warplayer {
         $warevents = $this->getDefends()->toArray();
 
         if (sizeof($warevents)) {
-            // sort on time
-            usort($warevents, function($a, $b) {
-                return $b->getTime()->getTimestamp() - $a->getTime()->getTimestamp();
-            });
-            // sort on percentage
-            usort($warevents, function($a, $b) {
-                return $a->getPercent() - $b->getPercent();
-            });
-            // then sort on nr of stars
-            usort($warevents, function($a, $b) {
-                return $b->getStars() - $a->getStars();
-            });
-            // sort on
-            /*
-            usort($warevents, function($a, $b) {
+            
+            usort($warevents, function($b, $a) {
                 if ($a->getStars() == $b->getStars()) {
                     if ($a->getPercent() > $b->getPercent()) {
                         return 1;
@@ -287,7 +274,7 @@ class Warplayer {
                     return 0;
                 }
             });
-             */
+            
             // first is best
             return $warevents[0];
         } else {
