@@ -24,7 +24,7 @@
         </tr>
         {% for war in wars %}
 
-            <tr class="{{ war.warclans[0].stars == war.warclans[1].stars ? 'tie' : war.warclans[0].stars < war.warclans[1].stars ? 'win' : 'lose' }}">
+            <tr class="{{ (war.warclans[0].stars < war.warclans[1].stars) or ((war.warclans[0].stars == war.warclans[1].stars) and (war.warclans[0].percent < war.warclans[1].percent )) ? 'win' : 'lose' }}">
                 <td>{{ war.id }}</td>
                 <td><a href="{{ path('war_view',{'war_id':war.id}) }}">{{ war.start|date('Y/m/d H:i') }}</a></td>
                 <td>{{ war.size }}v{{ war.size }}</td>
@@ -37,11 +37,11 @@
                 <td>{{ war.warclans[1].percent|number_format(2) }}%</td>
                 <td>-</td>
                 <td>{{ war.warclans[0].percent|number_format(2) }}%</td>
-                
+
                 <td>{{ war.warclans[0].nrth(10) }}/{{ war.warclans[0].nrth(9) }}/{{ war.warclans[0].nrth(8) }}{# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[0].id } )) #}</td>
                 <td>-</td>
                 <td>{{ war.warclans[1].nrth(10) }}/{{ war.warclans[1].nrth(9) }}/{{ war.warclans[1].nrth(8) }}{# render(controller('ClanmanagerBundle:Warclan:comp',{ 'warclan_id': war.warclans[1].id } )) #}</td>
-                
+
             </tr>
         {% endfor %}
     </table>
