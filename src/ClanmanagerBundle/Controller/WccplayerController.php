@@ -178,6 +178,7 @@ class WccplayerController extends Controller {
         $values[612][97] = array('laboratory', 7);
         $values[714][97] = array('laboratory', 8);
         $values[129][194] = array('camp', 2);
+        $values[387][194] = array('camp', 3);
         $values[516][194] = array('camp', 5);
         $values[645][194] = array('camp', 6);
         $values[774][194] = array('camp', 7);
@@ -190,6 +191,7 @@ class WccplayerController extends Controller {
         $values[693][291] = array('buildershut', 0);
         $values[742][291] = array('barbarianking', 0);
         $values[818][291] = array('archerqueen', 0);
+        $values[76][388] = array('barracks', 2);
         $values[304][388] = array('barracks', 5);
         $values[380][388] = array('barracks', 6);
         $values[456][388] = array('barracks', 7);
