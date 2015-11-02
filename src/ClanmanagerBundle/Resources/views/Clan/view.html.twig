@@ -62,6 +62,9 @@
                     {% endfor %}
                 {% endfor %}
                 <td></td>
+                
+                <td>{{ player.player.wccplayer.wccclan is defined ? player.player.wccplayer.wccclan.name }}</td>
+
             </tr>
         {% endfor %}
 
@@ -82,7 +85,7 @@
         </tr>
 
         <tr><td>&nbsp;</td></tr>
-        
+
         {% if app.user and is_granted('ROLE_ADMIN') %}
             {{ render(controller('ClanmanagerBundle:Player:new',{'clan_id':clan.id} )) }}
         {% endif %}

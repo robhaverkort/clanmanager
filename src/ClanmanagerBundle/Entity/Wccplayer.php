@@ -290,7 +290,7 @@ class Wccplayer {
 
             $wccstat = json_decode($wccstat->getJson(), true);
             if (isset($wccstat['village'])) {
-                foreach ($wccstat['village'] as $key=>$bld) {
+                foreach ($wccstat['village'] as $key => $bld) {
                     //var_dump($wccstat['village']);
                     //var_dump($key);var_dump($bld);
                     foreach ($bld as $lev => $val) {
@@ -305,6 +305,15 @@ class Wccplayer {
         }
 
         return $defenseweight;
+    }
+
+    public function getWccclan($timestamp = NULL) {
+        $wccstats = $this->getWccstats();
+        if (sizeof($wccstats))
+            return $wccstats[sizeof($wccstats) - 1]->getWccclan();
+        else
+            return NULL;
+        return "Red";
     }
 
 }
