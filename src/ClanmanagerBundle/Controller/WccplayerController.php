@@ -230,6 +230,7 @@ class WccplayerController extends Controller {
         $values[769][679] = array('xbow', 2);
         $values[845][679] = array('xbow', 3);
         $values[921][679] = array('xbow', 4);
+        $values[152][776] = array('goldmine', 3);
         $values[304][776] = array('goldmine', 5);
         $values[380][776] = array('goldmine', 6);
         $values[456][776] = array('goldmine', 7);
@@ -279,6 +280,7 @@ class WccplayerController extends Controller {
         $values[873][1164] = array('darkelixerstorage', 4);
         $values[949][1164] = array('darkelixerstorage', 5);
         $values[1025][1164] = array('darkelixerstorage', 6);
+        $values[152][1261] = array('elixercollector', 3);
         $values[304][1261] = array('elixercollector', 5);
         $values[380][1261] = array('elixercollector', 6);
         $values[456][1261] = array('elixercollector', 7);
