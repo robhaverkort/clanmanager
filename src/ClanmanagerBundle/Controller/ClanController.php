@@ -67,7 +67,10 @@ class ClanController extends Controller {
         }
 
         usort($players, function($a, $b) {
-            return $b['wccplayer']->getOffenseweight() - $a['wccplayer']->getOffenseweight();
+            if ($b['wccplayer'] && $a['wccplayer'])
+                return $b['wccplayer']->getOffenseweight() - $a['wccplayer']->getOffenseweight();
+            else
+                return 1;
         });
 
         return $this->render('ClanmanagerBundle:Clan:view.html.twig', array('clan' => $clan, 'warclan_ids' => $warclan_ids, 'players' => $players, 'wars' => $wars));
