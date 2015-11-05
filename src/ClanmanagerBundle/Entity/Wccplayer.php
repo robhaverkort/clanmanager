@@ -313,7 +313,14 @@ class Wccplayer {
             return $wccstats[sizeof($wccstats) - 1]->getWccclan();
         else
             return NULL;
-        return "Red";
+    }
+
+    public function getLastwccstats($timestamp = NULL) {
+        $wccstats = $this->getWccstats();
+        if (sizeof($wccstats))
+            return $wccstats[sizeof($wccstats) - 1];
+        else
+            return NULL;
     }
 
 }
