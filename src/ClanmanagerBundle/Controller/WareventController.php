@@ -21,14 +21,14 @@ class WareventController extends Controller {
     public function indexAction() {
         $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:War');
         $war = $repository->createQueryBuilder('w')
-                ->select('w')
-                ->orderBy('w.start','DESC')
-                //->setMaxResults(1)
-                ->getQuery()
-                ->getResult()[0];
+                        ->select('w')
+                        ->orderBy('w.start', 'DESC')
+                        //->setMaxResults(1)
+                        ->getQuery()
+                        ->getResult()[0];
         //dump($war);exit;
-        return $this->redirectToRoute('warevent_view',array('war_id'=>$war->getId()));
-        
+        return $this->redirectToRoute('warevent_view', array('war_id' => $war->getId()));
+
         $repository = $this->getDoctrine()
                 ->getRepository('ClanmanagerBundle:Warevent');
         $warevents = $repository->findAll();
@@ -72,6 +72,7 @@ class WareventController extends Controller {
                     'class' => 'ClanmanagerBundle:Warplayer',
                     //'property' => 'id',
                     'data' => $attacker,
+                    'choices' => array($attacker),
                     'disabled' => true
                 ))
                 ->add('defender', 'entity', array(
@@ -118,7 +119,7 @@ class WareventController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            return $this->redirectToRoute('warevent_view', array('war_id' => $form['war_id']->getData())); 
+            return $this->redirectToRoute('warevent_view', array('war_id' => $form['war_id']->getData()));
             //return $this->redirectToRoute('warevent_view', array('war_id' => $request->request->get('war_id')));
         }
 
