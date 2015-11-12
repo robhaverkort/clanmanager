@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Resources/views/Warevent/test.html.twig</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Entity/Profile.php</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Entity/Warplayer.php</file>
             <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Controller/WareventController.php</file>
+            <file>file:/srv/www/htdocs/clanmanager/src/ClanmanagerBundle/Entity/Player.php</file>
         </group>
     </open-files>
 </project-private>

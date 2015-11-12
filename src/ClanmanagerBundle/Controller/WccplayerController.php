@@ -178,7 +178,8 @@ class WccplayerController extends Controller {
         $values[612][97] = array('laboratory', 7);
         $values[714][97] = array('laboratory', 8);
         $values[129][194] = array('camp', 2);
-        $values[387][194] = array('camp', 3);
+        $values[258][194] = array('camp', 3);
+        $values[387][194] = array('camp', 4);
         $values[516][194] = array('camp', 5);
         $values[645][194] = array('camp', 6);
         $values[774][194] = array('camp', 7);
@@ -192,6 +193,7 @@ class WccplayerController extends Controller {
         $values[742][291] = array('barbarianking', 0);
         $values[818][291] = array('archerqueen', 0);
         $values[76][388] = array('barracks', 2);
+        $values[228][388] = array('barracks', 4);
         $values[304][388] = array('barracks', 5);
         $values[380][388] = array('barracks', 6);
         $values[456][388] = array('barracks', 7);
@@ -210,6 +212,7 @@ class WccplayerController extends Controller {
         $values[836][485] = array('archertower', 12);
         $values[912][485] = array('archertower', 13);
         $values[76][582] = array('cannon', 2);
+        $values[152][582] = array('cannon', 3);
         $values[228][582] = array('cannon', 4);
         $values[304][582] = array('cannon', 5);
         $values[380][582] = array('cannon', 6);
@@ -245,6 +248,7 @@ class WccplayerController extends Controller {
         $values[228][873] = array('goldstorage', 4);
         $values[304][873] = array('goldstorage', 5);
         $values[380][873] = array('goldstorage', 6);
+        $values[532][873] = array('goldstorage', 8);
         $values[608][873] = array('goldstorage', 9);
         $values[684][873] = array('goldstorage', 10);
         $values[760][873] = array('goldstorage', 11);
