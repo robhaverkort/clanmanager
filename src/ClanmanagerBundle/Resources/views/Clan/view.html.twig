@@ -66,8 +66,8 @@
                 <td></td>
                 
                 <!--<td>{{ player.player.wccplayer.wccclan is defined ? player.player.wccplayer.wccclan.name }}</td>-->
-                <td>{{ player.player.wccplayer.lastwccstats.wccclan.name }}</td>
-                <td>{{ player.player.wccplayer.lastwccstats.createdat|date('m/d') }}</td>
+                <td>{{ player.player.wccplayer.lastwccstats is defined ? player.player.wccplayer.lastwccstats.wccclan.name }}</td>
+                <td>{{ player.player.wccplayer.lastwccstats is defined ? player.player.wccplayer.lastwccstats.createdat|date('m/d') }}</td>
 
             </tr>
         {% endfor %}
