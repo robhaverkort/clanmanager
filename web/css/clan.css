@@ -34,22 +34,22 @@ table th {
     color: red;
 }
 .netstars-2 {
-    color: orangered;
+    color: red;
 }
 .netstars-1 {
-    color: orange;
+    color: red;
 }
 .netstars0 {
     color: gray;
 }
 .netstars1 {
-    color: greenyellow;
+    color: green;
 }
 .netstars2 {
-    color: greenyellow;
+    color: green;
 }
 .netstars3 {
-    color: greenyellow;
+    color: green;
 }
 .netstars4 {
     color: green;
@@ -58,5 +58,5 @@ table th {
     color: green;
 }
 .netstars6 {
-    color: darkgreen;
+    color: green;
 }
