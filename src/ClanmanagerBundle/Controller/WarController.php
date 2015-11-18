@@ -153,8 +153,12 @@ class WarController extends Controller {
             }
             $player['netstars'] = $attstars - $defstars;
             
+            $warplayer->setNetstars($player['netstars']);
+            $em->getManager()->persist($warplayer);
+            
             $players[] = $player;
         }
+        $em->getManager()->flush();
 
         rsort($offenseranks);
         foreach( $players as $key=>$player ){

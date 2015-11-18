@@ -36,6 +36,13 @@ class Warplayer {
      */
     private $th;
 
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="netstars", type="integer", nullable=true)
+     */
+    private $netstars;
+
     /**
      * @ORM\ManyToOne(targetEntity="Player", inversedBy="warplayers")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
@@ -243,6 +250,43 @@ class Warplayer {
         }
         $nrstars += max($stars);
         return $nrstars;
+    }
+
+    /**
+     * Get Bestattack
+     * 
+     * returns the best attack suffered by this warplayer.
+     *
+     * @return \ClanmanagerBundle\Entity\Warevent 
+     */
+    public function getBestattack() {
+        $warevents = $this->getDefends()->toArray();
+
+        if (sizeof($warevents)) {
+            
+            usort($warevents, function($b, $a) {
+                if ($a->getStars() == $b->getStars()) {
+                    if ($a->getPercent() > $b->getPercent()) {
+                        return 1;
+                    } elseif ($a->getPercent() < $b->getPercent()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                } elseif ($a->getStars() > $b->getStars()) {
+                    return 1;
+                } elseif ($a->getStars() < $b->getStars()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+            
+            // first is best
+            return $warevents[0];
+        } else {
+            return NULL;
+        }
     }
 
 }

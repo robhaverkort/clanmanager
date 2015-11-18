@@ -36,6 +36,13 @@ class Warplayer {
      */
     private $th;
 
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="netstars", type="integer", nullable=true)
+     */
+    private $netstars;
+
     /**
      * @ORM\ManyToOne(targetEntity="Player", inversedBy="warplayers")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
@@ -282,4 +289,27 @@ class Warplayer {
         }
     }
 
+
+    /**
+     * Set netstars
+     *
+     * @param integer $netstars
+     * @return Warplayer
+     */
+    public function setNetstars($netstars)
+    {
+        $this->netstars = $netstars;
+
+        return $this;
+    }
+
+    /**
+     * Get netstars
+     *
+     * @return integer 
+     */
+    public function getNetstars()
+    {
+        return $this->netstars;
+    }
 }

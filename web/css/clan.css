@@ -26,3 +26,37 @@ table th {
 .stars3 {
     color: green;
 }
+
+.netstars {
+    text-align: right;
+}
+.netstars-3 {
+    color: red;
+}
+.netstars-2 {
+    color: orangered;
+}
+.netstars-1 {
+    color: orange;
+}
+.netstars0 {
+    color: gray;
+}
+.netstars1 {
+    color: greenyellow;
+}
+.netstars2 {
+    color: greenyellow;
+}
+.netstars3 {
+    color: greenyellow;
+}
+.netstars4 {
+    color: green;
+}
+.netstars5 {
+    color: green;
+}
+.netstars6 {
+    color: darkgreen;
+}

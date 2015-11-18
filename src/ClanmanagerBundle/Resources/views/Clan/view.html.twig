@@ -29,6 +29,12 @@
             {% endfor %}
             <th></th>
             <th colspan="2">last known clan</th>
+            <th></th>
+                {% for n in 0..10 %}
+                <th style="text-align:center">
+                    {{ n }}
+                </th>
+            {% endfor %}
         </tr>
         {% set n=0 %}
         {% for player in players %}
@@ -64,10 +70,19 @@
                     {% endfor %}
                 {% endfor %}
                 <td></td>
-                
-                <!--<td>{{ player.player.wccplayer.wccclan is defined ? player.player.wccplayer.wccclan.name }}</td>-->
+            <!--<td>{{ player.player.wccplayer.wccclan is defined ? player.player.wccplayer.wccclan.name }}</td>-->
                 <td>{{ player.player.wccplayer.lastwccstats is defined ? player.player.wccplayer.lastwccstats.wccclan.name }}</td>
                 <td>{{ player.player.wccplayer.lastwccstats is defined ? player.player.wccplayer.lastwccstats.createdat|date('m/d') }}</td>
+                <td></td>
+                {% for w in 0..10 %}
+                    <td>
+                        {% if(wars[w].players[player.player.id].netstars is defined) %}
+                            <span class="netstars netstars{{wars[w].players[player.player.id].netstars}}">
+                                {{ wars[w].players[player.player.id].netstars }}
+                            </span>
+                        {% endif %}
+                    </td>
+                {% endfor %}
 
             </tr>
         {% endfor %}
