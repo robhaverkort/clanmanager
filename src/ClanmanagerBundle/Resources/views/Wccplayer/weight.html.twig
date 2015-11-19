@@ -5,17 +5,17 @@
 {% macro show(name, var, max) %}
     <tr>
         <td>{{name}}</td>
-        {% for lev in 1..max %}
-            <td style="width: 32px; text-align: center;">
-                {% if var is iterable %}
+        {% if var is defined %}
+            {% for lev in 1..max %}
+                <td style="width: 32px; text-align: center;">
                     {%if var[lev] is defined %}
                         {{var[lev]}}
                     {% else %}
                         -
                     {% endif %}
-                {% endif %}
-            </td>
-        {% endfor %}
+                </td>
+            {% endfor %}
+        {% endif %}
     </tr>
 {% endmacro %}
 
@@ -77,9 +77,9 @@
                         {{ w.show("Air Defense",weight.village.airdefense,8) }}
                         {{ w.show("Wizard Tower",weight.village.wizardtower,8) }}
                         {{ w.show("Air Sweeper",weight.village.airsweeper,6) }}
-                        {{ w.show("Hidden Tesla",weight.village.buildershut,8) }}
-                        {{ w.show("X-Bow",weight.village.xbow,4) }}
-                        {{ w.show("Inferno Tower",weight.village.inferno,3) }}
+                        {{ weight.village.tesla is defined ? w.show("Hidden Tesla",weight.village.inferno,8) }}
+                        {{ weight.village.xbow is defined ? w.show("X-Bow",weight.village.xbow,4) }}
+                        {{ weight.village.inferno is defined ? w.show("Inferno Tower",weight.village.inferno,3) }}
             </table>
         </td></tr>
 </table>
