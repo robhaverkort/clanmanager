@@ -1,0 +1,85 @@
+{# dump(wccstats) #}
+
+{% import _self as w %}
+
+{% macro show(name, var, max) %}
+    <tr>
+        <td>{{name}}</td>
+        {% for lev in 1..max %}
+            <td style="width: 32px; text-align: center;">
+                {% if var is iterable %}
+                    {%if var[lev] is defined %}
+                        {{var[lev]}}
+                    {% else %}
+                        -
+                    {% endif %}
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+{% endmacro %}
+
+<h1>Weight</h1>
+<table>
+    <tr style="vertical-align: top"><td>
+            <table>
+                <tr><th>Troops</th><th>lev</th></tr>
+                <tr><td>Barbarian King</td><td>{{ weight.troops.barbarianking }}</td></tr>
+                <tr><td>Archer Queen</td><td>{{ weight.troops.archerqueen }}</td></tr>
+                <tr><td>Lightning Spell</td><td>{{ weight.troops.lightningspell }}</td></tr>
+                <tr><td>Healing Spell</td><td>{{ weight.troops.healingspell }}</td></tr>
+                <tr><td>Rage Spell</td><td>{{ weight.troops.ragespell }}</td></tr>
+                <tr><td>Jump Spell</td><td>{{ weight.troops.jumpspell }}</td></tr>
+                <tr><td>Freeze Spell</td><td>{{ weight.troops.freezespell }}</td></tr>
+                <tr><td>Barbarian</td><td>{{ weight.troops.barbarian }}</td></tr>
+                <tr><td>Archer</td><td>{{ weight.troops.archer }}</td></tr>
+                <tr><td>Giant</td><td>{{ weight.troops.giant }}</td></tr>
+                <tr><td>Goblin</td><td>{{ weight.troops.goblin }}</td></tr>
+                <tr><td>Wallbreaker</td><td>{{ weight.troops.wallbreaker }}</td></tr>
+                <tr><td>Balloon</td><td>{{ weight.troops.balloon }}</td></tr>
+                <tr><td>Wizard</td><td>{{ weight.troops.wizard }}</td></tr>
+                <tr><td>Healer</td><td>{{ weight.troops.healer }}</td></tr>
+                <tr><td>Dragon</td><td>{{ weight.troops.dragon }}</td></tr>
+                <tr><td>Pekka</td><td>{{ weight.troops.pekka }}</td></tr>
+                <tr><td>Minion</td><td>{{ weight.troops.minion }}</td></tr>
+                <tr><td>Hog Rider</td><td>{{ weight.troops.hogrider }}</td></tr>
+                <tr><td>Valkyrie</td><td>{{ weight.troops.valkyrie }}</td></tr>
+                <tr><td>Golem</td><td>{{ weight.troops.golem }}</td></tr>
+                <tr><td>Witch</td><td>{{ weight.troops.witch }}</td></tr>
+                <tr><td>Lava Hound</td><td>{{ weight.troops.lavahound }}</td></tr>
+            </table>
+        </td>
+        <td style="width: 80px;"></td>
+        <td>
+            <table>
+                <tr>
+                    <th>Buildings</th>
+                    {% for lev in range(1,13) %}<th style="width: 32px; text-align: center;">{{lev}}</th>{% endfor %}</tr>
+                        {{ w.show("TownHall",weight.village.townhall,10) }}
+                        {{ w.show("BuildersHut",weight.village.buildershut,1) }}
+                        {{ w.show("Clan Castle",weight.village.clancastle,6) }}
+                        {{ w.show("Walls",weight.village.wall,11) }}
+                        {{ w.show("Laboratory",weight.village.laboratory,8) }}
+                        {{ w.show("Spell Factory",weight.village.spellfactory,5) }}
+                        {{ w.show("Dark Spell Factory",weight.village.darkspellfactory,3) }}
+                        {{ w.show("Army Camp",weight.village.camp,8) }}
+                        {{ w.show("Barracks",weight.village.barracks,10) }}
+                        {{ w.show("Dark Barracks",weight.village.darkbarracks,6) }}
+                        {{ w.show("Gold Mine",weight.village.goldmine,12) }}
+                        {{ w.show("Gold Storage",weight.village.goldstorage,11) }}
+                        {{ w.show("Elixer Collector",weight.village.elixercollector,12) }}
+                        {{ w.show("Elixer Storage",weight.village.elixerstorage,11) }}
+                        {{ w.show("Dark Elixer Drill",weight.village.darkelixerdrill,6) }}
+                        {{ w.show("Dark Elixer Storage",weight.village.darkelixerstorage,6) }}
+                        {{ w.show("Cannon",weight.village.cannon,13) }}
+                        {{ w.show("Archer Tower",weight.village.archertower,13) }}
+                        {{ w.show("Mortar",weight.village.mortar,8) }}
+                        {{ w.show("Air Defense",weight.village.airdefense,8) }}
+                        {{ w.show("Wizard Tower",weight.village.wizardtower,8) }}
+                        {{ w.show("Air Sweeper",weight.village.airsweeper,6) }}
+                        {{ w.show("Hidden Tesla",weight.village.buildershut,8) }}
+                        {{ w.show("X-Bow",weight.village.xbow,4) }}
+                        {{ w.show("Inferno Tower",weight.village.inferno,3) }}
+            </table>
+        </td></tr>
+</table>

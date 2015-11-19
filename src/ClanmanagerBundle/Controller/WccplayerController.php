@@ -184,11 +184,11 @@ class WccplayerController extends Controller {
         $values[645][194] = array('camp', 6);
         $values[774][194] = array('camp', 7);
         $values[903][194] = array('camp', 8);
-        $values[152][291] = array('clancastle', 3);
-        $values[228][291] = array('clancastle', 4);
-        $values[304][291] = array('clancastle', 5);
-        $values[380][291] = array('clancastle', 6);
-        $values[456][291] = array('clancastle', 7);
+        $values[152][291] = array('clancastle', 2);
+        $values[228][291] = array('clancastle', 3);
+        $values[304][291] = array('clancastle', 4);
+        $values[380][291] = array('clancastle', 5);
+        $values[456][291] = array('clancastle', 6);
         $values[693][291] = array('buildershut', 0);
         $values[742][291] = array('barbarianking', 0);
         $values[818][291] = array('archerqueen', 0);
@@ -376,6 +376,23 @@ class WccplayerController extends Controller {
         $response->setData($player);
 
         return $response;
+    }
+
+    /**
+     * @Route("/wccplayer/weight/{wccplayer_id}", name="wccplayer_weigth")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function weightAction($wccplayer_id) {
+        $repository = $this->getDoctrine()->getRepository('ClanmanagerBundle:Wccplayer');
+        $wccplayer = $repository->find($wccplayer_id);
+        $wccstats = $wccplayer->getLastwccstats();
+
+        $json = json_decode($wccstats->getJson(),TRUE);
+        
+        $weight["troops"] = $json["troops"];
+        $weight["village"] = $json["village"];
+        //$weight = NULL;
+        return $this->render('ClanmanagerBundle:Wccplayer:weight.html.twig', array('wccstats' => $wccstats, 'weight' => $weight));
     }
 
 }

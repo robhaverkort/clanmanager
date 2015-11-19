@@ -29,7 +29,11 @@
 </p>
 
 <p>
-    wars played in:
+    {{ player.wccplayer.id is defined ? render(controller('ClanmanagerBundle:Wccplayer:weight',{'wccplayer_id':player.wccplayer.id})) : "no weight info available"  }}
+</p>
+
+<p>
+<h1>Warrecords</h1>
 <table>
 
     <tr>
@@ -152,7 +156,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart_virgins'));
 
         chart.draw(data, options);
-}
+    }
 </script>
 <div id="piechart_stars" style="width: 480px; height: 240px; float:left;"></div>
 <div id="piechart_virgins" style="width: 480px; height: 240px; float:left;"></div>
