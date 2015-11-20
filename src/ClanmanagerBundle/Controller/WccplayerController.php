@@ -387,12 +387,33 @@ class WccplayerController extends Controller {
         $wccplayer = $repository->find($wccplayer_id);
         $wccstats = $wccplayer->getLastwccstats();
 
-        $json = json_decode($wccstats->getJson(),TRUE);
-        
-        $weight["troops"] = $json["troops"];
-        $weight["village"] = $json["village"];
-        //$weight = NULL;
-        return $this->render('ClanmanagerBundle:Wccplayer:weight.html.twig', array('wccstats' => $wccstats, 'weight' => $weight));
+        $json = json_decode($wccstats->getJson(), TRUE);
+        $th = array_keys($json["village"]["townhall"])[0];
+        $maxlev = array();
+        $maxlev["clancastle"] = array(0, 0, 0, 1, 2, 2, 3, 3, 4, 5, 6);
+        $maxlev["wall"] = array(0, 0, 2, 3, 4, 5, 6, 7, 8, 10, 11);
+        $maxlev["laboratory"] = array(0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+        $maxlev["spellfactory"] = array(0, 0, 0, 0, 0, 1, 2, 3, 3, 4, 5);
+        $maxlev["darkspellfactory"] = array(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3);
+        $maxlev["camp"] = array(0, 1, 2, 3, 4, 5, 6, 6, 6, 7, 8);
+        $maxlev["barracks"] = array(0, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10);
+        $maxlev["darkbarracks"] = array(0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 6);
+        $maxlev["goldmine"] = array(0, 2, 4, 6, 8, 10, 10, 11, 12, 12, 12);
+        $maxlev["goldstorage"] = array(0, 1, 3, 6, 8, 9, 10, 11, 11, 11, 11);
+        $maxlev["elixercollector"] = array(0, 2, 4, 6, 8, 10, 10, 11, 12, 12, 12);
+        $maxlev["elixerstorage"] = array(0, 1, 3, 6, 8, 9, 10, 11, 11, 11, 11);
+        $maxlev["darkelixerdrill"] = array(0, 0, 0, 0, 0, 0, 0, 3, 3, 6, 6);
+        $maxlev["darkelixerstorage"] = array(0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 6);
+        $maxlev["cannon"] = array(0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 13);
+        $maxlev["archertower"] = array(0, 0, 2, 3, 4, 6, 7, 8, 10, 11, 13);
+        $maxlev["mortar"] = array(0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+        $maxlev["airdefense"] = array(0, 0, 0, 0, 2, 3, 4, 5, 6, 7, 8);
+        $maxlev["wizardtower"] = array(0, 0, 0, 0, 0, 2, 3, 4, 6, 7, 8);
+        $maxlev["airsweeper"] = array(0, 0, 0, 0, 0, 0, 2, 3, 4, 5, 6);
+        $maxlev["testla"] = array(0, 0, 0, 0, 0, 0, 0, 3, 6, 7, 8);
+        $maxlev["xbow"] = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4);
+        $maxlev["inferno"] = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
+        return $this->render('ClanmanagerBundle:Wccplayer:weight.html.twig', array('wccstats' => $wccstats, 'weight' => $json, 'maxlev' => $maxlev, 'th' => $th));
     }
 
 }

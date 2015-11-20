@@ -1,4 +1,4 @@
-{# dump(wccstats) #}
+{{ dump(wccstats) }}
 
 {% import _self as w %}
 
@@ -54,32 +54,32 @@
             <table>
                 <tr>
                     <th>Buildings</th>
-                    {% for lev in range(1,13) %}<th style="width: 32px; text-align: center;">{{lev}}</th>{% endfor %}</tr>
+                        {% for lev in range(1,13) %}<th style="width: 32px; text-align: center;">{{lev}}</th>{% endfor %}</tr>
                         {{ w.show("TownHall",weight.village.townhall,10) }}
                         {{ w.show("BuildersHut",weight.village.buildershut,1) }}
-                        {{ w.show("Clan Castle",weight.village.clancastle,6) }}
-                        {{ w.show("Walls",weight.village.wall,11) }}
-                        {{ w.show("Laboratory",weight.village.laboratory,8) }}
-                        {{ w.show("Spell Factory",weight.village.spellfactory,5) }}
-                        {{ w.show("Dark Spell Factory",weight.village.darkspellfactory,3) }}
-                        {{ w.show("Army Camp",weight.village.camp,8) }}
-                        {{ w.show("Barracks",weight.village.barracks,10) }}
-                        {{ w.show("Dark Barracks",weight.village.darkbarracks,6) }}
-                        {{ w.show("Gold Mine",weight.village.goldmine,12) }}
-                        {{ w.show("Gold Storage",weight.village.goldstorage,11) }}
-                        {{ w.show("Elixer Collector",weight.village.elixercollector,12) }}
-                        {{ w.show("Elixer Storage",weight.village.elixerstorage,11) }}
-                        {{ w.show("Dark Elixer Drill",weight.village.darkelixerdrill,6) }}
-                        {{ w.show("Dark Elixer Storage",weight.village.darkelixerstorage,6) }}
-                        {{ w.show("Cannon",weight.village.cannon,13) }}
-                        {{ w.show("Archer Tower",weight.village.archertower,13) }}
-                        {{ w.show("Mortar",weight.village.mortar,8) }}
-                        {{ w.show("Air Defense",weight.village.airdefense,8) }}
-                        {{ w.show("Wizard Tower",weight.village.wizardtower,8) }}
-                        {{ w.show("Air Sweeper",weight.village.airsweeper,6) }}
-                        {{ weight.village.tesla is defined ? w.show("Hidden Tesla",weight.village.inferno,8) }}
-                        {{ weight.village.xbow is defined ? w.show("X-Bow",weight.village.xbow,4) }}
-                        {{ weight.village.inferno is defined ? w.show("Inferno Tower",weight.village.inferno,3) }}
+                        {{ w.show("Clan Castle",weight.village.clancastle,maxlev.clancastle[th]) }}
+                        {{ w.show("Walls",weight.village.wall,maxlev.wall[th]) }}
+                        {{ w.show("Laboratory",weight.village.laboratory,maxlev.laboratory[th]) }}
+                        {{ w.show("Spell Factory",weight.village.spellfactory,maxlev.spellfactory[th]) }}
+                        {{ w.show("Dark Spell Factory",weight.village.darkspellfactory,maxlev.darkspellfactory[th]) }}
+                        {{ w.show("Army Camp",weight.village.camp,maxlev.camp[th]) }}
+                        {{ w.show("Barracks",weight.village.barracks,maxlev.barracks[th]) }}
+                        {{ w.show("Dark Barracks",weight.village.darkbarracks,maxlev.darkbarracks[th]) }}
+                        {{ w.show("Gold Mine",weight.village.goldmine,maxlev.goldmine[th]) }}
+                        {{ w.show("Gold Storage",weight.village.goldstorage,maxlev.goldstorage[th]) }}
+                        {{ w.show("Elixer Collector",weight.village.elixercollector,maxlev.elixercollector[th]) }}
+                        {{ w.show("Elixer Storage",weight.village.elixerstorage,maxlev.elixerstorage[th]) }}
+                        {{ w.show("Dark Elixer Drill",weight.village.darkelixerdrill,maxlev.darkelixerdrill[th]) }}
+                        {{ w.show("Dark Elixer Storage",weight.village.darkelixerstorage,maxlev.darkelixerstorage[th]) }}
+                        {{ w.show("Cannon",weight.village.cannon,maxlev.cannon[th]) }}
+                        {{ w.show("Archer Tower",weight.village.archertower,maxlev.archertower[th]) }}
+                        {{ w.show("Mortar",weight.village.mortar,maxlev.mortar[th]) }}
+                        {{ w.show("Air Defense",weight.village.airdefense,maxlev.airdefense[th]) }}
+                        {{ w.show("Wizard Tower",weight.village.wizardtower,maxlev.wizardtower[th]) }}
+                        {{ w.show("Air Sweeper",weight.village.airsweeper,maxlev.airsweeper[th]) }}
+                        {{ weight.village.tesla is defined ? w.show("Hidden Tesla",weight.village.inferno,maxlev.tesla[th]) }}
+                        {{ weight.village.xbow is defined ? w.show("X-Bow",weight.village.xbow,maxlev.xbow[th]) }}
+                        {{ weight.village.inferno is defined ? w.show("Inferno Tower",weight.village.inferno,maxlev.inferno[th]) }}
             </table>
         </td></tr>
 </table>
