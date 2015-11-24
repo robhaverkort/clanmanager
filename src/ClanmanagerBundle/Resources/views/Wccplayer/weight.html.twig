@@ -6,7 +6,7 @@
     <tr>
         <td>{{name}}</td>
         {% if var is defined %}
-            {% for lev in 1..max %}
+            {% for lev in 0..max %}
                 <td style="width: 32px; text-align: center;">
                     {%if var[lev] is defined %}
                         {{var[lev]}}
@@ -54,7 +54,7 @@
             <table>
                 <tr>
                     <th>Buildings</th>
-                        {% for lev in range(1,13) %}<th style="width: 32px; text-align: center;">{{lev}}</th>{% endfor %}</tr>
+                        {% for lev in range(0,13) %}<th style="width: 32px; text-align: center;">{{lev}}</th>{% endfor %}</tr>
                         {{ w.show("TownHall",weight.village.townhall,10) }}
                         {{ w.show("BuildersHut",weight.village.buildershut,1) }}
                         {{ w.show("Clan Castle",weight.village.clancastle,maxlev.clancastle[th]) }}
