@@ -50,7 +50,7 @@ class ClanController extends Controller {
                 foreach ($warplayer->getAttacks() as $attkey => $attack) {
                     $w['players'][$warplayer->getPlayer()->getId()]['attacks'][$attkey]['stars'] = $attack->getStars();
                 }
-                $w['players'][$warplayer->getPlayer()->getId()]['netstars'] = $warplayer->getNetstars();
+                //$w['players'][$warplayer->getPlayer()->getId()]['netstars'] = $warplayer->getNetstars();
             }
             $wars[] = $w;
         }
