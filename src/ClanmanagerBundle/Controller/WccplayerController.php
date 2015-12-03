@@ -280,8 +280,8 @@ class WccplayerController extends Controller {
         $values[228][1164] = array('mortar', 4);
         $values[304][1164] = array('mortar', 5);
         $values[380][1164] = array('mortar', 6);
-        $values[532][1164] = array('mortar', 7);
-        $values[456][1164] = array('mortar', 8);
+        $values[456][1164] = array('mortar', 7);
+        $values[532][1164] = array('mortar', 8);
         $values[721][1164] = array('darkelixerstorage', 2);
         $values[797][1164] = array('darkelixerstorage', 3);
         $values[873][1164] = array('darkelixerstorage', 4);
