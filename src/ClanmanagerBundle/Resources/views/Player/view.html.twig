@@ -2,162 +2,226 @@
 
 {% block title %}CoC ClanManager{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}
+    
+
 {% block body %}
+    <script type="text/javascript" src="{{ asset('js/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
-    <h1>
-        {{ player.id }}. {{ player.tag }} {{ player.name }}
-    </h1>
 
-    <p>current clan: {{ clan.name is defined ? clan.name }} </p>
+    <div ng-app="player">
+        <div ng-controller="PlayerController as player">
+        <section class="tab" ng-init="tab=1" ng-controller="PanelController as panel">
 
-    <p>
-        clan history:
-    <table>
-        <tr>
-            <th>Clan</th>
-            <th>Join</th>
-            <th>Leave</th>
-        </tr>
-        {% for membership in player.memberships %}
-            <tr>
-                <td>{{ membership.clan.name }}</td>
-                <td>{{ membership.start|date('Y/m/d') }}</td>
-                <td>{{ membership.stop ? membership.stop|date('Y/m/d') : "---" }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-</p>
+            <ul class="nav nav-pills">
+                <li ng-class="{ active:panel.isSelected(1) }"><a href ng-click="panel.selectTab(1)">Info</a></li>
+                <li ng-class="{ active:panel.isSelected(2) }"><a href ng-click="panel.selectTab(2)">Weight</a></li>
+                <li ng-class="{ active:panel.isSelected(3) }"><a href ng-click="panel.selectTab(3)">Warrecord</a></li>
+                <li ng-class="{ active:panel.isSelected(4) }"><a href ng-click="panel.selectTab(4)">Graphs</a></li>
+            </ul>
 
-<p>
-    {{ player.wccplayer.id is defined ? render(controller('ClanmanagerBundle:Wccplayer:weight',{'wccplayer_id':player.wccplayer.id})) : "no weight info available"  }}
-</p>
-
-<p>
-<h1>Warrecords</h1>
-<table>
-
-    <tr>
-        <th colspan="2">war</th>
-        <th></th>
-        <th>#</th>
-        <th>defenses</th>
-        <th colspan="3">attacks</th>
-    </tr>
-
-    {% set stars=[0,0,0,0] %}
-    {% set virginbase=0 %}
-    {% set cleanup=0 %}
-
-    {% for warplayer in player.warplayers %}
-        <tr>
-            <td>{{ warplayer.warclan.war.start|date('Y/m/d') }}</td>
-            <td>{{ warplayer.warclan.war }}</td>
-            <td>TH{{ warplayer.th }}</td>
-            <td>{{ warplayer.rank }}</td>
-
-            <td>
-                {% if warplayer.defends|length > 0 %}
-                    {% for n in 0..warplayer.defends|length-1 %}
-                        <img height="10px" src="{{ asset( ['images/',warplayer.defends[n].stars,'star.png']|join ) }}">
-                        <!-- {{ warplayer.defends[n].stars }}&nbsp; -->
+            <div class="panel" ng-show="panel.isSelected(1)" ng-controller="InfoController as info">
+                
+                <table>
+                    <tr>
+                        <td>id:</td>
+                        <td>{% verbatim %}{{info.info.id}}{% endverbatim %}</td>
+                    </tr>
+                    <tr>
+                        <td>tag:</td>
+                        <td>{% verbatim %}{{info.info.tag}}{% endverbatim %}</td>
+                    </tr>
+                    <tr>
+                        <td>name:</td>
+                        <td>{% verbatim %}{{info.info.name}}{% endverbatim %}</td>
+                    </tr>
+                </table>
+                
+                <p>
+                    clan history:
+                <table>
+                    <tr>
+                        <th>Clan</th>
+                        <th>Join</th>
+                        <th>Leave</th>
+                    </tr>
+                    {% for membership in player.memberships %}
+                        <tr>
+                            <td>{{ membership.clan.name }}</td>
+                            <td>{{ membership.start|date('Y/m/d') }}</td>
+                            <td>{{ membership.stop ? membership.stop|date('Y/m/d') : "---" }}</td>
+                        </tr>
                     {% endfor %}
-                {% endif %}
-            </td>
+                </table>
+                </p>
+                <p>current clan: {{ clan.name is defined ? clan.name }} </p>
+            </div>
+            
+            <div class="panel" ng-show="panel.isSelected(2)">
+                <h1>Weight</h1>
+                <p>
+                    {{ player.wccplayer.id is defined ? render(controller('ClanmanagerBundle:Wccplayer:weight',{'wccplayer_id':player.wccplayer.id})) : "no weight info available"  }}
+                </p>
+            </div>
+            
+            <div class="panel" ng-show="panel.isSelected(3)">
+                <h1>Warrecords</h1>
+                <table>
 
-            {% if warplayer.attacks[0] is defined %}
+                    <tr>
+                        <th colspan="2">war</th>
+                        <th></th>
+                        <th>#</th>
+                        <th>defenses</th>
+                        <th colspan="3">attacks</th>
+                    </tr>
 
-                {% if warplayer.attacks[0].stars==0 %}
-                    {% set stars={ 0:stars[0]+1, 1:stars[1], 2:stars[2], 3:stars[3] } %}
-                {% elseif warplayer.attacks[0].stars==1 %}
-                    {% set stars={ 0:stars[0], 1:stars[1]+1, 2:stars[2], 3:stars[3] } %}
-                {% elseif warplayer.attacks[0].stars==2 %}
-                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2]+1, 3:stars[3] } %}
-                {% elseif warplayer.attacks[0].stars==3 %}
-                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2], 3:stars[3]+1 } %}
-                {% endif %}
+                    {% set stars=[0,0,0,0] %}
+                    {% set virginbase=0 %}
+                    {% set cleanup=0 %}
 
-                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[0].defender.rank) }}</td>
-                <td>{{ warplayer.attacks[0].defender }}</td>
-                <td>TH{{ warplayer.attacks[0].defender.th }}</td>
-                <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
-                <td>{{ warplayer.attacks[0].percent }}%</td>
-                <td>{{ warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] ? "virgin base " : "cleanup" }}</td>
-                {% if warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] %}
-                    {% set virginbase = virginbase + 1 %}
-                {% else %}
-                    {% set cleanup = cleanup + 1 %}
-                {% endif %}
-            {% endif %}
-            {% if warplayer.attacks[1] is defined %}
-                {% if warplayer.attacks[1].stars==0 %}
-                    {% set stars={ 0:stars[0]+1, 1:stars[1], 2:stars[2], 3:stars[3] } %}
-                {% elseif warplayer.attacks[1].stars==1 %}
-                    {% set stars={ 0:stars[0], 1:stars[1]+1, 2:stars[2], 3:stars[3] } %}
-                {% elseif warplayer.attacks[1].stars==2 %}
-                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2]+1, 3:stars[3] } %}
-                {% elseif warplayer.attacks[1].stars==3 %}
-                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2], 3:stars[3]+1 } %}
-                {% endif %}
-            </tr>
-            <tr>
-                <td></td><td></td><td></td><td></td><td></td>
-                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[1].defender.rank) }}</td>
-                <td>{{ warplayer.attacks[1].defender }}</td>
-                <td>TH{{ warplayer.attacks[1].defender.th }}</td>
-                <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
-                <td>{{ warplayer.attacks[1].percent }}%</td>
-                <td>{{ warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] ? "virgin base " : "cleanup" }}</td>
-                {% if warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] %}
-                    {% set virginbase = virginbase + 1 %}
-                {% else %}
-                    {% set cleanup = cleanup + 1 %}
-                {% endif %}
-            {% endif %}
-        </tr>
-    {% endfor %}
+                    {% for warplayer in player.warplayers %}
+                        <tr>
+                            <td>{{ warplayer.warclan.war.start|date('Y/m/d') }}</td>
+                            <td>{{ warplayer.warclan.war }}</td>
+                            <td>TH{{ warplayer.th }}</td>
+                            <td>{{ warplayer.rank }}</td>
 
-</table>
-</p>
+                            <td>
+                                {% if warplayer.defends|length > 0 %}
+                                    {% for n in 0..warplayer.defends|length-1 %}
+                                        <img height="10px" src="{{ asset( ['images/',warplayer.defends[n].stars,'star.png']|join ) }}">
+                                        <!-- {{ warplayer.defends[n].stars }}&nbsp; -->
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    google.load("visualization", "1", {packages: ["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
+                            {% if warplayer.attacks[0] is defined %}
 
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['0:FAIL',{{ stars[0] }} ],
-            ['1',{{ stars[1] }} ],
-            ['2',{{ stars[2] }} ],
-            ['3',{{ stars[3] }} ]
-        ]);
+                                {% if warplayer.attacks[0].stars==0 %}
+                                    {% set stars={ 0:stars[0]+1, 1:stars[1], 2:stars[2], 3:stars[3] } %}
+                                {% elseif warplayer.attacks[0].stars==1 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1]+1, 2:stars[2], 3:stars[3] } %}
+                                {% elseif warplayer.attacks[0].stars==2 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2]+1, 3:stars[3] } %}
+                                {% elseif warplayer.attacks[0].stars==3 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2], 3:stars[3]+1 } %}
+                                {% endif %}
 
-        var options = {
-            title: 'nr of Stars',
-            slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
-        };
+                                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[0].defender.rank) }}</td>
+                                <td>{{ warplayer.attacks[0].defender }}</td>
+                                <td>TH{{ warplayer.attacks[0].defender.th }}</td>
+                                <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[0].stars,'star.png']|join ) }}"></td>
+                                <td>{{ warplayer.attacks[0].percent }}%</td>
+                                <td>{{ warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] ? "virgin base " : "cleanup" }}</td>
+                                {% if warplayer.attacks[0].defender.defends[0] == warplayer.attacks[0] %}
+                                    {% set virginbase = virginbase + 1 %}
+                                {% else %}
+                                    {% set cleanup = cleanup + 1 %}
+                                {% endif %}
+                            {% endif %}
+                            {% if warplayer.attacks[1] is defined %}
+                                {% if warplayer.attacks[1].stars==0 %}
+                                    {% set stars={ 0:stars[0]+1, 1:stars[1], 2:stars[2], 3:stars[3] } %}
+                                {% elseif warplayer.attacks[1].stars==1 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1]+1, 2:stars[2], 3:stars[3] } %}
+                                {% elseif warplayer.attacks[1].stars==2 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2]+1, 3:stars[3] } %}
+                                {% elseif warplayer.attacks[1].stars==3 %}
+                                    {% set stars={ 0:stars[0], 1:stars[1], 2:stars[2], 3:stars[3]+1 } %}
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <td></td><td></td><td></td><td></td><td></td>
+                                <td>{{ "%+d"|format(warplayer.rank - warplayer.attacks[1].defender.rank) }}</td>
+                                <td>{{ warplayer.attacks[1].defender }}</td>
+                                <td>TH{{ warplayer.attacks[1].defender.th }}</td>
+                                <td><img height="10px" src="{{ asset( ['images/',warplayer.attacks[1].stars,'star.png']|join ) }}"></td>
+                                <td>{{ warplayer.attacks[1].percent }}%</td>
+                                <td>{{ warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] ? "virgin base " : "cleanup" }}</td>
+                                {% if warplayer.attacks[1].defender.defends[0] == warplayer.attacks[1] %}
+                                    {% set virginbase = virginbase + 1 %}
+                                {% else %}
+                                    {% set cleanup = cleanup + 1 %}
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_stars'));
+                </table>
+                </p>
+            </div>
+                    
+            <div class="panel" ng-show="panel.isSelected(4)">
 
-        chart.draw(data, options);
 
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Virgin Base',{{ virginbase }} ],
-            ['Cleanup',{{ cleanup }} ],
-        ]);
+                <h1>Graphs</h1>
+                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+                <script type="text/javascript">
+                    google.load("visualization", "1", {packages: ["corechart"]});
+                    google.setOnLoadCallback(drawChart);
+                    function drawChart() {
 
-        var options = {
-            title: 'Virgin Base / Cleanup',
-            slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
-        };
+                        var data = google.visualization.arrayToDataTable([
+                            ['Task', 'Hours per Day'],
+                            ['0:FAIL',{{ stars[0] }} ],
+                            ['1',{{ stars[1] }} ],
+                            ['2',{{ stars[2] }} ],
+                            ['3',{{ stars[3] }} ]
+                        ]);
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_virgins'));
+                        var options = {
+                            title: 'nr of Stars',
+                            slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
+                        };
 
-        chart.draw(data, options);
-    }
-</script>
-<div id="piechart_stars" style="width: 480px; height: 240px; float:left;"></div>
-<div id="piechart_virgins" style="width: 480px; height: 240px; float:left;"></div>
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart_stars'));
+
+                        chart.draw(data, options);
+
+                        var data = google.visualization.arrayToDataTable([
+                            ['Task', 'Hours per Day'],
+                            ['Virgin Base',{{ virginbase }} ],
+                            ['Cleanup',{{ cleanup }} ],
+                        ]);
+
+                        var options = {
+                            title: 'Virgin Base / Cleanup',
+                            slices: {0: {color: 'red'}, 1: {color: 'orange'}, 2: {color: 'lightgreen'}, 3: {color: 'green'}}
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart_virgins'));
+
+                        chart.draw(data, options);
+                    }
+                </script>
+                <div id="piechart_stars" style="width: 480px; height: 240px; float:left;"></div>
+                <div id="piechart_virgins" style="width: 480px; height: 240px; float:left;"></div>
+
+            </div>
+
+        </section>
+                        
+        </div>
+    </div>
+                    
+    
+                    
+    {% verbatim %}
+    {% endverbatim %}
+
+        
+
+
+
+
+
 {% endblock %}

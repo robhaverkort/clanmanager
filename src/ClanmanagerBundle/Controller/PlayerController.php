@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use ClanmanagerBundle\Entity\Player;
 use ClanmanagerBundle\Entity\Membership;
 
@@ -37,6 +38,38 @@ class PlayerController extends Controller {
         $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
 
         return $this->render('ClanmanagerBundle:Player:view.html.twig', array('player' => $player, 'clan' => $clan));
+    }
+
+    /**
+     * @Route("/player/info/{player_id}", name="player_info")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function infoAction($player_id) {
+        $player = $this->getDoctrine()->getRepository('ClanmanagerBundle:Player')->find($player_id);
+        $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
+        $plyr = array();
+        $plyr["id"]=$player->getId();
+        $plyr["tag"]=$player->getTag();
+        $plyr["name"]=$player->getName();
+        $response = new JsonResponse();
+        $response->setData($plyr);
+        return $response;
+    }
+
+    /**
+     * @Route("/player/warrecord/{player_id}", name="player_warrecord")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function warrecordAction($player_id) {
+        $player = $this->getDoctrine()->getRepository('ClanmanagerBundle:Player')->find($player_id);
+        $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
+        $plyr = array();
+        $plyr["id"]=$player->getId();
+        $plyr["tag"]=$player->getTag();
+        $plyr["name"]=$player->getName();
+        $response = new JsonResponse();
+        $response->setData($plyr);
+        return $response;
     }
 
     /**
