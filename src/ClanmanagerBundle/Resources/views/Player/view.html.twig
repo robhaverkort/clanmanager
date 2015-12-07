@@ -72,7 +72,19 @@
                 </p>
             </div>
             
-            <div class="panel" ng-show="panel.isSelected(3)">
+            <div class="panel" ng-show="panel.isSelected(3)" ng-controller="WarrecordController as data">
+                new style:<hr/>
+                <table>
+                    <tr ng-repeat="war in data.wars">
+                        {% verbatim %}
+                            <td>{{war.start}}</td>
+                            <td>{{war.myclan}}</td>
+                            <td>{{war.enemyclan}}</td>
+                        {% endverbatim %}
+                    </tr>
+                </table>
+                <hr/>
+                                
                 <h1>Warrecords</h1>
                 <table>
 

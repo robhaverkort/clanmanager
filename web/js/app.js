@@ -28,9 +28,9 @@
 
     app.controller('WarrecordController',['$http',function($http){
             var player = this;
-            player.warrecord=[];
+            player.wars=[];
             $http.get('http://clanmanager/app_dev.php/player/warrecord/1').success(function(data){
-               player.warrecord=data;
+               player.wars=data;
             });
     }]);
 

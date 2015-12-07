@@ -48,9 +48,9 @@ class PlayerController extends Controller {
         $player = $this->getDoctrine()->getRepository('ClanmanagerBundle:Player')->find($player_id);
         $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
         $plyr = array();
-        $plyr["id"]=$player->getId();
-        $plyr["tag"]=$player->getTag();
-        $plyr["name"]=$player->getName();
+        $plyr["id"] = $player->getId();
+        $plyr["tag"] = $player->getTag();
+        $plyr["name"] = $player->getName();
         $response = new JsonResponse();
         $response->setData($plyr);
         return $response;
@@ -62,13 +62,27 @@ class PlayerController extends Controller {
      */
     public function warrecordAction($player_id) {
         $player = $this->getDoctrine()->getRepository('ClanmanagerBundle:Player')->find($player_id);
-        $clan = $this->getDoctrine()->getRepository('ClanmanagerBundle:Clan')->findByPlayer($player);
-        $plyr = array();
-        $plyr["id"]=$player->getId();
-        $plyr["tag"]=$player->getTag();
-        $plyr["name"]=$player->getName();
+        $warplayers = $player->getWarplayers();
+        $warrecords = array();
+        foreach ($warplayers as $warplayer) {
+            $warclan = $warplayer->getWarclan();
+            $war = $warclan->getWar();
+            $wclans = $war->getWarclans();
+            $enemywarclan = $wclans[0]===$warclan ? $wclans[1] : $wclans[0];
+            $attacks = $warplayer->getAttacks();
+            $defends = $warplayer->getDefends();
+            $wr = array();
+            $wr['start'] = date_format($war->getStart(),"YmdHi");
+            $wr['myclan'] = $warclan->getClan()->getName();
+            $wr['enemyclan'] = $enemywarclan->getClan()->getName();
+            $wr['th'] = $warplayer->getTh();
+            $wr['rank'] = $warplayer->getRank();
+            $wr['netstars'] = $warplayer->getNetstars();
+            
+            $warrecords[] = $wr;
+        }
         $response = new JsonResponse();
-        $response->setData($plyr);
+        $response->setData($warrecords);
         return $response;
     }
 
