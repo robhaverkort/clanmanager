@@ -21,7 +21,7 @@
     app.controller('InfoController',['$http',function($http){
             var player = this;
             player.info=[];
-            $http.get('http://clanmanager/app_dev.php/player/info/1').success(function(data){
+            $http.get(appBaseDir+'player/info/'+playerId).success(function(data){
                player.info=data;
             });
     }]);
@@ -29,7 +29,7 @@
     app.controller('WarrecordController',['$http',function($http){
             var player = this;
             player.wars=[];
-            $http.get('http://clanmanager/app_dev.php/player/warrecord/1').success(function(data){
+            $http.get(appBaseDir+'player/warrecord/'+playerId).success(function(data){
                player.wars=data;
             });
     }]);

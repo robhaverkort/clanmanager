@@ -14,6 +14,11 @@
 
 {% block body %}
     <script type="text/javascript" src="{{ asset('js/angular.min.js') }}"></script>
+    <script type="text/javascript">
+        var appBaseDir = {{path('homepage')}};
+        var assetsBaseDir = {{asset('assets/')}};
+        var playerId={{player.id}};
+    </script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 
@@ -74,12 +79,48 @@
             
             <div class="panel" ng-show="panel.isSelected(3)" ng-controller="WarrecordController as data">
                 new style:<hr/>
+                
                 <table>
+                    <tr>
+                        <td>test 1</td><td>test 2</td>
+                    </tr>
+                    <tr>
+                    
+                        <span style="color:red"><td>test 3</td></span>
+                        <td>test 4</td>
+                    
+                    </tr>
+                </table>
+                
+                <table>
+                    <!--<col width="80px"><col><col width="40px"><col><col width="40px"><col width="40px"><col>-->
                     <tr ng-repeat="war in data.wars">
                         {% verbatim %}
                             <td>{{war.start}}</td>
                             <td>{{war.myclan}}</td>
+                            <td>-</td>
                             <td>{{war.enemyclan}}</td>
+                            <td>#{{war.rank}}</td>
+                            <td>TH{{war.th}}</td>
+
+                            <td>#{{war.attacks[0].rank}}</td>
+                            <td>TH{{war.attacks[0].th}}</td>
+                            <td>{{war.attacks[0].name}}</td>
+                            <td>{{war.attacks[0].stars}}*</td>
+                            <td>{{war.attacks[0].percent}}%</td>
+
+                            <td>#{{war.attacks[1].rank}}</td>
+                            <td>TH{{war.attacks[1].th}}</td>
+                            <td>{{war.attacks[1].name}}</td>
+                            <td>{{war.attacks[1].stars}}*</td>
+                            <td>{{war.attacks[1].percent}}%</td>
+
+                            <td>
+                                <span ng-repeat="defend in war.defends">
+                                    {{defend.stars}}&nbsp;
+                                </span>
+                            </td>
+                            <td>{{war.netstars}}</td>
                         {% endverbatim %}
                     </tr>
                 </table>

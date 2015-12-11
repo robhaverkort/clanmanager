@@ -68,17 +68,30 @@ class PlayerController extends Controller {
             $warclan = $warplayer->getWarclan();
             $war = $warclan->getWar();
             $wclans = $war->getWarclans();
-            $enemywarclan = $wclans[0]===$warclan ? $wclans[1] : $wclans[0];
+            $enemywarclan = $wclans[0] === $warclan ? $wclans[1] : $wclans[0];
             $attacks = $warplayer->getAttacks();
             $defends = $warplayer->getDefends();
             $wr = array();
-            $wr['start'] = date_format($war->getStart(),"YmdHi");
+            $wr['start'] = date_format($war->getStart(), "Y/m/d");
             $wr['myclan'] = $warclan->getClan()->getName();
             $wr['enemyclan'] = $enemywarclan->getClan()->getName();
             $wr['th'] = $warplayer->getTh();
             $wr['rank'] = $warplayer->getRank();
             $wr['netstars'] = $warplayer->getNetstars();
-            
+            foreach ($defends as $defend) {
+                $d = array();
+                $d['stars'] = $defend->getStars();
+                $wr['defends'][] = $d;
+            }
+            foreach ($attacks as $attack) {
+                $a = array();
+                $a['rank'] = $attack->getDefender()->getRank();
+                $a['name'] = $attack->getDefender()->getPlayer()->getName();
+                $a['th'] = $attack->getDefender()->getTh();
+                $a['stars'] = $attack->getStars();
+                $a['percent'] = $attack->getPercent();
+                $wr['attacks'][] = $a;
+            }
             $warrecords[] = $wr;
         }
         $response = new JsonResponse();
