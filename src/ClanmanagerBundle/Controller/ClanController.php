@@ -47,6 +47,8 @@ class ClanController extends Controller {
         foreach ($warclans as $wpkey => $warclan) {
             $w = array();
             foreach ($warclan->getWarplayers() as $warplayer) {
+                $w['players'][$warplayer->getPlayer()->getId()]['attacks'][0]['stars'] = "-";
+                $w['players'][$warplayer->getPlayer()->getId()]['attacks'][1]['stars'] = "-";
                 foreach ($warplayer->getAttacks() as $attkey => $attack) {
                     $w['players'][$warplayer->getPlayer()->getId()]['attacks'][$attkey]['stars'] = $attack->getStars();
                 }
