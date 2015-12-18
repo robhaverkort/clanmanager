@@ -93,11 +93,20 @@
             <th colspan="2">name</th>
             <th>TH</th>
             <th>offense</th>
+            <th>defense</th>
             <th>join</th>
             <th>leave</th>
             <th>acct</th>
                 {% for n in 0..10 %}
                 <th colspan="2" style="text-align:center">
+                    {{ n }}
+                </th>
+            {% endfor %}
+            <th></th>
+            <th colspan="2">last known clan</th>
+            <th></th>
+                {% for n in 0..10 %}
+                <th style="text-align:center">
                     {{ n }}
                 </th>
             {% endfor %}
